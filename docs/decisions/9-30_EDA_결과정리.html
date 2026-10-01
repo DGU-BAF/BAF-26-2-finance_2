@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>9/30 EDA 결과 정리 — 7·9·10·11·12번</title>
+<style>
+:root{--ink:#172b38;--muted:#5e707c;--line:#dce5e8;--paper:#fff;--bg:#f2f5f5;--teal:#086c68;--soft:#e9f4f1;--gold:#996521;--risk:#a4342f;--risksoft:#fbeae9;--warn:#8a5a1f;--warnsoft:#fcf3e3}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif;font-size:15px;line-height:1.8;word-break:keep-all}
+a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1080px;margin:auto;padding:0 32px}
+header{background:#142f3b;color:white;padding:48px 0 36px;border-bottom:5px solid #3aab94}
+.eyebrow{font-size:12px;letter-spacing:2px;color:#a9dace;font-weight:700}
+h1{font-size:27px;line-height:1.45;letter-spacing:-1px;margin:14px 0}
+header p{color:#d6e2e6;max-width:820px;margin:0}
+.status{display:inline-block;margin-top:20px;border:1px solid #56717c;border-radius:5px;padding:5px 12px;color:#e2eeef;font-size:12px}
+nav{background:white;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
+nav .wrap{display:flex;gap:15px;align-items:center;flex-wrap:wrap;padding-top:12px;padding-bottom:12px;font-size:12.5px}
+nav a{color:var(--ink);padding:4px 2px}
+nav button{margin-left:auto;border:1px solid var(--line);background:white;border-radius:5px;padding:7px 11px;font:inherit;cursor:pointer;color:var(--ink);font-size:12px}
+main{padding-bottom:48px}
+section{background:white;border:1px solid var(--line);border-radius:10px;padding:28px 30px;margin-top:22px;scroll-margin-top:56px}
+.section-label{color:var(--teal);font-size:12px;letter-spacing:1px;font-weight:700}
+h2{margin:5px 0 16px;font-size:22px;letter-spacing:-.5px}
+h3{font-size:16px;margin:22px 0 8px;color:#0a4744}
+p{margin:8px 0 12px}
+.lead{font-size:18px;line-height:1.7;font-weight:700;background:var(--soft);border-left:4px solid var(--teal);padding:14px 18px;border-radius:0 6px 6px 0}
+.muted,.note{color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{padding:16px 18px;border:1px solid var(--line);border-radius:7px}
+.card.focus{background:var(--soft);border-color:#c5e4db}
+.card.warn{background:var(--warnsoft);border-color:#e9d3a8}
+.card.hold{background:#f5f3f7;border-color:#dcd6e6}
+.tag{font-size:10.5px;font-weight:700;color:var(--teal);display:block;margin-bottom:6px;letter-spacing:.3px}
+.card h4{margin:0 0 6px;font-size:15px}
+.card p{margin:0;font-size:13.5px;color:var(--muted)}
+.callout{padding:14px 18px;border-left:4px solid var(--teal);background:var(--soft);margin:14px 0;border-radius:0 6px 6px 0;font-size:14px}
+.callout.warn{border-color:var(--warn);background:var(--warnsoft)}
+.callout.risk{border-color:var(--risk);background:var(--risksoft)}
+.table-wrap{overflow-x:auto;margin:10px 0}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;background:#edf2f3;padding:10px 12px;white-space:nowrap}
+td{vertical-align:top;padding:11px 12px;border-bottom:1px solid var(--line)}
+tbody tr:last-child td{border-bottom:0}
+td strong{display:block}
+code{font-family:Consolas,monospace;font-size:12px;overflow-wrap:anywhere;word-break:break-word;background:#edf2f3;padding:2px 5px;border-radius:3px}
+.flow{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.flow .step{background:var(--bg);border-top:3px solid var(--teal);padding:11px 13px;flex:1;min-width:140px}
+.flow .step b{display:block;color:var(--teal);font-size:11px}
+.flow .step strong{font-size:14px;display:block;margin:4px 0}
+.flow .step span{font-size:12px;color:var(--muted)}
+ul,ol{padding-left:22px;margin:8px 0}
+li{margin:6px 0}
+.pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;margin-left:6px}
+.pill.pass{background:#dcf0ea;color:var(--teal)}
+.pill.hold{background:#f5ecd8;color:var(--gold)}
+.pill.risk{background:#fbeae9;color:var(--risk)}
+.divider{border-top:1px solid var(--line);margin:18px 0}
+.footer{padding:20px 0 36px;color:var(--muted);font-size:12px}
+@media(max-width:760px){.wrap{padding:0 18px}header{padding:32px 0 26px}h1{font-size:21px}section{padding:20px 16px}.grid,.grid3{grid-template-columns:1fr}nav .wrap{gap:10px}nav button{margin-left:0}td,th{padding:8px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<div class="eyebrow">TEAM WORKING DOC · 2026 ISTANS 논문경진대회 · EDA 진행상황 · 2026-09-30</div>
+<h1>9/30 EDA 결과 정리<br>기준금리 정제 → 병합검증 → 다중공선성/ICR변환 → 반도체 이상치 → 선형성 확인</h1>
+<p>핵심모형(Post×사전노출도, β=53.66, p=0.19, N=240)이 이미 확정된 상태에서, 그 모형을 더 얹기 전에 <strong>기반 데이터와 가정이 튼튼한지</strong>를 검증한 단계다. 새 변수(환율 등)는 아직 착수 전 — 핵심모형 검증이 먼저라는 우선순위에 따라 의도적으로 미뤘다.</p>
+<div class="status">7번 재실행·확인 완료 · 9번 5/5 검증 통과 · 10번 다중공선성 통과·ICR변환은 미정 · 11번 반도체 통제 필요성 근거 추가 확인 · 12번 선형성은 미확정(과대해석 유보)</div>
+</div></header>
+
+<nav aria-label="문서 목차"><div class="wrap">
+<a href="#overview">① 개요</a>
+<a href="#n7">② 7번·기준금리</a>
+<a href="#n9">③ 9번·병합검증</a>
+<a href="#n10">④ 10번·다중공선성/ICR</a>
+<a href="#n11">⑤ 11번·반도체이상치</a>
+<a href="#n12">⑥ 12번·선형성</a>
+<a href="#summary">⑦ 종합·다음단계</a>
+<button type="button" onclick="window.print()">인쇄 / PDF 저장</button>
+</div></nav>
+
+<main class="wrap">
+
+<section id="overview">
+<div class="section-label">01 · 개요</div>
+<h2>오늘 무엇을, 왜 확인했나</h2>
+<p class="lead">환율(FX) 같은 새 변수를 추가하기 전에, 이미 확정한 핵심모형이 딛고 선 데이터·가정이 실제로 깨끗한지부터 확인했다. 주객전도(핵심모형보다 부가검증에 시간을 더 쓰는 것)를 피하려고, 아래 5개는 전부 "핵심모형을 흔들 수 있는 문제인가"를 기준으로만 골랐다.</p>
+<div class="flow">
+<div class="step"><b>7번</b><strong>기준금리 원자료 정제</strong><span>BOK CSV 오류행 1건 제거 + 재검증</span></div>
+<div class="step"><b>9번</b><strong>긴축기·평시 병합 검증</strong><span>패널 결합이 의도대로 됐는지 확인</span></div>
+<div class="step"><b>10번</b><strong>다중공선성·ICR변환</strong><span>변수끼리 안 겹치는지, ICR을 어떻게 다듬을지</span></div>
+<div class="step"><b>11번</b><strong>반도체5 이상치·ICR분해</strong><span>반도체 계열이 결과를 왜곡하는지</span></div>
+<div class="step"><b>12번</b><strong>선형성 확인</strong><span>노출도 효과가 구간마다 다르게 나타나는지</span></div>
+</div>
+</section>
+
+<section id="n7">
+<div class="section-label">02 · 7번 — 기준금리 EDA</div>
+<h2>BOK 기준금리 원자료, 오류행 1건 발견·제거 후 재검증 완료</h2>
+<p>기존 CSV(<code>BOK_기준금리_변경이력.csv</code>)에 실제로 존재하지 않는 행(<strong>2018-04-20, 2.00%</strong>)이 섞여 있었다. BOK 공식 결정문, ECOS <code>dataSeCd=01</code>(공식 종합이력, 61건) 두 경로로 교차확인했고, <code>dataSeCd=02</code>에서만 이 값이 고립돼 나타나는 것도 확인했다 — 세 근거가 일치해 삭제로 결론.</p>
+<div class="grid">
+<div class="card focus"><span class="tag">정제 결과</span><h4>62행 → 61행</h4><p>오류행 삭제 후 재실행. "위기연도 밖 큰 변동" 목록도 4건→3건으로 줄어, 2018-04-20이 실제로 그 오류 때문에 잡혔던 것임을 확인.</p></div>
+<div class="card focus"><span class="tag">자동탐지 결과</span><h4>긴축 구간 3개, 공식 교차확인과 일치</h4><p>2004-11~2008-08(+2.00%p) · 2009-02~2011-06(+1.25%p) · 2020-05~2023-01(+3.00%p) — 자동탐지 로직이 잡아낸 구간이 팀이 따로 확인한 공식 구간과 정확히 일치.</p></div>
+</div>
+<p class="note">이 과정에서 <code>Styler.map</code>/<code>applymap</code> pandas 버전 호환성 버그도 같이 고쳤음(내용에 영향 없는 코드 버그).</p>
+</section>
+
+<section id="n9">
+<div class="section-label">03 · 9번 — 긴축기·평시 병합검증</div>
+<h2>두 트랙 모두 5/5 검증 통과 — 단, 검증 로직 자체의 버그를 하나 잡음</h2>
+<p>재무(안정성·수익성)·원자재충격 데이터를 긴축기(2018~2023)·평시(2015~2019) 두 트랙으로 각각 병합하고, 병합이 의도대로 됐는지(파생변수 계산·전체 재구성 등) 검증했다.</p>
+<div class="callout warn">
+<strong>검증 중 실제 버그 발견 — 데이터 문제 아니라 검증 스크립트 문제</strong>
+<p style="margin:6px 0 0">긴축기 트랙은 2021년이 "사전기간도 Post기간도 아닌 공백연도"인데, 검증 스크립트가 "Post=0인 연도는 전부 사전기간"이라고 잘못 가정해서 2021년까지 사전기간 평균에 끼워 넣고 있었다. 사전기간을 2018~2020으로 명시적으로 고정한 뒤 재검증해서 5/5 통과로 확인 — <strong>병합된 데이터 자체는 문제없었고, 이걸 확인하는 검증 코드가 틀렸던 것</strong>이라는 점을 분명히 구분해둔다.</p>
+</div>
+<p>추가로 히트맵·업종순위 해석 문구도 실제 숫자와 맞지 않는 부분(통신기기가 "계속 높다"고 썼는데 실제론 2023년에 반도체처럼 최하위로 떨어짐)을 고쳤다.</p>
+</section>
+
+<section id="n10">
+<div class="section-label">04 · 10번 — 다중공선성 · ICR 변환</div>
+<h2>다중공선성은 통과, ICR 변환 방식은 아직 미정</h2>
+<h3>다중공선성(VIF) — 통과</h3>
+<div class="table-wrap"><table><thead><tr><th>변수</th><th>VIF(긴축기)</th><th>VIF(평시)</th></tr></thead><tbody>
+<tr><td>Post×사전노출도</td><td>2.85</td><td>2.35</td></tr>
+<tr><td>Post×사전현금여력</td><td>2.85</td><td>2.38</td></tr>
+<tr><td>원자재충격(shock_baseline)</td><td>1.00</td><td>1.03</td></tr>
+</tbody></table></div>
+<p class="note">전부 통상 기준 5 미만(이 5라는 기준 자체는 학계 공식기준이 아니라 경험적 관행). 원본 노출도·현금여력끼리는 상관 -0.53~-0.63으로 어느 정도 반대로 움직이지만, 회귀에 실제로 들어가는 건 Post와 곱한 상호작용항이라 Post=0 구간에서 값이 0이 되면서 상관이 희석돼 VIF는 안전하게 나온 것으로 보인다.</p>
+<h3>ICR 변환 — 미정, 회귀 민감도 비교 후 결정</h3>
+<div class="table-wrap"><table><thead><tr><th>버전</th><th>왜도(긴축기)</th><th>왜도(평시)</th></tr></thead><tbody>
+<tr><td>원자료</td><td>+5.14</td><td>+7.91</td></tr>
+<tr><td>winsorize(1%/99%)</td><td>+3.97</td><td>+4.54</td></tr>
+<tr><td>asinh</td><td>-3.09</td><td>-3.38</td></tr>
+</tbody></table></div>
+<div class="callout">asinh가 왜도 절대값은 제일 많이 줄이지만 <strong>부호가 반대로 뒤집힌다</strong>(+→-). 원자료·winsorize는 담배처럼 극단적으로 큰 값 때문에 오른쪽 꼬리가 긴 게 문제인데, asinh가 그 큰 값들을 너무 세게 눌러버리면서 이번엔 음수 ICR(적자기업) 쪽이 두드러지는 모양이 된다. "왜도 숫자만" 보고 asinh를 고르면 이 트레이드오프를 놓치게 되므로, <strong>최종 선택은 세 버전으로 실제 회귀를 돌려 계수가 얼마나 흔들리는지 보고 결정</strong>하기로 함.</div>
+</section>
+
+<section id="n11">
+<div class="section-label">05 · 11번 — 반도체5 Δ이상치 · ICR 분해</div>
+<h2>반도체 계열, 2017년 한 해만이 아니라 긴축기 내내 구조적으로 극단값에 몰림</h2>
+<p>반도체·디스플레이·컴퓨터·통신기기·전지(반도체5) 그룹이 연도별 ICR 상위/하위 8개 중 몇 개를 차지하는지(무작위면 12.5%가 정상) 확인했다.</p>
+<div class="table-wrap"><table><thead><tr><th>연도(긴축기)</th><th>상위 편중</th><th>하위 편중</th></tr></thead><tbody>
+<tr><td>2019</td><td>0%</td><td>62.5%</td></tr>
+<tr><td>2020</td><td>50.0%</td><td>12.5%</td></tr>
+<tr><td>2021</td><td>37.5%</td><td>12.5%</td></tr>
+<tr><td>2022</td><td>0%</td><td>37.5%</td></tr>
+</tbody></table></div>
+<p>평시 2017년 상위 62.5%(반도체 슈퍼사이클)는 이미 알던 패턴이지만, <strong>긴축기 2019년 하위 62.5%, 2020~21 상위 편중 → 2022 하위 편중</strong>으로 이어지는 흐름은 새로 확인된 것 — 반도체 업황 자체가 이 그룹 ICR을 계속 구조적으로 흔든다는 뜻이다.</p>
+<h3>leave-group-out 차이(전체평균 − 반도체5제외평균)</h3>
+<div class="grid">
+<div class="card warn"><span class="tag">긴축기</span><h4>2022 −135.64 / 2023 −133.39</h4><p>"반도체 다운턴이 2022~23년 계수를 오염시킬 수 있다"던 우려가 실제 숫자로 확인됨.</p></div>
+<div class="card warn"><span class="tag">평시</span><h4>2017 +409.53</h4><p>전체 기간 중 가장 큰 값 — 반도체 슈퍼사이클 효과가 그대로 재현.</p></div>
+</div>
+<h3>ICR 변화의 원인 분해 (영업이익 vs 이자비용 증가율)</h3>
+<p>대부분의 연도는 영업이익 쪽이 압도적으로 크게 움직이지만(예: 반도체 2017 영업이익 +303.1% vs 이자비용 -1.7%), <strong>2019년과 2022~23년은 예외</strong>다 — 반도체 2023은 영업이익 -131.3%, 이자비용 <strong>+139.8%</strong>로 이자비용 쪽 기여가 영업이익 감소분만큼 크다. "반도체 ICR 변화는 다 영업이익 때문"이라고 단순화하면 안 되고, 긴축기 후반부엔 금리인상 효과가 실제로 이자비용에 반영되기 시작한 것으로 보인다.</p>
+<div class="callout">종합하면 11번은 <strong>반도체 통제변수가 왜 필요한지에 대한 근거를 하나 더 추가</strong>한 것 — 어떤 지표로 통제할지(15번, 출하증가율/PCA 등 후보 비교)는 아직 결정 전이다.</div>
+</section>
+
+<section id="n12">
+<div class="section-label">06 · 12번 — 선형성 확인</div>
+<h2>Q1 구간만 변화폭이 크게 나왔지만, 지금 결과로 선형/비선형을 확정하지 않음</h2>
+<p>사전노출도를 4분위(Q1~Q4)로 나눠 Post 전후 ICR 변화를 비교했다.</p>
+<div class="table-wrap"><table><thead><tr><th>구간</th><th>변화(긴축기)</th><th>변화(평시)</th></tr></thead><tbody>
+<tr><td>Q1(최저)</td><td><strong>-602.90</strong></td><td><strong>-1,710.86</strong></td></tr>
+<tr><td>Q2</td><td>-82.57</td><td>-278.67</td></tr>
+<tr><td>Q3</td><td>-68.74</td><td>-123.19</td></tr>
+<tr><td>Q4(최고)</td><td>-92.65</td><td>-24.28</td></tr>
+</tbody></table></div>
+<div class="callout risk">
+<strong>과대해석 유보 — Q1 결과를 "비선형이다"로 바로 읽지 않음</strong>
+<p style="margin:6px 0 0">Q1엔 하필 담배·반도체 계열처럼 이미 이상치로 다뤄온 업종들이 몰려있다(원래 노출도가 낮은 축이면서 ICR 자체가 극단적인 업종들). Q1의 큰 변화폭이 "노출도 효과"인지 "이 극단치 업종 때문에 평균이 흔들린 것"인지 지금 상태로는 구분이 안 돼서, <strong>선형성 여부를 이 결과로 확정하지 않기로 했다.</strong> 10번(ICR변환)이 결정된 후, 또는 극단치 업종을 뺀 뒤 다시 확인하는 게 필요하다.</p>
+</div>
+</section>
+
+<section id="summary">
+<div class="section-label">07 · 종합 · 다음 단계</div>
+<h2>확정된 것 vs 미정으로 남긴 것</h2>
+<div class="grid">
+<div class="card focus"><span class="tag">확정 <span class="pill pass">완료</span></span><h4>기준금리 원자료, 병합 데이터, 다중공선성</h4><p>7·9·10(다중공선성 부분) — 데이터·병합·변수간 독립성 문제없음 확인.</p></div>
+<div class="card hold"><span class="tag">미정 <span class="pill hold">보류</span></span><h4>ICR 변환(winsorize vs asinh), 선형성, 반도체 통제 지표 선택</h4><p>10(ICR변환 방식)·12(선형성)·15(반도체 통제 최종선택) — 전부 "회귀를 실제로 돌려봐야" 결론나는 항목이라, 지금 임의로 정하지 않고 다음 단계로 넘김.</p></div>
+</div>
+<p class="note">다음 할 일은 <strong>14번(wild cluster bootstrap)</strong> — 클러스터 40개인 소표본에서 표준오차 추론이 안정적인지 확인하는 단계. 환율(FX, 16번)은 여기까지 다 끝난 뒤에 착수한다.</p>
+</section>
+
+</main>
+
+<footer class="wrap footer">이 문서는 2026-09-30 진행분(7·9·10·11·12번 노트북) 실행 결과를 팀 공유용으로 정리한 것이다. 표에 실린 수치는 각 노트북을 실제 실행해 나온 값이며, 10번(ICR변환)·12번(선형성)·15번(반도체 통제 최종선택)은 의도적으로 결론을 유보한 상태다 — 추가 회귀 없이 임의로 확정하지 않는다.<br>이 HTML은 외부 글꼴·라이브러리·네트워크 요청 없이 단독으로 열 수 있다. 인쇄 버튼 또는 브라우저 인쇄 기능으로 PDF 저장 가능.</footer>
+</body></html>
