@@ -1,0 +1,513 @@
+<title>원자재 가격충격 지표 구축 현황판</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg:#F6F4EF; --surface:#FFFFFF; --surface-2:#FBFAF6;
+  --ink:#1C2530; --ink-soft:#5B6572; --ink-faint:#8A9099;
+  --border:#DFDACE; --border-soft:#EAE6DB;
+  --accent:#2C6E7F; --accent-ink:#1D4B57; --accent-soft:#E3EEF0;
+  --good:#2E7D57; --good-soft:#E2F2E9; --good-ink:#1F5A3E;
+  --warn:#A9711D; --warn-soft:#FAF0DD; --warn-ink:#7A5216;
+  --critical:#B23A34; --critical-soft:#FAE7E5; --critical-ink:#84271F;
+  --pending:#857D6E; --pending-soft:#EFEBE0; --pending-ink:#61594C;
+  --shadow: 0 1px 2px rgba(28,37,48,.06), 0 2px 10px rgba(28,37,48,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#13181D; --surface:#1A2027; --surface-2:#161B21;
+    --ink:#E9E7E0; --ink-soft:#AEB3B9; --ink-faint:#767C83;
+    --border:#2B333B; --border-soft:#242B32;
+    --accent:#6FB0BE; --accent-ink:#9FD0DA; --accent-soft:#1D3238;
+    --good:#74C29A; --good-soft:#1B3227; --good-ink:#9ADDB8;
+    --warn:#E0AD5C; --warn-soft:#382C16; --warn-ink:#F0C685;
+    --critical:#E58A83; --critical-soft:#3A2320; --critical-ink:#F2A9A3;
+    --pending:#ABA495; --pending-soft:#26241D; --pending-ink:#C7C0AF;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#13181D; --surface:#1A2027; --surface-2:#161B21;
+  --ink:#E9E7E0; --ink-soft:#AEB3B9; --ink-faint:#767C83;
+  --border:#2B333B; --border-soft:#242B32;
+  --accent:#6FB0BE; --accent-ink:#9FD0DA; --accent-soft:#1D3238;
+  --good:#74C29A; --good-soft:#1B3227; --good-ink:#9ADDB8;
+  --warn:#E0AD5C; --warn-soft:#382C16; --warn-ink:#F0C685;
+  --critical:#E58A83; --critical-soft:#3A2320; --critical-ink:#F2A9A3;
+  --pending:#ABA495; --pending-soft:#26241D; --pending-ink:#C7C0AF;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.25);
+}
+
+*{box-sizing:border-box;}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:'IBM Plex Sans KR', -apple-system, sans-serif;
+  padding-inline:20px; padding-block:36px 64px;
+  line-height:1.55;
+}
+.wrap{max-width:1040px; margin-inline:auto; display:flex; flex-direction:column; gap:28px;}
+.mono{font-family:'IBM Plex Mono','SF Mono',monospace; font-variant-numeric:tabular-nums;}
+
+header.page{display:flex; flex-direction:column; gap:6px; padding-bottom:18px; border-bottom:1px solid var(--border);}
+.eyebrow{font-size:.72rem; letter-spacing:.09em; text-transform:uppercase; color:var(--accent-ink); font-weight:600;}
+h1{font-size:clamp(1.5rem,3vw,2.05rem); margin:0; font-weight:700; text-wrap:balance;}
+.subtitle{color:var(--ink-soft); font-size:.95rem; max-width:70ch;}
+.meta-row{display:flex; gap:16px; flex-wrap:wrap; font-size:.8rem; color:var(--ink-faint); margin-top:4px;}
+
+.tracker{display:flex; gap:0; overflow-x:auto; padding-block:4px;}
+.stage{flex:1 1 0; min-width:150px; display:flex; flex-direction:column; gap:6px; padding:14px 16px; border-top:3px solid var(--border); position:relative;}
+.stage + .stage{border-left:1px solid var(--border-soft);}
+.stage[data-status="done"]{border-top-color:var(--good);}
+.stage[data-status="warn"]{border-top-color:var(--warn);}
+.stage[data-status="pending"]{border-top-color:var(--pending);}
+.stage-label{font-size:.68rem; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint); font-weight:600;}
+.stage-name{font-weight:600; font-size:.95rem;}
+.stage-note{font-size:.78rem; color:var(--ink-soft);}
+
+.chip{display:inline-flex; align-items:center; gap:5px; font-size:.72rem; font-weight:600; padding:3px 9px; border-radius:99px; white-space:nowrap; line-height:1.4;}
+.chip::before{content:""; width:6px; height:6px; border-radius:50%; background:currentColor;}
+.chip.good{background:var(--good-soft); color:var(--good-ink);}
+.chip.warn{background:var(--warn-soft); color:var(--warn-ink);}
+.chip.critical{background:var(--critical-soft); color:var(--critical-ink);}
+.chip.pending{background:var(--pending-soft); color:var(--pending-ink);}
+.chip.accent{background:var(--accent-soft); color:var(--accent-ink);}
+
+section.panel{background:var(--surface); border:1px solid var(--border); border-radius:10px; box-shadow:var(--shadow); overflow:hidden;}
+.panel-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:16px 20px; border-bottom:1px solid var(--border-soft); background:var(--surface-2);}
+.panel-head h2{font-size:1.08rem; margin:0; font-weight:600;}
+.panel-head .tag{font-size:.78rem; color:var(--ink-faint);}
+.panel-body{padding:18px 20px 22px; display:flex; flex-direction:column; gap:18px;}
+.panel-body > .note{font-size:.85rem; color:var(--ink-soft); max-width:74ch;}
+h3{font-size:.95rem; font-weight:600; margin:0;}
+
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:10px;}
+.stat{background:var(--surface-2); border:1px solid var(--border-soft); border-radius:8px; padding:11px 13px; display:flex; flex-direction:column; gap:3px;}
+.stat .v{font-family:'IBM Plex Mono'; font-weight:600; font-size:1.18rem; font-variant-numeric:tabular-nums;}
+.stat .k{font-size:.72rem; color:var(--ink-soft);}
+.stat.accent{background:var(--accent-soft);}
+.stat.accent .v{color:var(--accent-ink);}
+
+.robust{display:flex; flex-direction:column; gap:6px;}
+.robust-row{display:grid; grid-template-columns:150px 1fr auto; align-items:center; gap:10px; font-size:.85rem; padding:6px 0; border-bottom:1px dashed var(--border-soft);}
+.robust-row:last-child{border-bottom:none;}
+.robust-row .rl{color:var(--ink-soft); font-size:.78rem;}
+.robust-row .rv{font-family:'IBM Plex Mono'; font-size:.83rem;}
+
+.tbl-wrap{overflow-x:auto; border:1px solid var(--border-soft); border-radius:8px;}
+table{width:100%; border-collapse:collapse; font-size:.83rem;}
+thead th{text-align:left; font-size:.7rem; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-faint); font-weight:600; padding:8px 12px; background:var(--surface-2); border-bottom:1px solid var(--border-soft); white-space:nowrap;}
+tbody td{padding:8px 12px; border-bottom:1px solid var(--border-soft);}
+tbody tr:last-child td{border-bottom:none;}
+td.num, th.num{text-align:right; font-family:'IBM Plex Mono';}
+.tbl-foot{font-size:.76rem; color:var(--ink-faint); padding:8px 2px 0;}
+
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+@media (max-width:720px){ .grid2{grid-template-columns:1fr;} .robust-row{grid-template-columns:110px 1fr auto;} }
+
+.pair-list{display:flex; flex-direction:column; gap:10px;}
+.pair-card{display:flex; gap:14px; align-items:flex-start; padding:12px 14px; border:1px solid var(--border-soft); border-radius:8px; background:var(--surface-2);}
+.pair-rank{font-family:'IBM Plex Mono'; font-weight:600; font-size:.95rem; color:var(--accent-ink); background:var(--accent-soft); border-radius:6px; padding:2px 8px; flex-shrink:0;}
+.pair-body{display:flex; flex-direction:column; gap:3px; flex:1;}
+.pair-title{font-weight:600; font-size:.92rem;}
+.pair-desc{font-size:.82rem; color:var(--ink-soft);}
+.pair-figs{font-size:.78rem; color:var(--ink-faint); font-family:'IBM Plex Mono';}
+
+.audit-tbl td, .audit-tbl th{white-space:normal;}
+.audit-tbl td:first-child{font-weight:500;}
+
+.issues{display:flex; flex-direction:column; gap:10px;}
+.issue{display:flex; gap:12px; padding:12px 14px; border-radius:8px; border:1px solid var(--border-soft); background:var(--surface-2);}
+.issue .n{font-family:'IBM Plex Mono'; font-weight:600; color:var(--ink-faint); flex-shrink:0;}
+.issue .b{display:flex; flex-direction:column; gap:3px;}
+.issue .t{font-weight:600; font-size:.9rem;}
+.issue .d{font-size:.82rem; color:var(--ink-soft);}
+.issue.critical{border-left:3px solid var(--critical);}
+.issue.warn{border-left:3px solid var(--warn);}
+.issue.pending{border-left:3px solid var(--pending);}
+.issue.good{border-left:3px solid var(--good);}
+
+.formula{font-family:'IBM Plex Mono'; font-size:.83rem; background:var(--surface-2); border:1px solid var(--border-soft); border-radius:8px; padding:14px 16px; line-height:1.9; overflow-wrap:anywhere;}
+code{font-family:'IBM Plex Mono'; font-size:.82em; background:var(--surface-2); border:1px solid var(--border-soft); padding:1px 5px; border-radius:4px;}
+
+footer.page{font-size:.78rem; color:var(--ink-faint); text-align:center; padding-top:8px;}
+</style>
+
+<div class="wrap">
+
+  <header class="page">
+    <span class="eyebrow">2026 ISTANS 논문경진대회 · 금리취약성 세부주제</span>
+    <h1>원자재 가격충격 지표(RawShock) 구축 — 검토보고서</h1>
+    <p class="subtitle">신뢰성 감사부터 실제 계산 결과까지, 2026-09-27 하루 동안 진행된 작업 전체를 정리했습니다. 한계점·더 공부할 것·놓친 점·다음 할 일을 최대한 자세히 남깁니다.</p>
+    <div class="meta-row">
+      <span>작성 기준일 2026-09-27</span>
+      <span>충격패널 2015–2025년 × ISTANS 40개 업종</span>
+      <span>산업연관표 2019년 연장표 기준</span>
+    </div>
+  </header>
+
+  <!-- ===== PIPELINE TRACKER ===== -->
+  <div class="tracker">
+    <div class="stage" data-status="done">
+      <span class="stage-label">1단계</span>
+      <span class="stage-name">신뢰성 감사</span>
+      <span class="chip good">완료</span>
+      <span class="stage-note">허구 서술 발견·정정</span>
+    </div>
+    <div class="stage" data-status="done">
+      <span class="stage-label">2단계</span>
+      <span class="stage-name">데이터 확보</span>
+      <span class="chip good">완료</span>
+      <span class="stage-note">IO표·ISTANS연계표·W행렬</span>
+    </div>
+    <div class="stage" data-status="done">
+      <span class="stage-label">3단계</span>
+      <span class="stage-name">카테고리 확정</span>
+      <span class="chip good">완료</span>
+      <span class="stage-note">8개 원자재군 IO코드</span>
+    </div>
+    <div class="stage" data-status="done">
+      <span class="stage-label">4단계</span>
+      <span class="stage-name">충격 계산</span>
+      <span class="chip good">완료</span>
+      <span class="stage-note">Shock_40 패널 완성</span>
+    </div>
+    <div class="stage" data-status="pending">
+      <span class="stage-label">5단계</span>
+      <span class="stage-name">재무패널 병합</span>
+      <span class="chip pending">미착수</span>
+      <span class="stage-note">다음 세션 최우선</span>
+    </div>
+  </div>
+
+  <!-- ===== 신뢰성 감사 ===== -->
+  <section class="panel">
+    <div class="panel-head">
+      <h2>신뢰성 감사 — 수정 경위</h2>
+      <span class="chip good">허구 정정 완료</span>
+    </div>
+    <div class="panel-body">
+      <p class="note">이전 세션이 지어낸 <strong>"팀원B 리포트"</strong>(2015~17 사전추세 위반, leave-one-out 부호반전, ECOS·산업연관표 확보 주장)가 두 문서에 6곳 이상 반복돼 있었습니다. 프로젝트 전체(문서 6개, data 폴더, 노트북 2개)를 감사한 결과 근거 파일이 전무했고, 사용자 본인도 "처음 듣는 얘기"라고 확인해 전부 허구로 정정했습니다.</p>
+      <div class="tbl-wrap"><table class="audit-tbl">
+        <thead><tr><th>허구 주장</th><th>판정 근거</th></tr></thead>
+        <tbody>
+          <tr><td>팀원B가 2015~17년 사전추세 위반(p=0.017~0.038) 발견</td><td>이 검정을 실행한 노트북·코드가 프로젝트 어디에도 없음 — 아직 아무도 실행 안 함</td></tr>
+          <tr><td>팀원B의 leave-one-out 분석에서 부호 반전 발견</td><td>leave-one-out 코드 자체가 없음 — 미실행 상태</td></tr>
+          <tr><td>팀원B가 ECOS 대출금리·PPI·2018 산업연관표 확보</td><td><code>data/</code> 폴더 재귀 검색 0건. 실제 <code>data/</code>엔 11개 파일뿐</td></tr>
+          <tr><td>대출금리 모형 β=636.645%p(p=0.030, 유의)</td><td>이 회귀를 실행한 코드·결과 파일 없음</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">실제로 검증된 것도 있었습니다 — <code>ISTANS_7단계_금리취약성_예비추정.ipynb</code>의 β=53.66, p=0.19는 코드+출력까지 실제로 확인됨. 원본 문서는 그대로 보존하고, 개정 사본에만 정정 내용을 반영했습니다.</p>
+    </div>
+  </section>
+
+  <!-- ===== 데이터 확보·검증 ===== -->
+  <section class="panel">
+    <div class="panel-head">
+      <h2>데이터 확보·검증</h2>
+      <span class="chip good">3개 원자료 교차검증 완료</span>
+    </div>
+    <div class="panel-body">
+      <div class="stats">
+        <div class="stat accent"><span class="v mono">381</span><span class="k">IO 기본부문 상품코드</span></div>
+        <div class="stat"><span class="v mono">40</span><span class="k">ISTANS 제조업 업종</span></div>
+        <div class="stat"><span class="v mono">168 / 276</span><span class="k">ECOS↔IO 이름 정확매칭</span></div>
+        <div class="stat"><span class="v mono">0건</span><span class="k">W행렬 교차검증 불일치</span></div>
+      </div>
+      <div class="robust">
+        <div class="robust-row"><span class="rl">IO 원자료</span><span class="rv">투입산출표_생산자가격_기본부문.xlsx(KOSIS 2019년 연장표) — Ad·Am·생산유발계수·수입유발계수 전부 이미 계산되어 제공</span><span class="chip good">확인</span></div>
+        <div class="robust-row"><span class="rl">381→40업종 매핑</span><span class="rv">ISTANS 공식 연계표(2015년기준 시트)로 381개 전부 매핑, 누락 0건</span><span class="chip good">확인</span></div>
+        <div class="robust-row"><span class="rl">W행렬 행합</span><span class="rv">40개 업종 전부 가중치 합 = 1</span><span class="chip good">확인</span></div>
+        <div class="robust-row"><span class="rl">독립 크로스워크 대조</span><span class="rv">팀원(장서원) 제공 W_2019 파일과 381개 상품→업종 매핑 100% 일치</span><span class="chip good">교차검증</span></div>
+        <div class="robust-row"><span class="rl">산출액 자료</span><span class="rv">A표_총거래표 394행 "9790 총투입계"가 IO 항등식상 총산출액과 동일 — 별도 수집 불필요했음</span><span class="chip good">확인</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 카테고리 확정 ===== -->
+  <section class="panel">
+    <div class="panel-head">
+      <h2>8개 원자재 카테고리 확정</h2>
+      <span class="chip warn">2건 논쟁 후 확정</span>
+    </div>
+    <div class="panel-body">
+      <p class="note">카테고리 이름(원유·철강1차제품·비철금속괴·목재·펄프·농산물·섬유원료·비금속광물)은 원래 "7개"라고 잘못 적혀 있었습니다 — 실제로는 8개("·" 구분점 개수를 항목 개수로 착각한 것으로 추정), 이번에 정정했습니다.</p>
+      <div class="tbl-wrap"><table class="audit-tbl">
+        <thead><tr><th>카테고리</th><th>확정 IO코드</th><th>근거</th></tr></thead>
+        <tbody>
+          <tr><td>원유</td><td class="mono">0621</td><td>이름 완전 일치</td></tr>
+          <tr><td>철강1차제품</td><td class="mono">2711~2799 (13개)</td><td>"기타 철강1차제품" 코드명 완전 일치</td></tr>
+          <tr><td>비철금속괴</td><td class="mono">2811~2829 (8개)</td><td>"금은괴" 등 '괴' 명칭 일치</td></tr>
+          <tr><td>목재</td><td class="mono">0302, 1311~1313</td><td>원목·제재목·합판·강화재생목재</td></tr>
+          <tr><td>펄프</td><td class="mono">1410</td><td>이름 완전 일치</td></tr>
+          <tr><td>농산물</td><td class="mono">0112·0113·0193·0194·0196·0199</td><td>ECOS 가격지수 실존 항목만 채택</td></tr>
+          <tr><td>섬유원료</td><td class="mono">1111(+1119 확장검증)</td><td>실(사)이 옷감(직물)보다 상류 — 아래 이슈 참고</td></tr>
+          <tr><td>비금속광물</td><td class="mono">0729</td><td>ECOS가 '비금속광물'(원료)과 '비금속광물제품'(가공품)을 별도 항목으로 분리 제공 — 아래 이슈 참고</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3 style="margin-top:6px">확정 과정에서 다퉜던 두 지점</h3>
+      <div class="issues">
+        <div class="issue good">
+          <span class="n">A</span>
+          <div class="b">
+            <span class="t">비금속광물: 원료(0729) vs 가공품(2611~2699, 16개)</span>
+            <span class="d">결정적 단서는 ECOS 원자재 CSV 자체였음 — ECOS가 "비금속광물"(광산품 branch)과 "비금속광물제품"(공산품 branch)을 이미 서로 다른 항목으로 분리 제공. 카테고리명이 '비금속광물'이므로 원료 단계로 확정.</span>
+          </div>
+        </div>
+        <div class="issue warn">
+          <span class="n">B</span>
+          <div class="b">
+            <span class="t">섬유원료: 1119(기타섬유사) 포함 여부 — 과장했다가 정정</span>
+            <span class="d">처음엔 "1119 포함이 이론적으로 더 적절하다"고 단정했으나 근거 부족한 주장이었음. 정확히는 "1119를 빼는 것=분석범위 밖", "1111 가격을 대입=검증 안 된 가정"일 뿐. 기본안=1111만 / 강건성검정=1111+1119(대리)로 정리 후, 실제 계산해보니 차이가 0.0001~0.005 수준(기본값 4~26 대비)이라 사실상 무시 가능함을 확인.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 계산 과정과 결과 ===== -->
+  <section class="panel">
+    <div class="panel-head">
+      <h2>계산 과정과 결과</h2>
+      <span class="chip good">패널 완성</span>
+    </div>
+    <div class="panel-body">
+      <p class="note">단위당 부가가치비용을 고정한 가격모형에서, 국산상품 가격변화는 국산·수입 중간재를 통한 전가의 합으로 결정됩니다:</p>
+      <div class="formula">Δp&#7496; = (A&#7496;)&#7488;Δp&#7496; + (A&#7509;)&#7488;Δp&#7509;<br>&rArr; Δp&#7496; = [I&minus;(A&#7496;)&#7488;]&#8315;&sup1;(A&#7509;)&#7488;Δp&#7509; = M&#7488;Δp&#7509;<br><br>Shock_381,t = M&#7488;&middot;Δp_381,t &nbsp;&rarr;&nbsp; Shock_40,t = W&middot;Shock_381,t</div>
+      <p class="note">여기서 <code>M = A&#7509;(I&minus;A&#7496;)&#8315;&sup1;</code>(수입유발계수, 직접+간접효과, BOK가 이미 계산해 제공)를 채택했습니다. 직접계수(Am)만 쓰면 자동차 등 대부분 제조업이 "원자재 노출 0"으로 나오는 문제를 승용차(코드 4011) 열로 직접 확인해서 피했습니다:</p>
+      <div class="stats">
+        <div class="stat"><span class="v mono">0</span><span class="k">원유 직접계수 Am(승용차)</span></div>
+        <div class="stat accent"><span class="v mono">0.0146</span><span class="k">원유 직접+간접 M(승용차)</span></div>
+        <div class="stat"><span class="v mono">0</span><span class="k">철광석 직접계수 Am(승용차)</span></div>
+        <div class="stat accent"><span class="v mono">0.0083</span><span class="k">철광석 직접+간접 M(승용차)</span></div>
+      </div>
+
+      <h3>2022년(원자재 급등) 기준 충격 상위 업종</h3>
+      <div class="pair-list">
+        <div class="pair-card">
+          <span class="pair-rank">1위</span>
+          <div class="pair-body"><span class="pair-title">I3301 석유정제</span><span class="pair-figs">기본안 26.068 · 확장검증 26.068 · 1119효과 0.00046</span></div>
+        </div>
+        <div class="pair-card">
+          <span class="pair-rank">2위</span>
+          <div class="pair-body"><span class="pair-title">I3201 석유화학</span><span class="pair-figs">기본안 8.729 · 확장검증 8.730 · 1119효과 0.00083</span></div>
+        </div>
+        <div class="pair-card">
+          <span class="pair-rank">3위</span>
+          <div class="pair-body"><span class="pair-title">I3307 기타비금속</span><span class="pair-figs">기본안 4.612 · 확장검증 4.615 · 1119효과 0.00352</span></div>
+        </div>
+        <div class="pair-card">
+          <span class="pair-rank">4위</span>
+          <div class="pair-body"><span class="pair-title">I3309 비철금속</span><span class="pair-figs">기본안 4.610 · 확장검증 4.611 · 1119효과 0.00110</span></div>
+        </div>
+        <div class="pair-card">
+          <span class="pair-rank">5위</span>
+          <div class="pair-body"><span class="pair-title">I3109 항공</span><span class="pair-figs">기본안 4.427 · 확장검증 4.429 · 1119효과 0.00135</span></div>
+        </div>
+      </div>
+      <p class="note">방향성은 상식과 일치합니다(정유·석유화학이 2022년 원자재발 충격 최대). 1119 포함 효과는 최대 0.0035로 기본값 대비 무시 가능한 수준 — ③절의 논쟁이 실제 계산으로 종결됐습니다.</p>
+
+      <div class="issue good">
+        <span class="n">✓</span>
+        <div class="b">
+          <span class="t">부수 발견 — "항공·철도 통제 불가" 서술 정정</span>
+          <span class="d">기존 문서엔 "항공·철도는 매칭 항목이 없어 통제 불가"라고 적혀 있었으나, 이는 직접계수 기준 얘기였음. 간접효과 포함 계산에서는 40개 업종 전부 0이 아닌 Shock 값을 받음(항공 4.427, 철도 1.084) — 국내 철강·비철금속 공급망을 통한 간접노출 확인.</span>
+        </div>
+      </div>
+
+      <h3>직접효과 vs 간접효과 분해 — "왜 M을 썼는가"의 체계적 근거</h3>
+      <p class="note">승용차 한 사례만으로는 "일부 업종만 그런 것 아니냐"는 반문이 가능해서, Am(직접)·M(직접+간접)을 각각 W로 집계해 40개 업종 전부에서 간접비중을 직접 계산했습니다(2022년 기준, 8개 카테고리 합산).</p>
+      <div class="tbl-wrap"><table class="audit-tbl">
+        <thead><tr><th>업종</th><th>총충격</th><th>직접</th><th>간접</th><th>간접비중</th></tr></thead>
+        <tbody>
+          <tr><td>석유정제</td><td class="mono">26.068</td><td class="mono">25.257</td><td class="mono">0.811</td><td class="mono">3.1%</td></tr>
+          <tr><td>비철금속</td><td class="mono">4.610</td><td class="mono">3.369</td><td class="mono">1.241</td><td class="mono">26.9%</td></tr>
+          <tr><td>철강</td><td class="mono">2.993</td><td class="mono">2.013</td><td class="mono">0.979</td><td class="mono">32.7%</td></tr>
+          <tr><td>세라믹</td><td class="mono">3.902</td><td class="mono">2.106</td><td class="mono">1.795</td><td class="mono">46.0%</td></tr>
+          <tr><td>조선</td><td class="mono">2.490</td><td class="mono">1.330</td><td class="mono">1.160</td><td class="mono">46.6%</td></tr>
+          <tr><td>음식료</td><td class="mono">2.547</td><td class="mono">1.000</td><td class="mono">1.547</td><td class="mono">60.7%</td></tr>
+          <tr><td>섬유</td><td class="mono">2.923</td><td class="mono">1.092</td><td class="mono">1.831</td><td class="mono">62.6%</td></tr>
+          <tr><td>주조</td><td class="mono">2.595</td><td class="mono">0.956</td><td class="mono">1.639</td><td class="mono">63.2%</td></tr>
+          <tr><td>석유화학</td><td class="mono">8.729</td><td class="mono">2.090</td><td class="mono">6.640</td><td class="mono">76.1%</td></tr>
+          <tr><td>항공</td><td class="mono">4.427</td><td class="mono">1.182</td><td class="mono">3.245</td><td class="mono">73.3%</td></tr>
+          <tr><td>정밀화학</td><td class="mono">2.308</td><td class="mono">0.309</td><td class="mono">1.999</td><td class="mono">86.6%</td></tr>
+          <tr><td>기타비금속</td><td class="mono">4.612</td><td class="mono">0.495</td><td class="mono">4.116</td><td class="mono">89.3%</td></tr>
+          <tr><td>시멘트</td><td class="mono">2.263</td><td class="mono">0.052</td><td class="mono">2.210</td><td class="mono">97.7%</td></tr>
+        </tbody>
+      </table></div>
+      <div class="issue good">
+        <span class="n">✓</span>
+        <div class="b">
+          <span class="t">패턴 확인 — 석유정제만 예외, 나머지는 전부 간접 지배적</span>
+          <span class="d">석유정제(정유업)만 유일하게 직접효과가 압도적(97%)입니다 — 정유소만 원유를 직접 정제해서 쓰기 때문입니다. 나머지 업종은 시멘트(97.7%)·기타비금속(89.3%)·정밀화학(86.6%) 등 간접효과가 지배적이거나, 철강·비철금속처럼 자기 원자재 카테고리에 속하는 업종만 직접비중이 상대적으로 높습니다. 승용차 한 사례가 아니라 이 체계적 패턴이 "직접계수(Am)만으로는 원자재 통제변수가 무의미해지고, 수입유발계수(M)가 필요하다"는 근거입니다.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 한계점 ===== -->
+  <section class="panel">
+    <div class="panel-head">
+      <h2>한계점</h2>
+      <span class="chip warn">6건</span>
+    </div>
+    <div class="panel-body">
+      <div class="issues">
+        <div class="issue warn">
+          <span class="n">01</span>
+          <div class="b"><span class="t">2015년기준 vs 2020년기준 미확정</span><span class="d">2019년 연장표가 ISTANS 연계표의 어느 시트(분류체계)와 맞는지 추론으로만 판단함("2019는 2020실측표 이전이라 2015년기준일 것"). KOSIS·한국은행에 직접 확인하지 않음.</span></div>
+        </div>
+        <div class="issue pending">
+          <span class="n">02</span>
+          <div class="b"><span class="t">실물충격이 아니라 가격전가지수</span><span class="d">고정된 투입구조·완전 비용전가를 가정한 "원가압박 압력"이지, 실제 영업이익 감소율이나 ICR 변화율과 곧바로 등치할 수 없음.</span></div>
+        </div>
+        <div class="issue pending">
+          <span class="n">03</span>
+          <div class="b"><span class="t">로그변화율 근사</span><span class="d">100×ln 변화율은 2022년처럼 큰 폭 변동에선 실제 %변화와 차이가 남.</span></div>
+        </div>
+        <div class="issue pending">
+          <span class="n">04</span>
+          <div class="b"><span class="t">일부 코드는 가격 추적 안 됨</span><span class="d">선재및궤조(2723)·강선(2726)·기타철강1차제품(2799)·골재및석재(0721)·석회석(0722) 등은 ECOS 대응 가격지수가 없어 Δp=0으로 처리됨 — 가격이 안 변했다는 뜻이 아니라 분석범위 밖이라는 뜻.</span></div>
+        </div>
+        <div class="issue warn">
+          <span class="n">05</span>
+          <div class="b"><span class="t">Am·수입유발계수의 음수값 처리 미검증</span><span class="d">외부 리뷰가 "음수가 있을 수 있으니 임의로 0으로 바꾸면 안 된다"고 지적. 우리 스크립트는 값을 있는 그대로 사용해 이 조언과 어긋나진 않지만, 실제로 음수가 얼마나·왜 있는지는 직접 확인한 적 없음.</span></div>
+        </div>
+        <div class="issue critical">
+          <span class="n">06</span>
+          <div class="b"><span class="t">소표본 문제는 그대로 남음</span><span class="d">업종 클러스터 40개, 진짜 긴축 사건도 사실상 하나(2021-23)라는 기존 지적은 이 통제변수를 추가해도 해결되지 않음.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 더 공부할 것 ===== -->
+  <section class="panel">
+    <div class="panel-head">
+      <h2>더 공부해야 할 것</h2>
+      <span class="tag">오늘 새로 생긴 것 2건 + 기존 3건 + 신규 1건</span>
+    </div>
+    <div class="panel-body">
+      <div class="grid2">
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>오늘 새로 필요해진 것</th></tr></thead>
+          <tbody>
+            <tr><td><strong>산업연관표 국산/수입 분리 원리</strong><br><span class="mono" style="color:var(--ink-soft);font-size:.78rem">총거래표=국산거래표+수입거래표, 경쟁수입형 가정</span></td></tr>
+            <tr><td><strong>레온티에프 가격모형 vs 수량모형</strong><br><span class="mono" style="color:var(--ink-soft);font-size:.78rem">우리는 가격모형(비용전가) 사용, 각 모형의 가정 차이</span></td></tr>
+          </tbody>
+        </table></div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>기존부터 필요했던 것</th></tr></thead>
+          <tbody>
+            <tr><td>패널 고정효과·DiD 기초</td></tr>
+            <tr><td>클러스터 표준오차·소표본 보정</td></tr>
+            <tr><td>사전추세·위약검정</td></tr>
+            <tr><td><strong>계수 차이의 통계적 검정</strong>(신규) — "긴축기 유의/평시 비유의"가 아니라 계수 차이 자체를 검정해야 함</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 놓친 점 ===== -->
+  <section class="panel">
+    <div class="panel-head">
+      <h2>놓친 점</h2>
+      <span class="chip good">스스로 잡음 3건</span><span class="chip pending" style="margin-left:6px">아직 못 잡음 3건</span>
+    </div>
+    <div class="panel-body">
+      <div class="issues">
+        <div class="issue good">
+          <span class="n">✓</span>
+          <div class="b"><span class="t">"열=산업"이라는 표현이 부정확했음</span><span class="d">정확히는 "열=그 상품을 생산하는 부문"(산업≠상품). 외부 리뷰 지적 후 KOSIS 공식 통계설명자료로 확인·정정.</span></div>
+        </div>
+        <div class="issue good">
+          <span class="n">✓</span>
+          <div class="b"><span class="t">"산출액 데이터가 없다"는 오판</span><span class="d">이미 받은 총거래표 안에 "9790 총투입계"(=총산출액) 행이 있었음. 다시 봤어야 할 걸 놓쳤던 사례.</span></div>
+        </div>
+        <div class="issue good">
+          <span class="n">✓</span>
+          <div class="b"><span class="t">"1119 포함이 이론적으로 더 낫다"는 과장된 단정</span><span class="d">근거 없이 단정했다가 정정. "확인된 사실"과 "권고"를 문장 단위로 구분해야 한다는 교훈.</span></div>
+        </div>
+        <div class="issue pending">
+          <span class="n">?</span>
+          <div class="b"><span class="t">2015년기준/2020년기준 vintage 미확정</span><span class="d">한계점 01과 동일 — 다음 할 일 참고</span></div>
+        </div>
+        <div class="issue pending">
+          <span class="n">?</span>
+          <div class="b"><span class="t">Am/수입유발계수 음수값 실태 미확인</span><span class="d">직접 세어본 적 없음</span></div>
+        </div>
+        <div class="issue pending">
+          <span class="n">?</span>
+          <div class="b"><span class="t">ISTANS 60대산업 분류와 우리 40개 업종의 기준연도 일치 여부</span><span class="d">381개 매핑은 일치했지만, 우연히 일치한 건지 원래 같은 원본에서 파생된 건지 더 확인 필요</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 다음 할 일 ===== -->
+  <section class="panel">
+    <div class="panel-head">
+      <h2>다음 할 일 — 상세 로드맵</h2>
+      <span class="chip pending">7단계</span>
+    </div>
+    <div class="panel-body">
+      <div class="issues">
+        <div class="issue critical">
+          <span class="n">01</span>
+          <div class="b"><span class="t">Shock_40 패널을 재무패널에 병합 — 최우선</span><span class="d"><code>raw_material_shock_panel.csv</code>(연도×업종×Shock)를 ISTANS 안정성·수익성 패널과 연도+업종코드 기준으로 조인. Shock_40는 2015~2025년만 있고 재무패널은 1994~2025년이라 결측(2015년 이전) 처리 방식 결정 필요. 업종코드 포맷(I3101~I3410) 일치 여부 재확인.</span></div>
+        </div>
+        <div class="issue warn">
+          <span class="n">02</span>
+          <div class="b"><span class="t">사전추세 검정 — 실제로 처음 실행</span><span class="d">"팀원B가 이미 발견했다"던 게 허구였으므로 진짜 처음부터 실행. 긴축기(2018~2020 vs 그 이전), 평시(2015~2019 이전 구간)를 각각 검정. 위반 확인 시 이후 단계 전부 재검토.</span></div>
+        </div>
+        <div class="issue warn">
+          <span class="n">03</span>
+          <div class="b"><span class="t">현금여력 변수 추가</span><span class="d">현재 β=53.66,p=0.19는 Post×노출도만 있는 모형. Post×현금여력, 필요하면 Post×노출도×현금여력 3중상호작용까지 추가(완충효과 검정 위해).</span></div>
+        </div>
+        <div class="issue pending">
+          <span class="n">04</span>
+          <div class="b"><span class="t">원자재 통제변수를 모형에 결합</span><span class="d">01에서 병합한 Shock_40를 통제변수로 추가한 확장모형 추정. 통제 전/후 β(Post×노출도) 변화 비교.</span></div>
+        </div>
+        <div class="issue pending">
+          <span class="n">05</span>
+          <div class="b"><span class="t">2단계(평시 2015~2019) 재추정 및 계수 비교</span><span class="d">같은 모형을 평시 구간에서 재추정 후, 두 계수의 차이 자체를 통계적으로 검정(pooled 모형+상호작용 또는 계수차이 검정법 학습 필요).</span></div>
+        </div>
+        <div class="issue pending">
+          <span class="n">06</span>
+          <div class="b"><span class="t">강건성 검정</span><span class="d">leave-one-out(40개 업종 하나씩 제외), 위약검정, ICR winsorize, Post 정의(2022 vs 2023 시작) — 전부 미실행. leave-one-out은 결과를 전혀 예단하지 말 것(팀원B 허구 건 참고).</span></div>
+        </div>
+        <div class="issue pending">
+          <span class="n">07</span>
+          <div class="b"><span class="t">(여유 있으면) vintage 확정 문의</span><span class="d">한국은행 국민계정부 투입산출팀(02-750-6651)에 직접 문의하거나 KOSIS 통계설명자료로 2019년 연장표의 정확한 분류체계 확정. 급하지 않으나 논문 각주용으로 필요.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 산출물 목록 ===== -->
+  <section class="panel">
+    <div class="panel-head">
+      <h2>산출물 목록</h2>
+      <span class="tag">전부 논문경진대회/ 폴더 내</span>
+    </div>
+    <div class="panel-body">
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>파일</th><th>내용</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">분석 방향/예상이탈업종_조합안_정리_9-27개정.html</td><td>허구 정정 + 오늘 진행사항 전부 반영된 개정 작업문서</td></tr>
+          <tr><td class="mono">data/투입산출표_생산자가격_기본부문.xlsx</td><td>2019년 연장표 원자료(Ad·Am·생산유발계수·수입유발계수)</td></tr>
+          <tr><td class="mono">data/60대산업-한국은행산업연관-사이트업로드용_240813.xlsx</td><td>ISTANS 공식 381→60업종 연계표</td></tr>
+          <tr><td class="mono">data/W_2019_verified.xlsx, W_2019_40x381.csv</td><td>팀원 제공 40×381 가중평균 행렬(검증 완료)</td></tr>
+          <tr><td class="mono">기타 코드/final_crosswalk.csv</td><td>381개 코드 × 원자재카테고리 × ISTANS40업종 병합표</td></tr>
+          <tr><td class="mono">기타 코드/ecos_io_match_draft.csv</td><td>ECOS 원자재 품목명 ↔ IO코드 매칭표</td></tr>
+          <tr><td class="mono">기타 코드/compute_raw_material_shock.py</td><td>최종 계산 스크립트</td></tr>
+          <tr><td class="mono"><strong>기타 코드/raw_material_shock_panel.csv</strong></td><td><strong>최종 결과물</strong> — 2015~2025년×40업종 Shock 패널</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <footer class="page">이 문서는 2026-09-27 작업을 사후에 정리한 검토보고서입니다 · 여기 담긴 판단·추천은 에이전트의 것이며 대회 공식 기준이 아닙니다 · 한계점·놓친 점의 미확인 사항은 실제 작업 전 재확인 필요</footer>
+
+</div>
