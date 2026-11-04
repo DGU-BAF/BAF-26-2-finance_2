@@ -1,0 +1,17 @@
+[
+  {
+    "file": "panel.csv",
+    "source": "C:\\Users\\jangs\\Documents\\Codex\\2026-10-31\\new-chat-2\\outputs\\analysis_v1\\tables\\panel_tight.csv",
+    "sha256": "f76644013ba5ce221d9f5cb474e4bbbedd5d19a016f1cc4eba37191b1b15002f"
+  },
+  {
+    "file": "stability.csv",
+    "source": "C:\\Users\\jangs\\Documents\\Codex\\2026-10-31\\new-chat-2\\outputs\\analysis_v1\\inputs\\stability.csv",
+    "sha256": "2b4783a581a063967a9dc4f4e8f1dc2f38bb38dc0ef5421f7a32216762463764"
+  },
+  {
+    "file": "rates.csv",
+    "source": "C:\\Users\\jangs\\BAF-26-2-finance_2_Personal\\data\\raw\\BOK 기준금리 데이터\\BOK_기준금리_변경이력.csv",
+    "sha256": "e4564a46451c5731fc305fdc1b5c8efd9087fde41f802ec6a8f2532a71b8a8ff"
+  }
+]

@@ -1,0 +1,1 @@
+04_rate_trim.ipynb를 Python3.12 및 requirements.txt 환경에서 이 폴더를 작업경로로 실행합니다. inputs 폴더를 함께 유지하세요. 기존 분석은 보존했고 이번에는 실제금리 C/D 모형의 동일 극단값 제외만 비교했습니다.

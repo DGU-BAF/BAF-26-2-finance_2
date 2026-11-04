@@ -1,0 +1,32 @@
+[
+  {
+    "file": "panel.csv",
+    "source": "C:\\Users\\jangs\\Documents\\Codex\\2026-10-31\\new-chat-2\\outputs\\rate_model_v1\\inputs\\panel.csv",
+    "sha256": "f76644013ba5ce221d9f5cb474e4bbbedd5d19a016f1cc4eba37191b1b15002f"
+  },
+  {
+    "file": "stability.csv",
+    "source": "C:\\Users\\jangs\\Documents\\Codex\\2026-10-31\\new-chat-2\\outputs\\rate_model_v1\\inputs\\stability.csv",
+    "sha256": "2b4783a581a063967a9dc4f4e8f1dc2f38bb38dc0ef5421f7a32216762463764"
+  },
+  {
+    "file": "rates.csv",
+    "source": "C:\\Users\\jangs\\Documents\\Codex\\2026-10-31\\new-chat-2\\outputs\\rate_model_v1\\inputs\\rates.csv",
+    "sha256": "e4564a46451c5731fc305fdc1b5c8efd9087fde41f802ec6a8f2532a71b8a8ff"
+  },
+  {
+    "file": "original_coefficients.csv",
+    "source": "C:\\Users\\jangs\\Documents\\Codex\\2026-10-31\\new-chat-2\\outputs\\rate_model_v1\\tables\\coefficients.csv",
+    "sha256": "2144ab9a57a65f51ed022d7e10bccbc0a8731ca9c11a2d78c38e5c9fbd30021a"
+  },
+  {
+    "file": "original_bootstrap.csv",
+    "source": "C:\\Users\\jangs\\Documents\\Codex\\2026-10-31\\new-chat-2\\outputs\\rate_model_v1\\tables\\bootstrap.csv",
+    "sha256": "788a6e287696d81a1752c49a9a7d18f8d34ddf8fdc4c7ccb18dc92451b3b6fbe"
+  },
+  {
+    "file": "excluded_reference.csv",
+    "source": "C:\\Users\\jangs\\Documents\\Codex\\2026-10-31\\new-chat-2\\outputs\\trim_sensitivity_v1\\tables\\excluded_observations.csv",
+    "sha256": "ab9cb5a72bd17d92cb6e29ddfc36fde9f548fe6dadaa3c9747a9eda557b3352e"
+  }
+]

@@ -1,0 +1,1 @@
+05_mechanism.ipynb: Python3.12 + requirements.txt 환경에서 이 폴더를 작업경로로 전체 실행. inputs·tables·figures를 함께 보관하세요. HTML은 그림이 내장된 독립 보고서입니다. 신규 비용·차입 지표는 공식 항목 정의 미확인으로 잠정 탐색 분석이며 확정적 실제 차입금리 해석은 금지합니다.

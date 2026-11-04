@@ -1,0 +1,42 @@
+[
+  {
+    "file": "tight.csv",
+    "source": "C:\\Users\\jangs\\Downloads\\재무_원자재_병합패널 (1).csv",
+    "sha256": "57953aa22bffc608aa0e87e46261c405abb4179e3ba195415bad03bf52f38fb6"
+  },
+  {
+    "file": "historical.csv",
+    "source": "C:\\Users\\jangs\\Downloads\\평시_재무_원자재_병합패널 (1).csv",
+    "sha256": "7e1c2ce42857f541d697574f11095a14c8ef25adc45be68863d9a3b048912d89"
+  },
+  {
+    "file": "shock.csv",
+    "source": "C:\\Users\\jangs\\Downloads\\원자재_가격충격_패널.csv",
+    "sha256": "24a2a99ada4b4cac5058a2aa53d702d535b8543519b49268f05ad3042cc4ce5f"
+  },
+  {
+    "file": "stability.csv",
+    "source": "C:\\Users\\jangs\\BAF-26-2-finance_2_Personal\\data\\interim\\ISTANS 안정성\\안정성_전체통합_1994_2025.csv",
+    "sha256": "2b4783a581a063967a9dc4f4e8f1dc2f38bb38dc0ef5421f7a32216762463764"
+  },
+  {
+    "file": "profit.csv",
+    "source": "C:\\Users\\jangs\\BAF-26-2-finance_2_Personal\\data\\interim\\ISTANS 수익성\\수익성_전체통합_1994_2025.csv",
+    "sha256": "1c1c51d7da7c8e14a7073ae060fd3ce4ec16893e21ce57bc0f37cc04f45e507d"
+  },
+  {
+    "file": "weights.csv",
+    "source": "C:\\Users\\jangs\\BAF-26-2-finance_2_Personal\\data\\interim\\가중치행렬_W_2019_계산용.csv",
+    "sha256": "4ada0771a333c662788524ec6c287773e18ac97668fcde9f429ef44d52a76584"
+  },
+  {
+    "file": "fx.csv",
+    "source": "C:\\Users\\jangs\\BAF-26-2-finance_2_Personal\\data\\raw\\환율\\원달러_환율_연평균_1990_2025.csv",
+    "sha256": "0318a5b2e17ec8a85c823fcf8f1687a2ce09a9bb3b8e1ee20f356999be1d52d3"
+  },
+  {
+    "file": "io2019.xlsx",
+    "source": "C:\\Users\\jangs\\BAF-26-2-finance_2_Personal\\data\\raw\\원자재\\투입산출표_생산자가격_기본부문_2019년연장표.xlsx",
+    "sha256": "0fb535899daded13c034466c132540dc484e32791bc1faecfb78d310410215a8"
+  }
+]
