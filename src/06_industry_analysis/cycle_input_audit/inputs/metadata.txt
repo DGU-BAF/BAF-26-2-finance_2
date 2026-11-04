@@ -1,0 +1,14 @@
+<통계표 메타자료>
+
+○ 통계표ID : TOPIC_DT_KOSIS_MINING_MONTHLY_01
+
+○ 통계표명 : 생산·출하·재고·생산능력·가동률지수(광업제조업동향조사)
+
+○ 출처 : KOSIS(국가데이터처/광업제조업동향조사), 2026.11.03 14:12
+
+○ 통계표URL : https://www.istans.or.kr/statHtml/statHtml.do?orgId=009&tblId=TOPIC_DT_KOSIS_MINING_MONTHLY_01&conn_path=I3
+              * KOSIS 개편 시 통계표 URL은 달라질 수 있음
+
+○ 주석
+ ■ 통계표
+  원출처 : 국가데이터처/광업제조업동향조사

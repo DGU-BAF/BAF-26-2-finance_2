@@ -1,0 +1,17 @@
+[
+  {
+    "file": "cycle.csv",
+    "source": "C:\\Users\\jangs\\Downloads\\생산·출하·재고·생산능력·가동률지수_광업제조업동향조사__20261103145701.csv",
+    "sha256": "bb0a85fd84586d5f11ba2a6822f719cb4905b2cfcddbaaf0ba55e4c46c9826c7"
+  },
+  {
+    "file": "metadata.txt",
+    "source": "C:\\Users\\jangs\\Downloads\\009_TOPIC_DT_KOSIS_MINING_MONTHLY_01_20261103145658.txt",
+    "sha256": "f5fff10e257f09a2fb09106456d728d8279463f72e03d432b0e90cdb9e3b513f"
+  },
+  {
+    "file": "base_panel.csv",
+    "source": "C:\\Users\\jangs\\Documents\\Codex\\2026-10-31\\new-chat-2\\outputs\\analysis_v1\\tables\\panel_tight.csv",
+    "sha256": "f76644013ba5ce221d9f5cb474e4bbbedd5d19a016f1cc4eba37191b1b15002f"
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "file": "base_panel.csv",
+    "sha256": "f76644013ba5ce221d9f5cb474e4bbbedd5d19a016f1cc4eba37191b1b15002f",
+    "source": "C:\\Users\\jangs\\Documents\\Codex\\2026-10-31\\new-chat-2\\outputs\\cycle_input_audit\\inputs\\base_panel.csv"
+  },
+  {
+    "file": "cycle.csv",
+    "sha256": "bb0a85fd84586d5f11ba2a6822f719cb4905b2cfcddbaaf0ba55e4c46c9826c7",
+    "source": "C:\\Users\\jangs\\Documents\\Codex\\2026-10-31\\new-chat-2\\outputs\\cycle_input_audit\\inputs\\cycle.csv"
+  },
+  {
+    "file": "metadata.txt",
+    "sha256": "f5fff10e257f09a2fb09106456d728d8279463f72e03d432b0e90cdb9e3b513f",
+    "source": "C:\\Users\\jangs\\Documents\\Codex\\2026-10-31\\new-chat-2\\outputs\\cycle_input_audit\\inputs\\metadata.txt"
+  }
+]

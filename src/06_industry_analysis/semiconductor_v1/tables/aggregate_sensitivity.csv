@@ -1,0 +1,3 @@
+﻿sample,N,mean_icr_change,median_icr_change,icr_decline_count
+all40,40,-0.87155,-0.6439999999999997,24
+without_semi39,39,-0.21609829059829083,-0.6360000000000001,23

@@ -1,0 +1,12 @@
+[
+  {
+    "file": "mechanism_panel.csv",
+    "source": "C:\\Users\\jangs\\Documents\\Codex\\2026-10-31\\new-chat-2\\outputs\\mechanism_v1\\tables\\analysis_panel.csv",
+    "sha256": "c9ba9006a483c6b9908d5774eba9ad3b77d2d73286d624470fa79af05a3dd65b"
+  },
+  {
+    "file": "original_panel.csv",
+    "source": "C:\\Users\\jangs\\Documents\\Codex\\2026-10-31\\new-chat-2\\outputs\\analysis_v1\\tables\\panel_tight.csv",
+    "sha256": "f76644013ba5ce221d9f5cb474e4bbbedd5d19a016f1cc4eba37191b1b15002f"
+  }
+]

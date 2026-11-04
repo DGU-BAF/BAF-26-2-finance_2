@@ -1,0 +1,17 @@
+[
+  {
+    "file": "stability.csv",
+    "source": "C:\\Users\\jangs\\Documents\\Codex\\2026-10-31\\new-chat-2\\outputs\\analysis_v1\\inputs\\stability.csv",
+    "sha256": "2b4783a581a063967a9dc4f4e8f1dc2f38bb38dc0ef5421f7a32216762463764"
+  },
+  {
+    "file": "profit.csv",
+    "source": "C:\\Users\\jangs\\Documents\\Codex\\2026-10-31\\new-chat-2\\outputs\\analysis_v1\\inputs\\profit.csv",
+    "sha256": "1c1c51d7da7c8e14a7073ae060fd3ce4ec16893e21ce57bc0f37cc04f45e507d"
+  },
+  {
+    "file": "panel.csv",
+    "source": "C:\\Users\\jangs\\Documents\\Codex\\2026-10-31\\new-chat-2\\outputs\\analysis_v1\\tables\\panel_tight.csv",
+    "sha256": "f76644013ba5ce221d9f5cb474e4bbbedd5d19a016f1cc4eba37191b1b15002f"
+  }
+]

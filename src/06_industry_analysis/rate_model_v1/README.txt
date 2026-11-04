@@ -1,0 +1,1 @@
+02_rate_level.ipynb를 이 폴더에서 전체 실행하세요. Python 3.12 및 requirements.txt를 사용합니다. inputs 폴더는 함께 유지하세요. 원본 분석은 analysis_v1에 보존되어 있습니다. 결과보고서 HTML은 브라우저로 열 수 있습니다. 이번 실행은 노트북 코드 셀을 동일 Python 실행 공간에서 순서대로 실행하고 stdout 출력을 저장한 방식입니다.

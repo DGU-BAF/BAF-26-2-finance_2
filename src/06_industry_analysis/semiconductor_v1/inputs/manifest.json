@@ -1,0 +1,32 @@
+[
+  {
+    "file": "cycle_panel.csv",
+    "source": "C:\\Users\\jangs\\Documents\\Codex\\2026-10-31\\new-chat-2\\outputs\\cycle_control_v1\\tables\\analysis_panel.csv",
+    "sha256": "f71da04d19f38158ff8dee715ef7e66159552d96c9fdd4b98ef06f816a980c4f"
+  },
+  {
+    "file": "full_panel.csv",
+    "source": "C:\\Users\\jangs\\Documents\\Codex\\2026-10-31\\new-chat-2\\outputs\\analysis_v1\\tables\\panel_tight.csv",
+    "sha256": "f76644013ba5ce221d9f5cb474e4bbbedd5d19a016f1cc4eba37191b1b15002f"
+  },
+  {
+    "file": "finance.csv",
+    "source": "C:\\Users\\jangs\\Documents\\Codex\\2026-10-31\\new-chat-2\\outputs\\mechanism_v1\\tables\\analysis_panel.csv",
+    "sha256": "c9ba9006a483c6b9908d5774eba9ad3b77d2d73286d624470fa79af05a3dd65b"
+  },
+  {
+    "file": "indices.csv",
+    "source": "C:\\Users\\jangs\\Documents\\Codex\\2026-10-31\\new-chat-2\\outputs\\cycle_input_audit\\tables\\growth_series.csv",
+    "sha256": "97e96b5c8e152da305eb76d5031c7afe5923a2879f3a37fc64c3dfb6bdab2a28"
+  },
+  {
+    "file": "prior_decomposition.csv",
+    "source": "C:\\Users\\jangs\\Documents\\Codex\\2026-10-31\\new-chat-2\\outputs\\mechanism_v1\\tables\\accounting_decomposition.csv",
+    "sha256": "addacc11f922077f61bacce1fb3df029bac1d9954bd642cfcec486c2ae50ea47"
+  },
+  {
+    "file": "prior_loo.csv",
+    "source": "C:\\Users\\jangs\\Documents\\Codex\\2026-10-31\\new-chat-2\\outputs\\analysis_v1\\tables\\leave_one_industry_out.csv",
+    "sha256": "c1378b8da0d50dd1813349d610b54d7d7ee7aee28402b4082985a1d0e9f5013f"
+  }
+]
