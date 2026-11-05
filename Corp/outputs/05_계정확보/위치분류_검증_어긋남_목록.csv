@@ -1,0 +1,36 @@
+﻿corp_code,year,report,fs,계정명,account_id,위치,비교,비교신호
+00120571,2023,FY,CFS,비유동차입금의비유동성부분,-표준계정코드 미사용-,N,이름,C
+00120571,2024,H1,CFS,비유동차입금의비유동성부분,-표준계정코드 미사용-,N,이름,C
+00120571,2024,Q1,CFS,비유동차입금의비유동성부분,-표준계정코드 미사용-,N,이름,C
+00120571,2024,Q3,CFS,비유동차입금(사채포함)의비유동성부분,ifrs-full_LongtermBorrowings,N,이름,C
+00121941,2023,FY,CFS,비유동차입금의비유동성부분,ifrs-full_LongtermBorrowings,N,이름,C
+00137234,2023,FY,CFS,장기차입금,-표준계정코드 미사용-,C,이름,N
+00137234,2024,Q1,CFS,장기차입금,-표준계정코드 미사용-,C,이름,N
+00145880,2023,FY,CFS,비유동사채의비유동성부분,-표준계정코드 미사용-,N,이름,C
+00145880,2023,Q3,CFS,비유동사채의비유동성부분,-표준계정코드 미사용-,N,이름,C
+00145880,2024,H1,CFS,비유동사채의비유동성부분,-표준계정코드 미사용-,N,이름,C
+00145880,2024,Q1,CFS,비유동사채의비유동성부분,-표준계정코드 미사용-,N,이름,C
+00145880,2024,Q3,CFS,비유동사채의비유동성부분,-표준계정코드 미사용-,N,이름,C
+00161125,2023,FY,CFS,비유동사채의비유동성부분,ifrs-full_NoncurrentPortionOfNoncurrentBondsIssued,N,이름,C
+00161125,2023,Q3,CFS,비유동사채의비유동성부분,-표준계정코드 미사용-,N,이름,C
+00161125,2024,H1,CFS,비유동사채의비유동성부분,ifrs-full_NoncurrentPortionOfNoncurrentBondsIssued,N,이름,C
+00161125,2024,Q1,CFS,비유동사채의비유동성부분,ifrs-full_NoncurrentPortionOfNoncurrentBondsIssued,N,이름,C
+00161125,2024,Q3,CFS,비유동사채의비유동성부분,ifrs-full_NoncurrentPortionOfNoncurrentBondsIssued,N,이름,C
+00199076,2020,H1,CFS,유동성장기차입금,-표준계정코드 미사용-,N,이름,C
+00199076,2020,Q3,CFS,유동성장기차입금,-표준계정코드 미사용-,N,이름,C
+00225706,2020,H1,CFS,유동화사채,-표준계정코드 미사용-,N,이름,C
+00400857,2024,Q3,CFS,유동성장기차입금,ifrs-full_LongtermBorrowings,C,표준코드,N
+00442455,2021,Q3,CFS,유동성사채,dart_BondsIssued,N,이름,C
+00481454,2023,FY,CFS,비유동차입금의비유동성부분,-표준계정코드 미사용-,N,이름,C
+00638539,2024,H1,CFS,비유동차입금의비유동성부분,ifrs-full_LongtermBorrowings,C,표준코드,N
+00638539,2024,Q1,CFS,비유동차입금의비유동성부분,ifrs-full_LongtermBorrowings,C,표준코드,N
+00638539,2024,Q3,CFS,비유동차입금(사채포함)의비유동성부분,ifrs-full_LongtermBorrowings,C,표준코드,N
+00870481,2023,FY,CFS,유동성장기차입금,dart_LongTermBorrowingsGross,N,이름,C
+00870481,2024,H1,CFS,유동성장기차입금,dart_LongTermBorrowingsGross,N,이름,C
+00870481,2024,Q1,CFS,유동성장기차입금,dart_LongTermBorrowingsGross,N,이름,C
+00870481,2024,Q3,CFS,유동성장기차입금,-표준계정코드 미사용-,N,이름,C
+01267170,2024,Q3,CFS,비유동사채의비유동성부분,ifrs-full_NoncurrentPortionOfNoncurrentBondsIssued,N,이름,C
+01267170,2024,Q3,CFS,비유동금융기관차입금(사채제외)의비유동성대체부분,ifrs-full_NoncurrentPortionOfNoncurrentLoansReceived,N,이름,C
+01316245,2023,FY,CFS,장기차입금,ifrs-full_CurrentBorrowingsAndCurrentPortionOfNoncurrentBorrowings,C,이름,N
+01325429,2024,H1,CFS,장기차입금,-표준계정코드 미사용-,C,이름,N
+01325429,2024,Q3,CFS,장기차입금,-표준계정코드 미사용-,C,이름,N

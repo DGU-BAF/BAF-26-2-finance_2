@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A 트랙 한 장 요약</title>
+<style>
+:root{--ink:#1d2a33;--muted:#5d6b75;--line:#dde4e8;--bg:#f4f6f7;--paper:#fff;--blue:#165a70;--red:#b3392f;--amber:#8a5a00;--green:#2d6b3f;--redbg:#fbeceb;--ambbg:#fff4dc;--blubg:#e7f1f5;--grnbg:#e8f4ec;--code:#eef2f4}
+:root[data-theme="dark"]{--ink:#e6edf1;--muted:#a3b1ba;--line:#33424c;--bg:#12191e;--paper:#1a242b;--blue:#7cc4dc;--red:#ff9a90;--amber:#f0c36a;--green:#8fd6a4;--redbg:#3a2220;--ambbg:#3a3220;--blubg:#1f323b;--grnbg:#1e3326;--code:#243139}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#e6edf1;--muted:#a3b1ba;--line:#33424c;--bg:#12191e;--paper:#1a242b;--blue:#7cc4dc;--red:#ff9a90;--amber:#f0c36a;--green:#8fd6a4;--redbg:#3a2220;--ambbg:#3a3220;--blubg:#1f323b;--grnbg:#1e3326;--code:#243139}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 'Malgun Gothic','Apple SD Gothic Neo',sans-serif}
+.page{max-width:900px;margin:0 auto;padding:18px 16px 40px}
+.sheet{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 24px}
+.eyebrow{font-size:11px;letter-spacing:.1em;font-weight:700;color:var(--blue)}
+h1{font-size:21px;line-height:1.4;margin:4px 0 8px}
+h2{font-size:14.5px;margin:0 0 4px;color:var(--blue)}
+.lead{border-radius:8px;padding:10px 14px;margin:8px 0 12px;background:var(--ambbg);border-left:4px solid var(--amber);font-size:14.5px}
+.lead p{margin:3px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px}
+.box{border:1px solid var(--line);border-radius:8px;padding:9px 12px}
+.box.full{grid-column:1/-1}
+ul,ol{margin:3px 0 3px;padding-left:18px}li{margin:2px 0}
+.flow{display:flex;flex-wrap:wrap;gap:5px;align-items:stretch;margin:4px 0}
+.flow div{background:var(--blubg);border:1px solid var(--line);border-radius:6px;padding:3px 8px;font-size:12.5px;flex:1 1 90px;text-align:center}
+.flow span{align-self:center;color:var(--muted);font-size:12px}
+table{border-collapse:collapse;width:100%;font-size:12.5px;line-height:1.5}
+th,td{border-bottom:1px solid var(--line);padding:3px 6px;text-align:left;vertical-align:top}
+th{background:var(--code)}
+.num{text-align:right;white-space:nowrap}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:0 7px;border-radius:9px;background:var(--grnbg);color:var(--green)}
+.tag.r{background:var(--redbg);color:var(--red)}
+.small{font-size:11.5px;color:var(--muted)}
+code{background:var(--code);padding:0 5px;border-radius:3px;font:11.5px Consolas,monospace}
+@media screen and (max-width:720px){.grid{grid-template-columns:1fr}}
+@page{size:A4;margin:10mm}
+@media print{
+ body{background:#fff;color:#000;font-size:8.8pt;line-height:1.45}
+ .page{max-width:none;padding:0}
+ .sheet{border:0;padding:0;border-radius:0}
+ h1{font-size:14pt}
+ .lead{font-size:9pt;padding:6px 10px;margin:5px 0 7px}
+ .grid{gap:6px 12px}
+ .box{padding:5px 8px}
+ .flow div{font-size:7.8pt;padding:2px 5px}
+ table{font-size:8pt}
+ h2{font-size:9.5pt}
+ .small{font-size:7.5pt}
+}
+</style>
+</head>
+<body>
+<div class="page"><div class="sheet">
+
+<div class="eyebrow">A 트랙(기업 단위) · 한 장 요약 · 2026-11-05</div>
+<h1>금리 인상 전 단기차입 의존도와 이자 감당 능력<br>— 상장 제조기업 789곳, 2019Q1~2024Q3</h1>
+
+<div class="lead">
+<p><b>결론:</b> 가설("긴축 전 단기차입이 많던 기업은 긴축 후 이자 감당 능력이 더 나빠졌다")을 <b>지지하는 증거는 찾지 못했다.</b> 효과가 없다는 뜻이 아니라 <b>이 자료와 측정으로는 구분되지 않는다</b>는 뜻이다.</p>
+<p><b>주의:</b> 변수 정의와 표본 규칙 상당수는 <b>AI 어시스턴트가 제안하고 한 팀원이 승인한 것이며 팀 합의 전</b>이다. 결과는 확정이 아니라 팀 확인이 필요한 잠정 결과다.</p>
+</div>
+
+<div class="grid">
+
+<div class="box full">
+<h2>1. 무엇을 했나</h2>
+<div class="flow">
+<div>상장사 4,009곳<br>→ 제조업 2,250곳</div><span>→</span>
+<div>2019 사업 + 2021 반기<br>보고서 있는 1,321곳</div><span>→</span>
+<div>DART에서 보고서 27개씩 수집<br>(응답 42,938개)</div><span>→</span>
+<div>E·ICR 만들기, 규칙 고정 후 분석</div><span>→</span>
+<div><b>분석 표본 789곳</b><br>(기업-분기 18,147개)</div>
+</div>
+<p class="small">E = 긴축 전(2019Q1~2021Q2) 1년 내 갚을 이자부 차입 ÷ 자산 · ICR = 영업이익 ÷ <b>금융비용</b>(4분기 합) · Tight = 2021Q2 이후 기준금리 상승폭(0.50% 기준). 기업·업종×분기 고정효과 회귀에서 E×Tight 계수(마이너스 = 가설대로 악화)를 본다.</p>
+</div>
+
+<div class="box">
+<h2>2. 무엇을 알았나</h2>
+<ul>
+<li><b>사전 고정 사양:</b> 극단값(ICR 최대 31만) 때문에 무정보. 가설 지지 증거 없음.</li>
+<li><b>통제 없이:</b> E가 높은 기업의 ICR이 오히려 <b>개선</b>되는 연관이 매우 안정적(업종 23번 제외·분할·bootstrap 모두).</li>
+<li><b>사전 ICR 수준·레버리지를 통제하면 0.</b> 레버리지만 유의, 단기 비중은 비유의, 장기 차입도 같은 방향.</li>
+<li>E 하위 1/3의 ICR 중앙값 6.09→3.22(하락), 상위 1/3 0.81→1.07(상승): <b>평균 회귀형</b> 패턴.</li>
+</ul>
+</div>
+
+<div class="box">
+<h2>3. 말할 수 없는 것</h2>
+<ul>
+<li>"단기차입 노출이 높으면 이자 감당이 개선된다"</li>
+<li>"가설이 기각됐다"</li>
+<li>"금리 인상이 원인이다" (기준금리는 경기에 반응한 변수)</li>
+<li>"평균 회귀가 원인이다" (통제하면 사라진다는 것만 확인)</li>
+</ul>
+<p class="small">분석은 첫 회귀 1회 + 사후 탐색 3라운드(200개 이상 사양, 결과를 본 뒤 설계)이므로 <b>어느 결과도 확인 증거가 아니다.</b> 목록을 실행 전에 고정하고 전부 보고했다.</p>
+</div>
+
+<div class="box">
+<h2>4. 믿기 어려운 이유 (한계)</h2>
+<ol>
+<li><b>ICR이 이자비용이 아니라 금융비용 기반</b> (이자비용 계정은 66곳뿐, 금융비용에는 이자 외 항목이 섞임).</li>
+<li><b>E는 변동금리·만기를 못 담은 대리변수</b>이고 레버리지와 상관 0.90이라 분리가 어렵다.</li>
+<li>사전기간에 <b>코로나19</b>가 포함되어 위약 검정이 통제 방식에 따라 부호가 바뀐다.</li>
+<li>연결·별도 혼재 243곳 제외, 이탈 후보 14곳(사전 E가 평균 2배)은 영향 확인 불가.</li>
+</ol>
+</div>
+
+<div class="box">
+<h2>5. 과정에서 바로잡은 것</h2>
+<ul>
+<li>규칙 오류 <b>3건</b>을 검산에서 발견해 회귀 <b>전에</b> 수정: E의 "유동성장기부채" 누락, 합계·세부 행 이중 계산, 긴축 변수 수식.</li>
+<li>본 수집 중 와이파이 끊김 1회(재시도 기능 추가, 데이터 손실 없음), 요청 수 과소 추정 정정.</li>
+<li>인증키가 대화창에 노출되어 재발급 권고(<span class="tag r">재발급 여부 미확인</span>).</li>
+</ul>
+</div>
+
+<div class="box full">
+<h2>6. 팀에 부탁하는 결정 (우선순위 순)</h2>
+<table>
+<thead><tr><th style="width:4%">#</th><th style="width:34%">결정</th><th>왜 필요한가</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><b>ICR 분모와 v1 정의 확인</b></td><td>v1이 ICR을 어떻게 정의했는지 모름. 우리는 "영업이익 ÷ 금융비용"(이름 변경)으로 감. 합의가 없으면 결과가 "한 사람의 제안"에 머묾</td></tr>
+<tr><td>2</td><td>E 정의·표본 규칙 확정</td><td>단기 이자부 차입 ÷ 자산, 혼재 제외, 최소 분기 8(임의 값), 지주회사 21곳 포함 여부</td></tr>
+<tr><td>3</td><td><b>논문 방향</b></td><td>"식별되지 않음 + 한계" 중심(제안) vs 새 탐색(이탈 기업, 코로나 구간 분리, 주석 기반 차입 구조). 이번 탐색 라운드는 "마지막 사양 탐색"으로 닫음</td></tr>
+<tr><td>4</td><td>11/12 발표에서 A 결과를 쓸지</td><td>안전망은 팀원 v1. 일정(사용자 문서 기준): 발표 11/12 · 팀 제출 목표 11/20 · 논문 11/22</td></tr>
+<tr><td>5</td><td>인증키 재발급 확인</td><td>공식 FAQ: 마이페이지에서 탈퇴 후 재가입</td></tr>
+</tbody></table>
+</div>
+
+<div class="box full">
+<h2>7. 더 읽을 곳 (<code>Corp/docs/</code>)</h2>
+<p class="small" style="margin:2px 0"><b>전체 보고서</b> <code>A_팀전달_전체보고서_11-05.html</code> (단계별 상세·오류 일지 14건·결정 일지·용어·재현 순서) · <b>한계 정리</b> <code>A_한계_중심_정리_11-05.html</code> · <b>결과</b> <code>A_분석_통합결과_11-05.html</code>, <code>A_추가탐색결과_11-05.html</code> · <b>모든 결정의 날짜별 원본</b> <code>A_사전고정_문서_초안.md</code> 11절</p>
+</div>
+
+</div>
+</div></div>
+</body>
+</html>
