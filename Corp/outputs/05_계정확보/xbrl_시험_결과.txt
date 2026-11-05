@@ -1,0 +1,86 @@
+fnlttXbrl 시험 결과 (주석에서 이자비용이 나오는지)
+
+[A] 케이아이이(00102140) 2020 11011 rcept_no=20210318000118
+  압축파일 구성: 00102140_2011-04-26.xbrl(433,826B); 00102140_entry_point_2011-04-26.xsd(9,576B); ifrs_for_00102140/dimensions_ifrs_for_00102140/dim_ifrs_for_00102140_2011-04-26.xml(1,352,305B); ifrs_for_00102140/dimensions_ifrs_for_00102140/cal_ifrs_for_00102140_2011-04-26.xml(1,251,254B); ifrs_for_00102140/dimensions_ifrs_for_00102140/pre_ifrs_for_00102140_2011-04-26.xml(1,379,301B); ifrs_for_00102140/dimensions_ifrs_for_00102140/role_ifrs_for_00102140-dim_2011-04-26.xsd(649B); labels/lab_00102140-ko_2011-04-26.xml(27,664B); labels/lab_00102140-en_2011-04-26.xml(27,829B)
+  요소 2,331개 / 서로 다른 요소 이름 308개 / 'DisclosureOf…'(주석 설명 블록) 0개
+  Interest/FinanceCost 계열 요소: AdjustmentsForInterestIncome×6, FinanceCosts×6, InterestExpenseFinanceExpense×6, InterestIncomeFinanceIncome×6, InterestReceivedClassifiedAsOperatingActivities×6, NoncontrollingInterests×3
+    값 예) AdjustmentsForInterestIncome [BPFY2018dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = 550084949
+    값 예) AdjustmentsForInterestIncome [BPFY2018dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_SeparateMember] = 428840440
+    값 예) AdjustmentsForInterestIncome [PFY2019dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = 683119240
+    값 예) AdjustmentsForInterestIncome [PFY2019dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_SeparateMember] = 536793279
+    값 예) AdjustmentsForInterestIncome [CFY2020dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = 274746120
+    값 예) AdjustmentsForInterestIncome [CFY2020dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_SeparateMember] = 274746120
+    값 예) InterestExpenseFinanceExpense [BPFY2018dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = 0
+    값 예) InterestExpenseFinanceExpense [BPFY2018dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_SeparateMember] = 0
+    값 예) InterestExpenseFinanceExpense [PFY2019dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = 0
+    값 예) InterestExpenseFinanceExpense [PFY2019dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_SeparateMember] = 0
+    값 예) InterestExpenseFinanceExpense [CFY2020dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = 0
+    값 예) InterestExpenseFinanceExpense [CFY2020dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_SeparateMember] = 0
+
+[B] 강원에너지(00100601) 2018 11011 rcept_no=20190401004229
+  압축파일 구성: 00100601_2016-05-16.xbrl(258,449B); 00100601_entry_point_2016-05-16.xsd(18,914B); ifrs_for_00100601/dimensions_ifrs_for_00100601/dim_ifrs_for_00100601_2016-05-16.xml(1,424,592B); ifrs_for_00100601/dimensions_ifrs_for_00100601/cal_ifrs_for_00100601_2016-05-16.xml(1,360,618B); ifrs_for_00100601/dimensions_ifrs_for_00100601/pre_ifrs_for_00100601_2016-05-16.xml(1,453,401B); ifrs_for_00100601/dimensions_ifrs_for_00100601/role_ifrs_for_00100601-dim_2016-05-16.xsd(649B); labels/lab_00100601-ko_2016-05-16.xml(90,611B); labels/lab_00100601-en_2016-05-16.xml(58,656B)
+  요소 1,643개 / 서로 다른 요소 이름 207개 / 'DisclosureOf…'(주석 설명 블록) 0개
+  Interest/FinanceCost 계열 요소: AdjustmentsForFinanceCosts×6, AdjustmentsForInterestIncome×6, ComprehensiveIncomeAttributableToNoncontrollingInterests×3, FinanceCosts×6, InterestPaidClassifiedAsFinancingActivities×6, InterestReceivedClassifiedAsInvestingActivities×6, NoncontrollingInterests×3, ProfitLossAttributableToNoncontrollingInterests×3
+    값 예) AdjustmentsForInterestIncome [BPFY2016dFY_ifrs_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs_ConsolidatedMember] = 2223014026
+    값 예) AdjustmentsForInterestIncome [BPFY2016dFY_ifrs_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs_SeparateMember] = 2178954214
+    값 예) AdjustmentsForInterestIncome [PFY2017dFY_ifrs_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs_ConsolidatedMember] = 1791618581
+    값 예) AdjustmentsForInterestIncome [PFY2017dFY_ifrs_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs_SeparateMember] = 1758338479
+    값 예) AdjustmentsForInterestIncome [CFY2018dFY_ifrs_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs_ConsolidatedMember] = 3995846214
+    값 예) AdjustmentsForInterestIncome [CFY2018dFY_ifrs_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs_SeparateMember] = 3973770813
+    값 예) AdjustmentsForFinanceCosts [BPFY2016dFY_ifrs_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs_ConsolidatedMember] = 957724403
+    값 예) AdjustmentsForFinanceCosts [BPFY2016dFY_ifrs_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs_SeparateMember] = 957724403
+    값 예) AdjustmentsForFinanceCosts [PFY2017dFY_ifrs_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs_ConsolidatedMember] = 1108694412
+    값 예) AdjustmentsForFinanceCosts [PFY2017dFY_ifrs_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs_SeparateMember] = 949415443
+    값 예) AdjustmentsForFinanceCosts [CFY2018dFY_ifrs_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs_ConsolidatedMember] = 2475219617
+    값 예) AdjustmentsForFinanceCosts [CFY2018dFY_ifrs_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs_SeparateMember] = 2302045102
+
+[B] 강원에너지(00100601) 2019 11011 rcept_no=20200406002635
+  압축파일 구성: 00100601_2016-05-16.xbrl(295,441B); 00100601_entry_point_2016-05-16.xsd(22,931B); ifrs_for_00100601/dimensions_ifrs_for_00100601/dim_ifrs_for_00100601_2016-05-16.xml(1,456,946B); ifrs_for_00100601/dimensions_ifrs_for_00100601/cal_ifrs_for_00100601_2016-05-16.xml(1,391,301B); ifrs_for_00100601/dimensions_ifrs_for_00100601/pre_ifrs_for_00100601_2016-05-16.xml(1,485,237B); ifrs_for_00100601/dimensions_ifrs_for_00100601/role_ifrs_for_00100601-dim_2016-05-16.xsd(649B); labels/lab_00100601-ko_2016-05-16.xml(122,291B); labels/lab_00100601-en_2016-05-16.xml(93,067B)
+  요소 1,701개 / 서로 다른 요소 이름 235개 / 'DisclosureOf…'(주석 설명 블록) 0개
+  Interest/FinanceCost 계열 요소: AdjustmentsForFinanceCosts×6, AdjustmentsForInterestIncome×6, ComprehensiveIncomeAttributableToNoncontrollingInterests×3, FinanceCosts×6, InterestPaidClassifiedAsFinancingActivities×6, InterestReceivedClassifiedAsInvestingActivities×6, NoncontrollingInterests×2, ProfitLossAttributableToNoncontrollingInterests×3
+    값 예) AdjustmentsForInterestIncome [BPFY2017dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = 1791618581
+    값 예) AdjustmentsForInterestIncome [BPFY2017dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_SeparateMember] = 1758338479
+    값 예) AdjustmentsForInterestIncome [PFY2018dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = 3995846214
+    값 예) AdjustmentsForInterestIncome [PFY2018dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_SeparateMember] = 3973770813
+    값 예) AdjustmentsForInterestIncome [CFY2019dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = 1655691512
+    값 예) AdjustmentsForInterestIncome [CFY2019dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_SeparateMember] = 1651597375
+    값 예) AdjustmentsForFinanceCosts [BPFY2017dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = 1108694412
+    값 예) AdjustmentsForFinanceCosts [BPFY2017dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_SeparateMember] = 949415443
+    값 예) AdjustmentsForFinanceCosts [PFY2018dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = 2475219617
+    값 예) AdjustmentsForFinanceCosts [PFY2018dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_SeparateMember] = 2302045102
+    값 예) AdjustmentsForFinanceCosts [CFY2019dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = 7834726712
+    값 예) AdjustmentsForFinanceCosts [CFY2019dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_SeparateMember] = 7625303376
+
+[B] 강원에너지(00100601) 2020 11011 rcept_no=20210402002033
+  압축파일 구성: 00100601_2016-05-16.xbrl(309,860B); 00100601_entry_point_2016-05-16.xsd(26,540B); ifrs_for_00100601/dimensions_ifrs_for_00100601/dim_ifrs_for_00100601_2016-05-16.xml(1,471,220B); ifrs_for_00100601/dimensions_ifrs_for_00100601/cal_ifrs_for_00100601_2016-05-16.xml(1,399,387B); ifrs_for_00100601/dimensions_ifrs_for_00100601/pre_ifrs_for_00100601_2016-05-16.xml(1,499,479B); ifrs_for_00100601/dimensions_ifrs_for_00100601/role_ifrs_for_00100601-dim_2016-05-16.xsd(649B); labels/lab_00100601-ko_2016-05-16.xml(141,863B); labels/lab_00100601-en_2016-05-16.xml(110,793B)
+  요소 1,738개 / 서로 다른 요소 이름 239개 / 'DisclosureOf…'(주석 설명 블록) 0개
+  Interest/FinanceCost 계열 요소: AdjustmentsForFinanceCosts×6, AdjustmentsForInterestIncome×6, ComprehensiveIncomeAttributableToNoncontrollingInterests×3, FinanceCosts×6, InterestPaidClassifiedAsFinancingActivities×6, InterestReceivedClassifiedAsInvestingActivities×6, NoncontrollingInterests×2, ProfitLossAttributableToNoncontrollingInterests×3
+    값 예) AdjustmentsForInterestIncome [BPFY2018dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = 3995846214
+    값 예) AdjustmentsForInterestIncome [BPFY2018dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_SeparateMember] = 3973770813
+    값 예) AdjustmentsForInterestIncome [PFY2019dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = 1655691512
+    값 예) AdjustmentsForInterestIncome [PFY2019dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_SeparateMember] = 1651597375
+    값 예) AdjustmentsForInterestIncome [CFY2020dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = 4234020984
+    값 예) AdjustmentsForInterestIncome [CFY2020dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_SeparateMember] = 4197502663
+    값 예) AdjustmentsForFinanceCosts [BPFY2018dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = 2475219617
+    값 예) AdjustmentsForFinanceCosts [BPFY2018dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_SeparateMember] = 2302045102
+    값 예) AdjustmentsForFinanceCosts [PFY2019dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = 7834726712
+    값 예) AdjustmentsForFinanceCosts [PFY2019dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_SeparateMember] = 7625303376
+    값 예) AdjustmentsForFinanceCosts [CFY2020dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = 7028652433
+    값 예) AdjustmentsForFinanceCosts [CFY2020dFY_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_SeparateMember] = 3101696631
+
+[B] 강원에너지(00100601) 2020 11012 rcept_no=20200814002589
+  압축파일 구성: 00100601_2020-07-27.xbrl(241,779B); 00100601_entry_point_2020-07-27.xsd(28,682B); ifrs_for_00100601/dimensions_ifrs_for_00100601/dim_ifrs_for_00100601_2020-07-27.xml(1,452,450B); ifrs_for_00100601/dimensions_ifrs_for_00100601/cal_ifrs_for_00100601_2020-07-27.xml(1,454,820B); ifrs_for_00100601/dimensions_ifrs_for_00100601/pre_ifrs_for_00100601_2020-07-27.xml(1,480,566B); ifrs_for_00100601/dimensions_ifrs_for_00100601/role_ifrs_for_00100601-dim_2020-07-27.xsd(649B); labels/lab_00100601-ko_2020-07-27.xml(143,592B); labels/lab_00100601-en_2020-07-27.xml(120,814B)
+  요소 1,372개 / 서로 다른 요소 이름 229개 / 'DisclosureOf…'(주석 설명 블록) 0개
+  Interest/FinanceCost 계열 요소: AdjustmentsForFinanceCosts×4, ComprehensiveIncomeAttributableToNoncontrollingInterests×4, FinanceCosts×8, InterestPaidClassifiedAsFinancingActivities×4, InterestReceivedClassifiedAsInvestingActivities×4, NoncontrollingInterests×1, ProfitLossAttributableToNoncontrollingInterests×4
+    값 예) AdjustmentsForFinanceCosts [PFY2019dHYA_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = 2240902271
+    값 예) AdjustmentsForFinanceCosts [PFY2019dHYA_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_SeparateMember] = 2131177782
+    값 예) AdjustmentsForFinanceCosts [CFY2020dHYA_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = 2187544342
+    값 예) AdjustmentsForFinanceCosts [CFY2020dHYA_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_SeparateMember] = 1448010704
+    값 예) ComprehensiveIncomeAttributableToNoncontrollingInterests [PFY2019dHYA_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = -492936484
+    값 예) ComprehensiveIncomeAttributableToNoncontrollingInterests [PFY2019dHYQ_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = -462064309
+    값 예) ComprehensiveIncomeAttributableToNoncontrollingInterests [CFY2020dHYA_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = -91575405
+    값 예) ComprehensiveIncomeAttributableToNoncontrollingInterests [CFY2020dHYQ_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = -66575405
+    값 예) FinanceCosts [PFY2019dHYA_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = 2240902271
+    값 예) FinanceCosts [PFY2019dHYA_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_SeparateMember] = 2131177782
+    값 예) FinanceCosts [PFY2019dHYQ_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_ConsolidatedMember] = 1508131433
+    값 예) FinanceCosts [PFY2019dHYQ_ifrs-full_ConsolidatedAndSeparateFinancialStatementsAxis_ifrs-full_SeparateMember] = 1456780202

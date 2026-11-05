@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>연구 설계 상세 정리 · 업종 단위(v1) vs 기업 단위(A)</title>
+<style>
+:root{--ink:#1d2a33;--muted:#5d6b75;--line:#dde4e8;--bg:#f4f6f7;--paper:#fff;--blue:#165a70;--red:#b3392f;--amber:#8a5a00;--green:#2d6b3f;--redbg:#fbeceb;--ambbg:#fff4dc;--blubg:#e7f1f5;--grnbg:#e8f4ec;--code:#eef2f4;--s1:#165a70;--s2:#b3392f;--s3:#8a5a00;--s4:#2d6b3f;--s5:#7a8a95}
+:root[data-theme="dark"]{--ink:#e6edf1;--muted:#a3b1ba;--line:#33424c;--bg:#12191e;--paper:#1a242b;--blue:#7cc4dc;--red:#ff9a90;--amber:#f0c36a;--green:#8fd6a4;--redbg:#3a2220;--ambbg:#3a3220;--blubg:#1f323b;--grnbg:#1e3326;--code:#243139;--s1:#7cc4dc;--s2:#ff9a90;--s3:#f0c36a;--s4:#8fd6a4;--s5:#8a99a3}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#e6edf1;--muted:#a3b1ba;--line:#33424c;--bg:#12191e;--paper:#1a242b;--blue:#7cc4dc;--red:#ff9a90;--amber:#f0c36a;--green:#8fd6a4;--redbg:#3a2220;--ambbg:#3a3220;--blubg:#1f323b;--grnbg:#1e3326;--code:#243139;--s1:#7cc4dc;--s2:#ff9a90;--s3:#f0c36a;--s4:#8fd6a4;--s5:#8a99a3}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.85 'Malgun Gothic','Apple SD Gothic Neo',sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:20px 16px 80px}
+header.hero{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:28px 26px}
+header.hero h1{font-size:26px;line-height:1.4;margin:6px 0 10px}
+.eyebrow{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--blue)}
+.meta{font-size:13px;color:var(--muted)}
+nav.toc{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 20px;margin-top:16px;font-size:14px;position:sticky;top:8px;z-index:5}
+nav.toc a{color:var(--blue);text-decoration:none;display:inline-block;margin:3px 14px 3px 0}
+section{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:24px 26px;margin-top:18px}
+h2{font-size:22px;margin:0 0 6px;line-height:1.5}
+h2 small{display:block;font-size:12px;letter-spacing:.08em;color:var(--blue);margin-bottom:4px}
+h3{font-size:18px;margin:30px 0 8px;padding-top:6px;border-top:1px dashed var(--line)}
+h3:first-of-type{border-top:0}
+h4{font-size:16px;margin:20px 0 6px}
+p{margin:8px 0 12px}
+.badge{display:inline-block;font-size:12px;font-weight:700;padding:2px 9px;border-radius:12px;margin-right:6px;vertical-align:1px;white-space:nowrap}
+.b-red{background:var(--redbg);color:var(--red)}.b-amb{background:var(--ambbg);color:var(--amber)}.b-blu{background:var(--blubg);color:var(--blue)}.b-grn{background:var(--grnbg);color:var(--green)}.b-gry{background:var(--code);color:var(--muted)}
+.box{border-radius:8px;padding:14px 18px;margin:14px 0;font-size:15px}
+.box.red{background:var(--redbg);border-left:4px solid var(--red)}
+.box.amb{background:var(--ambbg);border-left:4px solid var(--amber)}
+.box.blu{background:var(--blubg);border-left:4px solid var(--blue)}
+.box.grn{background:var(--grnbg);border-left:4px solid var(--green)}
+.box p:first-child{margin-top:0}.box p:last-child{margin-bottom:0}
+.tw{overflow-x:auto;margin:12px 0 18px}
+table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.7;min-width:560px}
+th{background:var(--code);text-align:left;font-weight:700}
+th,td{border-bottom:1px solid var(--line);padding:9px 12px;vertical-align:top}
+td:first-child{font-weight:700}
+.nw td:first-child{white-space:nowrap}
+.num{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+code{background:var(--code);padding:1px 6px;border-radius:4px;font:13px Consolas,monospace}
+.eq{background:var(--code);border-radius:8px;padding:12px 16px;margin:12px 0;font:14px/1.9 Consolas,'Malgun Gothic',monospace;overflow-x:auto}
+details{border:1px solid var(--line);border-radius:8px;padding:10px 16px;margin:10px 0}
+summary{cursor:pointer;font-weight:700;color:var(--blue)}
+ol,ul{padding-left:22px}li{margin:5px 0}
+.small{font-size:13px;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+.card{border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:0}
+.card h4{margin:0 0 8px}
+.tag{font-size:11px;font-weight:700;padding:1px 7px;border-radius:10px;margin-right:4px;white-space:nowrap}
+.t-f{background:var(--grnbg);color:var(--green)}.t-p{background:var(--ambbg);color:var(--amber)}.t-u{background:var(--redbg);color:var(--red)}.t-o{background:var(--blubg);color:var(--blue)}
+svg{max-width:100%;height:auto;display:block}
+svg text{fill:var(--ink);font-family:'Malgun Gothic',sans-serif}
+.legend span{display:inline-block;margin-right:14px;font-size:13px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.fill td{height:40px}
+a{color:var(--blue)}
+@media print{body{background:#fff;color:#000;font-size:10pt}.wrap{max-width:none;padding:0}section,header.hero{border:0;padding:10px 0}nav.toc{display:none}details{display:block}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+<div class="eyebrow">RESEARCH DESIGN · DETAILED NOTE</div>
+<h1>연구 설계 상세 정리<br>업종 단위(v1) 와 기업 단위(A)</h1>
+<p>우리가 지금까지 만들어 온 두 설계를, 앞에서 이야기한 <strong>교수 관점 가이드의 1~4번 구조</strong>(① 연구의 기초 ② 실무·심화 위험 ③ 논문 작성 ④ 분석 역추적·이해 복구)에 맞춰 풀어 쓴 문서입니다. 모르는 용어는 2절에서 먼저 풀고, 숫자 예시로 모형이 무엇을 하는지 보여 줍니다.</p>
+<p class="meta">작성일 2026-11-03 · 상태: <strong>정리 문서</strong>(새로 돌린 분석 없음). 팀이 확정한 설계서가 아니며, 문서에 적힌 결정과 제안을 구분해 표시했습니다.</p>
+</header>
+
+<nav class="toc" aria-label="목차">
+<a href="#s0">0 읽는 법</a><a href="#s1">1 한눈에 비교</a><a href="#s2">2 용어와 숫자 예시</a><a href="#sa">A 업종 단위(v1)</a><a href="#sb">B 기업 단위(A)</a><a href="#sc">C 두 설계의 관계</a><a href="#sd">D 이해 점검표</a><a href="#se">E 이 문서의 한계</a>
+</nav>
+
+<section id="s0">
+<h2><small>0 / HOW TO READ</small>읽는 법과 표시 규칙</h2>
+<div class="box amb"><p><strong>먼저 밝힐 것.</strong> ① 업종 단위의 5개 모형(M1~M5) 설명은 팀원이 쓴 <code>팀공유_분석계획서.html</code>을 직접 읽고 쓴 것이 아닙니다. 이 파일은 폴더에서 찾지 못했고, 그 계획서를 검토한 <code>분석계획서_검토의견_팀공유.html</code>(11/1)과 결정 로그 <code>남은_EDA_작업.md</code>가 요약한 내용에 기대었습니다. ② 숫자는 파일에 적힌 값을 옮긴 것이며 이번에 노트북을 다시 돌려 확인한 것이 아닙니다. ③ 기업 단위는 아직 회귀를 돌린 적이 없습니다. 결과가 없는 설계입니다.</p></div>
+
+<div class="tw"><table class="nw">
+<thead><tr><th>표시</th><th>뜻</th></tr></thead>
+<tbody>
+<tr><td><span class="tag t-f">파일 확인</span></td><td>파일이나 노트북 출력에 적힌 사실을 옮긴 것(이번에 재계산하지는 않음)</td></tr>
+<tr><td><span class="tag t-p">제안</span></td><td>팀원이나 에이전트가 제안했지만 팀이 확정하지 않은 것. 임계값·숫자는 대부분 임의입니다</td></tr>
+<tr><td><span class="tag t-u">미확인</span></td><td>자료나 원문을 아직 확인하지 못한 것</td></tr>
+<tr><td><span class="tag t-o">결정됨</span></td><td>결정 로그에 "결정"으로 기록된 것(현재는 D1 하나뿐)</td></tr>
+</tbody></table></div>
+
+<p><strong>구조.</strong> A와 B 두 부분은 같은 순서로 씁니다. <em>1 기초</em>(질문·단위·변수·전처리·EDA·모형·결과 해석) → <em>2 심화 위험 점검</em> → <em>3 논문에 쓸 때</em> → <em>4 분석 목록화 표</em>(마지막 열 "이해 상태"는 직접 채우기).</p>
+</section>
+
+<section id="s1">
+<h2><small>1 / SIDE BY SIDE</small>한눈에 비교</h2>
+<p>같은 연구 질문을 <strong>다른 해상도</strong>로 보는 두 설계입니다. 업종 단위(v1)는 40개 업종을 연 단위로, 기업 단위(A)는 개별 상장 제조기업을 분기 단위로 봅니다.</p>
+<div class="tw"><table>
+<thead><tr><th style="width:15%">항목</th><th style="width:42%">업종 단위 (v1)</th><th style="width:43%">기업 단위 (A)</th></tr></thead>
+<tbody>
+<tr><td>핵심 질문</td><td>금리 인상 <em>전</em> 단기차입 비중이 높았던 업종일수록 인상 <em>후</em> 이자보상비율(ICR)이 더 악화됐는가</td><td>같은 질문을 기업 단위로. 같은 업종·같은 분기의 다른 기업보다 더 악화됐는가</td></tr>
+<tr><td>한 행</td><td>업종 × 연도 (연간 자료)</td><td>기업 × 분기</td></tr>
+<tr><td>표본</td><td>ISTANS 제조업 40개 업종, 2018~2023 = 240행 <span class="tag t-f">파일 확인</span></td><td>상장 제조업(KSIC 앞 2자리 10~34). 명단 단계 2,250곳 <span class="tag t-f">파일 확인</span>, 실제 분석 표본은 선별 전이라 <strong>미정</strong></td></tr>
+<tr><td>결과변수</td><td>ICR = 영업이익 ÷ 이자비용 (%, 업종 집계) <span class="tag t-f">파일 확인</span></td><td>TTM ICR = 최근 4분기 영업이익 합 ÷ 최근 4분기 이자 합. 이자는 "금융원가"로 대용 <span class="tag t-p">제안</span></td></tr>
+<tr><td>노출도 E</td><td>(단기차입 + 단기사채) ÷ 자산총계, 2018~2020 평균 <span class="tag t-f">파일 확인</span></td><td>(단기차입금 + 유동성장기차입금 + 유동성사채) ÷ 총자산, 2019Q1~2021Q2 평균 <span class="tag t-p">제안</span></td></tr>
+<tr><td>"인상 후" 정의</td><td>Post: 2022·2023 = 1, 2021은 전환연도(기존 분석은 Post=0으로 둠)</td><td>긴축강도 Tight<sub>q</sub> = 분기 말 기준금리 − 2021Q2 말 기준금리 (연속형)</td></tr>
+<tr><td>고정효과</td><td>업종 FE + 연도 FE</td><td>기업 FE + 업종×분기 FE (기준 사양 M2)</td></tr>
+<tr><td>표준오차</td><td>업종 단위 군집(40개) + wild cluster bootstrap 보조 계획</td><td>기업 단위 군집(기본), 업종 단위는 강건성</td></tr>
+<tr><td>추가 통제</td><td>유동비율, 원자재 가격 충격(레온티에프), 환율 노출, (선택) 반도체 지수</td><td>사전 규모·사전 영업이익률 × 긴축강도 (긴축 이전 값만)</td></tr>
+<tr><td>자료</td><td>ISTANS 안정성·수익성, ECOS, 한국은행, KOSIS 투입산출표 (대부분 확보) <span class="tag t-f">파일 확인</span></td><td>OpenDART API. 파일럿 28곳 수집, 일일 한도 미확인 <span class="tag t-f">파일 확인</span></td></tr>
+<tr><td>현재 단계</td><td>EDA 대부분 끝, 결정 로그 D1만 결정, 본분석 모형 확정 전 <span class="tag t-f">파일 확인</span></td><td>파일럿 끝, 결정 A1~A16 미확정, 선별·수집 스크립트 작성 전 <span class="tag t-f">파일 확인</span></td></tr>
+<tr><td>해석 범위</td><td>업종 단위의 조건부 연관성. 인과효과 아님</td><td>기업 단위 조건부 관계. 순수 인과효과·부도확률 추정 아님</td></tr>
+<tr><td>팀 안의 역할</td><td>다른 팀원이 11/12 제출을 맡는 안전망 <span class="tag t-p">사용자 설명</span></td><td>사용자가 파일럿으로 진행. 11/12 기준선의 일부 아님</td></tr>
+</tbody></table></div>
+
+<h3>시기 구조 한눈에 보기</h3>
+<p class="small">가로축은 연도입니다. 첫 기준금리 인상은 2021-08-26이고, 기준금리는 2021-11에 1.00%, 2022-11에 3.25%, 2023-01에 3.50%였습니다(한국은행 목록과 일치 확인). 막대의 경계는 문서에 적힌 정의를 그린 것입니다.</p>
+<svg viewBox="0 0 860 330" role="img" aria-label="v1과 A의 기간 구조 타임라인">
+<g font-size="12">
+<line x1="40" y1="290" x2="840" y2="290" stroke="var(--muted)"/>
+<g stroke="var(--muted)"><line x1="40" y1="290" x2="40" y2="295"/><line x1="120" y1="290" x2="120" y2="295"/><line x1="200" y1="290" x2="200" y2="295"/><line x1="280" y1="290" x2="280" y2="295"/><line x1="360" y1="290" x2="360" y2="295"/><line x1="440" y1="290" x2="440" y2="295"/><line x1="520" y1="290" x2="520" y2="295"/><line x1="600" y1="290" x2="600" y2="295"/><line x1="680" y1="290" x2="680" y2="295"/><line x1="760" y1="290" x2="760" y2="295"/><line x1="840" y1="290" x2="840" y2="295"/></g>
+<g text-anchor="middle"><text x="40" y="312">2015</text><text x="120" y="312">2016</text><text x="200" y="312">2017</text><text x="280" y="312">2018</text><text x="360" y="312">2019</text><text x="440" y="312">2020</text><text x="520" y="312">2021</text><text x="600" y="312">2022</text><text x="680" y="312">2023</text><text x="760" y="312">2024</text><text x="840" y="312">2025</text></g>
+<line x1="572" y1="30" x2="572" y2="290" stroke="var(--red)" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="578" y="42" fill="var(--red)" style="fill:var(--red)">2021-08-26 첫 인상</text>
+
+<text x="40" y="70" font-weight="700">업종(v1) 긴축기</text>
+<rect x="280" y="78" width="240" height="26" rx="4" fill="var(--s1)" opacity=".85"/><text x="400" y="96" text-anchor="middle" style="fill:#fff">사전 2018~2020</text>
+<rect x="520" y="78" width="80" height="26" rx="4" fill="var(--s5)" opacity=".8"/><text x="560" y="96" text-anchor="middle" style="fill:#fff">2021</text>
+<rect x="600" y="78" width="160" height="26" rx="4" fill="var(--s2)" opacity=".85"/><text x="680" y="96" text-anchor="middle" style="fill:#fff">Post 2022~2023</text>
+
+<text x="40" y="136" font-weight="700">업종(v1) 비교기간(평시)</text>
+<rect x="40" y="144" width="240" height="26" rx="4" fill="var(--s1)" opacity=".55"/><text x="160" y="162" text-anchor="middle" style="fill:var(--ink)">사전 2015~2017</text>
+<rect x="280" y="144" width="160" height="26" rx="4" fill="var(--s3)" opacity=".75"/><text x="360" y="162" text-anchor="middle" style="fill:#fff">가짜 Post 2018~2019</text>
+
+<text x="40" y="202" font-weight="700">기업(A) 수집·분석 창 (분기)</text>
+<rect x="280" y="210" width="80" height="22" rx="4" fill="var(--s5)" opacity=".6"/><text x="320" y="226" text-anchor="middle" style="fill:var(--ink)">수집 시작 2018</text>
+<rect x="360" y="210" width="200" height="22" rx="4" fill="var(--s1)" opacity=".85"/><text x="460" y="226" text-anchor="middle" style="fill:#fff">사전 2019Q1~2021Q2</text>
+<rect x="560" y="210" width="260" height="22" rx="4" fill="var(--s2)" opacity=".85"/><text x="690" y="226" text-anchor="middle" style="fill:#fff">2021Q3 ~ 2024Q3 (분석 창 끝)</text>
+<text x="40" y="258" class="small" style="fill:var(--muted)">A: 분석 창 2019Q1~2024Q3, 이벤트스터디 기준 분기 2021Q2. 2024-10부터 인하기라 2024Q4 이후는 제외(제안).</text>
+</g>
+</svg>
+<div class="box amb"><p><strong>겹침에 주의.</strong> v1 비교기간의 "가짜 Post"(2018~2019)가 긴축기의 사전기간(2018~2020)과 실제 연도가 겹칩니다. 같은 해가 한쪽에서는 "사후", 다른 쪽에서는 "사전"입니다. 서로 다른 질문(2015~17 → 18~19 변화 vs 2018~20 → 22~23 변화)이라 논리적 오류는 아니지만 두 결과를 독립 증거로 취급하면 안 됩니다.</p></div>
+</section>
+
+<section id="s2">
+<h2><small>2 / GLOSSARY + TOY EXAMPLE</small>용어와 숫자 예시</h2>
+<p>두 설계가 쓰는 도구는 같습니다. 아래를 이해하면 A·B 두 부분이 같은 뼈대의 두 버전으로 보입니다.</p>
+
+<details open><summary>ICR(이자보상비율)과 TTM</summary>
+<p>ICR = 영업이익 ÷ 이자비용. 영업이익 500, 이자 100이면 5배(500%). 크면 이자 부담에 여유가 있습니다. <strong>TTM</strong>은 Trailing Twelve Months, 즉 "가장 최근 4개 분기 합"입니다. 분기 영업이익은 계절성·일회성 변동이 크고, 이자가 작은 분기에는 비율이 폭발하므로 4분기 합으로 안정시킵니다. 업종 단위(v1)는 이미 연간 자료라 TTM이 필요 없습니다.</p>
+<p class="small">주의: 영업이익이 적자(음수)이면 이자 부담이 커져도 ICR이 오르는 식으로 해석이 뒤집힙니다. v1 긴축기 240행 중 16행(6.7%)이 음수 ICR입니다 <span class="tag t-f">파일 확인</span>.</p></details>
+
+<details open><summary>노출도 E를 "사전 평균으로 고정"하는 이유</summary>
+<p>E는 <em>인상 이전</em> 기간의 평균으로 한 번만 계산해 각 업종(기업)에 상수로 붙입니다. 인상 이후의 차입 구조를 쓰면 "금리 때문에 ICR이 나빠져서 차입이 늘었다"처럼 원인과 결과가 뒤섞입니다(역인과). 사전 고정은 이를 막는 장치이지만, 사전 기간에도 이미 서로 다른 추세로 움직이고 있었다면 막지 못합니다(평행추세 문제, 아래 참조).</p></details>
+
+<details open><summary>DiD(차이의 차이)와 교차항 — 가상 숫자 예시</summary>
+<p>이 연구의 모형은 사실상 "DiD의 연속형 버전"입니다. 가장 단순한 2×2 형태로 보면 이렇습니다(아래 숫자는 <strong>가상</strong>이며 실제 결과가 아닙니다).</p>
+<div class="tw"><table class="nw" style="min-width:420px">
+<thead><tr><th></th><th class="num">인상 전 ICR</th><th class="num">인상 후 ICR</th><th class="num">변화</th></tr></thead>
+<tbody>
+<tr><td>E 높은 집단</td><td class="num">800%</td><td class="num">500%</td><td class="num">−300</td></tr>
+<tr><td>E 낮은 집단</td><td class="num">900%</td><td class="num">800%</td><td class="num">−100</td></tr>
+<tr><td>차이의 차이</td><td class="num"></td><td class="num"></td><td class="num"><strong>−200</strong></td></tr>
+</tbody></table></div>
+<p>둘 다 하락했지만, 노출도 높은 집단이 <em>추가로</em> 200%p 더 하락했습니다. 이 "추가분"이 교차항(Post × E)의 계수 β가 잡으려는 값입니다. 연속형으로 가면 "E가 1단위 높을 때 추가 하락이 β만큼"이라는 <strong>기울기</strong>가 됩니다.</p>
+<div class="box blu"><p><strong>β 읽는 법.</strong> "금리 인상 이후, 사전 단기차입 비중이 1단위 더 높았던 업종(기업)의 ICR이 다른 조건이 같다면 추가로 β만큼 더 변했다." 가설(노출도가 높을수록 악화)이 맞다면 β는 <strong>음수</strong>여야 합니다. 이 문장을 자기 말로 못 쓰면 모형을 이해한 것이 아닙니다.</p></div></details>
+
+<details open><summary>고정효과(FE)가 하는 일 — 가상 숫자 예시</summary>
+<p>기업 X의 ICR은 늘 1,000% 근처, 기업 Y는 늘 200% 근처라고 합시다(가상). 둘을 그대로 비교하면 "원래 수준 차이"가 섞입니다.</p>
+<ul>
+<li><strong>기업(업종) FE</strong>: 각 기업의 고유 평균 수준을 빼서, "같은 기업이 시간에 따라 얼마나 변했나"만 비교합니다. 대가: 시간이 변하지 않는 특성(설립연도, 업종 코드 자체)의 효과는 추정할 수 없습니다.</li>
+<li><strong>연도(분기) FE</strong>: 그 해에 모든 기업이 공통으로 겪은 충격(금리 수준 자체, 경기)을 뺍니다. 그래서 <em>금리 수준 단독의 효과는 추정되지 않고</em>, 노출도에 따라 <em>다르게</em> 받은 부분(교차항)만 남습니다.</li>
+<li><strong>업종×분기 FE (A에서만)</strong>: "그 업종, 그 분기"에 속한 모든 기업이 공통으로 받은 충격(예: 반도체 업황)을 뺍니다. v1에서 반도체가 결과를 흔들던 문제에 대한 A의 대응입니다. 단, 업종 안에서 E가 충분히 다양해야 효과가 남습니다(A의 진단 1번, 아직 미확인).</li>
+</ul></details>
+
+<details open><summary>군집 표준오차와 "독립 정보의 양"</summary>
+<p>v1은 240행이지만 같은 업종의 6개 연도는 서로 닮았으므로 <strong>독립 정보는 업종 수(40)</strong> 정도입니다. 이를 무시하면 표준오차가 너무 작아 가짜 유의성이 생깁니다. 그래서 업종을 한 덩어리로 묶어 오차를 계산합니다(군집 표준오차). 그런데 군집이 적으면(40개는 "few"에 걸치는 범위) 이 계산도 낙관적일 수 있어 wild cluster bootstrap을 보조로 씁니다 <span class="tag t-f">Cameron &amp; Miller 원문 3·25쪽에서 확인</span>. A는 군집이 기업 수천 곳이라 이 문제가 줄지만, 대신 한 사건(2021~23 금리 인상)이라는 시간 차원의 한계는 그대로입니다.</p></details>
+
+<details open><summary>평행추세와 이벤트스터디</summary>
+<p>평행추세는 "금리가 안 올랐다면 E 높은 집단과 낮은 집단의 ICR이 같은 방향으로 움직였을 것"이라는 가정입니다. 직접 검증할 수는 없고, 인상 <em>이전</em> 연도별 계수가 0 근처인지 보는 이벤트스터디로 간접 점검합니다. 통과가 증명은 아니고, Roth(2022)는 이런 사전검정이 검정력이 낮을 수 있다고 경고합니다 <span class="tag t-f">원문 305쪽 확인</span>.</p></details>
+
+<details><summary>그 외 용어: 유동비율, 레온티에프 충격, winsorize·asinh, MDE</summary>
+<ul>
+<li><strong>유동비율</strong> = 유동자산 ÷ 유동부채. 단기 지급 여력이며 "현금 보유량 자체"가 아닙니다(그래서 예전 이름 "현금여력"을 바꾸자는 제안이 있습니다).</li>
+<li><strong>원자재 가격 충격(레온티에프)</strong>: 원유·철강 등 8개 원자재의 가격 변화가 산업연관표를 따라 각 업종의 비용에 직간접으로 얼마나 전달되는지 계산한 값. 업종 공통의 실물 충격을 통제하려는 변수입니다.</li>
+<li><strong>winsorize 1%/99%</strong>: 양 끝 1%를 경계값으로 대체. <strong>asinh(ICR/100)</strong>: 큰 값은 로그처럼 압축하고 0·음수도 허용하는 변환. 둘 다 극단값 영향을 줄이는 대안 처리이며 어느 쪽도 "정답"이 아닙니다.</li>
+<li><strong>MDE</strong>(최소 검출 효과): 표본이 이 정도 크기의 효과가 있어야 안정적으로 찾아낸다는 값. v1 기본모형은 약 113%p 이상이어야 안정적으로 잡힙니다 <span class="tag t-f">검토 문서 인용</span>. 그보다 작은 효과는 있어도 못 찾습니다.</li>
+</ul></details>
+</section>
+
+<!-- ================= PART A ================= -->
+<section id="sa">
+<h2><small>PART A / INDUSTRY-LEVEL (v1)</small>업종 단위 설계(v1)</h2>
+<p>40개 ISTANS 제조업 업종 × 연도. 지금까지 <strong>EDA를 가장 많이 한 설계</strong>이고, 팀원이 11/12 제출용으로 맡은 안입니다. 본분석(회귀 확정)은 아직 안 한 단계입니다.</p>
+
+<h3 id="a1">A-1. 연구의 기초</h3>
+
+<h4>1-1. 연구 질문과 질문의 종류</h4>
+<ul>
+<li><strong>질문</strong>: 인상 전 단기차입 비중(E)이 높았던 업종일수록 인상 후 ICR이 더 악화되는가? 유동비율(L)이 높은 업종은 덜 악화되는가?</li>
+<li><strong>질문 유형</strong>: 가이드의 분류로 <em>연관(Associational)</em>입니다. 인과 질문처럼 들리지만, 처치(금리 인상)가 모든 업종에 동시에 적용되고 "처치받지 않은 업종"이 없어서 인과 해석에 더 강한 가정이 필요합니다. 연속형 처치 DiD 논문(NBER w32117, Remark 3.1)이 이 한계를 설명하며, 본문 일부만 확인했습니다 <span class="tag t-p">부분 확인</span>.</li>
+<li>"결과가 뻔하지 않은가?" 부호만 보면 뻔하지만, <strong>실제 추정치는 양수(+53.7)로 가설과 반대 방향</strong>이고 비유의입니다(아래 1-7). 값은 "방향이 맞는가"보다 "얼마나 크고 얼마나 확실한가, 반도체 같은 몇 업종이 좌우하는가"에 있습니다.</li>
+</ul>
+
+<h4>1-2. 관측단위와 독립 정보</h4>
+<ul>
+<li>한 행 = 업종 × 연도. 긴축기 패널은 40업종 × 6년(2018~2023) = 240행, 비교기간은 40 × 5년(2015~2019) = 200행 <span class="tag t-f">파일 확인</span>.</li>
+<li>독립 정보는 약 40개(업종). 또한 <strong>업종 집계 자료라서</strong> 업종 안의 기업 이질성이 평균으로 가려집니다. 결론은 "업종 수준의 관계"이며 개별 기업에 적용하면 생태학적 오류가 됩니다.</li>
+<li><strong>사실상 단일 사건</strong>: 처치 시점이 하나(2022 전후)라서 40개 업종이 같은 사건에 반응한 것입니다. 표본 크기 240은 정보량이 아닙니다.</li>
+</ul>
+
+<h4>1-3. 변수와 조작적 정의</h4>
+<div class="tw"><table>
+<thead><tr><th>변수</th><th>정의</th><th>출처·확인 상태</th><th>한계</th></tr></thead>
+<tbody>
+<tr><td>ICR (Y)</td><td>영업이익 ÷ 이자비용(%). 원자료를 주 결과로 사용 <span class="tag t-o">D1 결정됨</span></td><td>ISTANS 수익성. 전체 1994~2025 범위 −2,655.1~104,013.8, 중앙값 368.6. 긴축기 패널 최대 13,480(담배)</td><td>업종 <em>집계 방식(합산 vs 가중평균)</em> <span class="tag t-u">미확인</span>. 음수 16/240</td></tr>
+<tr><td>사전 노출도 E</td><td>(단기차입 + 단기사채) ÷ 자산총계, 2018~2020 평균 (%)</td><td>ISTANS 안정성 원자료에서 재추출·240행 전수 대조, 불일치 0건 <span class="tag t-f">파일 확인</span></td><td>ISTANS "단기차입"이 <em>유동성장기부채를 포함하는지</em> <span class="tag t-u">미확인</span>. 기존 열 "차입의존도"(= 차입합÷자본총계)와 이름이 헷갈림</td></tr>
+<tr><td>유동비율 L</td><td>유동자산 ÷ 유동부채, 사전평균 (구 "현금여력")</td><td>ISTANS 안정성에서 계산, 40업종 전부 매칭</td><td>현금 보유량이 아님. 재고 포함 → 당좌비율형 대안은 선택 분석</td></tr>
+<tr><td>Post</td><td>2022·2023 = 1. 2021은 전환연도(Post=0 기존 / 제외 / 전환 상호작용 3안, 미결정 D4)</td><td>금리 이력(2021-08-26 0.50→0.75)</td><td>2021 처리 선택에 결과가 달라짐(β 53.7 vs 30.0)</td></tr>
+<tr><td>원자재 가격 충격</td><td>Shock<sub>40,t</sub> = W(M′Δp<sub>381,t</sub>). 8개 카테고리(원유·철강 등), 2019 연장 투입산출표의 수입유발계수 사용</td><td>2015~2025 × 40업종 = 440행. 원자료 재계산 전수 대조 불일치 0건 <span class="tag t-f">파일 확인</span></td><td>직접+간접 효과. 완제품 조립업은 직접효과가 거의 없음. 정유만 직접효과 지배(2022 총 26.07 중 직접 25.26)</td></tr>
+<tr><td>반도체 통제</td><td>출하지수 로그변화 × 반도체 업종 더미(후보 A/B/C, 미결정 D3)</td><td>원지수(2020=100) 확보</td><td>물량/금액 정의 <span class="tag t-u">미확인</span>. "반도체5" 그룹은 ICR 패턴을 보고 고른 <em>사후 진단 그룹</em>이라 통제 정의로 쓰면 순환</td></tr>
+<tr><td>환율 노출</td><td>수출유발 비중 × Δln 환율 (직접 수출비중은 강건성)</td><td>13번 노트북. 환율 연평균 1990~2025 확보</td><td>환율 변화가 사실상 2022년 한 점(+12.13). 노출도와 상관 −0.26. 반도체와 겹침(수출비중 74% vs 44%)</td></tr>
+</tbody></table></div>
+
+<h4>1-4. 데이터 전처리에서 한 일</h4>
+<ul>
+<li><strong>병합 검증</strong>: 재무패널 × 원자재 충격 병합 240행 전부 매칭(미매칭 0), 평시 200행 전부 매칭. 병합 전후 행 수 일치 <span class="tag t-f">파일 확인</span>.</li>
+<li><strong>원자료 재검증</strong>: 긴축기 패널 1,200개 셀을 원자료에서 다시 뽑아 대조해 불일치 0건. 원자재 충격 440건도 불일치 0건 <span class="tag t-f">파일 확인</span>.</li>
+<li><strong>오류 발견·수정</strong>: (i) 한국은행 기준금리 CSV에서 실제로 일어나지 않은 "2018-04-20 2.00%" 행을 근거 3가지로 확인 후 삭제(61건이 공식 이력과 일치). (ii) 병합검증 스크립트가 2021(공백연도)을 사전평균에 섞던 버그를 사전기간 2018~2020 고정으로 수정.</li>
+<li><strong>결측</strong>: 40업종 × 1994~2025 결측 0건. 이상치 52건(전체 기간).</li>
+<li>이전 문서의 "팀원B 사전추세 위반 발견"·"ECOS 대출금리 모형" 서술은 근거 파일이 없어 <strong>허구/미확인으로 격리</strong>했습니다(9/27 감사). 실제 사전추세 결과는 아래 1-5의 것입니다.</li>
+</ul>
+
+<h4>1-5. EDA에서 실제로 확인된 것</h4>
+<div class="tw"><table>
+<thead><tr><th>노트북·확인</th><th>결과</th><th>설계에 주는 의미</th></tr></thead>
+<tbody>
+<tr><td>7 기준금리 EDA</td><td>자동 탐지 긴축 3구간: 2004-11~2008-08(+2.00%p), 2009-02~2011-06(+1.25%p), 2020-05~2023-01(+3.00%p)</td><td>3단계(다중 긴축기) 확장 시 구간은 이 값으로 재설계. 2010-11 사전기간은 금융위기와 겹침</td></tr>
+<tr><td>9 병합검증</td><td>긴축기·평시 양쪽 5/5 통과(버그 수정 후)</td><td>패널 자체는 신뢰 가능</td></tr>
+<tr><td>10 다중공선성·ICR 변환</td><td>VIF 전부 &lt;5. ICR 왜도 +5.14(원), winsorize +3.97, asinh −3.09(부호 반전). 잔차 첨도 20.8, 오차 SD 최대/최소 ≈ 43배, 잔차 자기상관 0.10</td><td>이분산·두꺼운 꼬리 → 일반 t검정 신뢰도 낮음 → 군집 SE + bootstrap</td></tr>
+<tr><td>10 leave-one-out</td><td>업종 하나씩 제외 시 β 28.2~65.8, 부호 반전 0회. 반도체 제외 28.2, 통신기기 제외 30.5, 담배 제외 65.8</td><td>"부호는 안 바뀌나 크기는 반도체 계열에 크게 좌우"</td></tr>
+<tr><td>11 반도체 델타·ICR 분해</td><td>반도체5가 긴축기 내내 극단값 쪽. 2023: 영업이익 −131.3% vs 이자비용 +139.8%</td><td>반도체 통제 필요성 근거. 단 "반도체5"는 사후 그룹이라는 순환 위험</td></tr>
+<tr><td>12 선형성</td><td>노출도 사분위별 변화: Q1(최저)만 압도적으로 큼</td><td><strong>선형성 판단 유보</strong>. Q1에 담배·반도체 계열이 몰려 노출도 효과와 구분 불가</td></tr>
+<tr><td>13 환율</td><td>수출비중–노출도 상관 −0.26, VIF 1.0~1.7, 고정효과 후 분산 17% 남음</td><td>포함 예정이나 최종 결정은 D3·D4 이후</td></tr>
+<tr><td>2번 사전추세 (이벤트스터디, 기준 2021)</td><td>2019 계수 +148.8 (p=0.021), 2020 계수 +105.0 (p=0.0035). 결합검정: 넓은 창(2015~2020) p=0.094, 좁은 창(2018~2020) p=0.033</td><td>창에 따라 갈림. 읽기 A(사전추세 위반) vs 읽기 B(2021을 기준으로 잡은 착시) 아직 구분 못 함</td></tr>
+</tbody></table></div>
+
+<h4>1-6. 모형 구조와 선택 근거</h4>
+<p>검토 문서가 요약한 5단계 사다리(원문 계획서 아님 <span class="tag t-u">원문 미확인</span>)를 식으로 쓰면 다음과 같이 이해하면 됩니다. 아래 식은 이해를 돕기 위한 재구성이며 계획서의 표기와 다를 수 있습니다.</p>
+<div class="eq">ICR<sub>jt</sub> = α<sub>j</sub> + δ<sub>t</sub> + β·(Post<sub>t</sub> × E<sub>j</sub>) + (2021 처리항) + ε<sub>jt</sub>            ← M1
+M2 = M1 + γ·(Post<sub>t</sub> × L<sub>j</sub>)                     유동비율
+M3 = M2 + θ·RawShock<sub>jt</sub>                                    원자재 충격
+M4 = M3 + 환율 노출                                                  (조건부 포함)
+M5 = M4 + (Post<sub>t</sub> × E<sub>j</sub> × L<sub>j</sub>)                        완충 효과(삼중 곱)
+j = 업종(40), t = 연도, α = 업종 FE, δ = 연도 FE</div>
+<div class="tw"><table class="nw">
+<thead><tr><th>선택</th><th>이유</th><th>상태</th></tr></thead>
+<tbody>
+<tr><td>업종 FE + 연도 FE</td><td>업종 고유 수준과 연도 공통 충격 제거. 금리 수준 자체는 연도 FE에 흡수되므로 교차항만 식별</td><td>이 구조는 다른 팀 문서에서도 사용 <span class="tag t-f">파일 확인</span></td></tr>
+<tr><td>ICR 원자료(변환 없음)</td><td>임의 선택값 없음, β 해석 단순(%p), 극단값 영향이 측정상 작음(절단 6개, β +14%, LOO 부호 반전 0회)</td><td><span class="tag t-o">D1 결정됨(2026-10-01)</span>. 단 변환별 β·p를 본 <strong>뒤</strong>의 결정이므로 "결과를 본 뒤: 예"로 기록</td></tr>
+<tr><td>업종 군집 SE + wild cluster bootstrap</td><td>군집 40개는 few에 걸침. 두꺼운 꼬리는 변환이 아닌 추론 보정으로 대응</td><td>정식 bootstrap(14번)은 <strong>계획 단계, 미실행</strong>. 10번의 시연값(p=0.190→0.225)은 참고용</td></tr>
+<tr><td>M5(삼중 곱)</td><td>"유동성이 단기차입 영향을 완충하는가"를 직접 검정</td><td>검정력이 매우 낮아 보조 해석으로 낮추자는 제안 <span class="tag t-p">제안</span></td></tr>
+</tbody></table></div>
+
+<h4>1-7. 현재 결과와 올바른 해석</h4>
+<div class="box red"><p><strong>가장 중요한 사실.</strong> 예비추정의 β(Post × 노출도)는 <strong>+53.66, SE 40.20, p=0.1896, N=240</strong>입니다 <span class="tag t-f">노트북 출력 직접 확인(9/27)</span>. 부호가 <em>양수</em>입니다. 가설은 음수(노출도 높을수록 악화)를 예상했으므로 점추정은 <strong>가설과 반대 방향</strong>이고 통계적으로 구별되지 않습니다. "예상대로 악화"를 보여주는 결과가 아닙니다.</p></div>
+<ul>
+<li><strong>비유의 ≠ 효과 없음.</strong> 표본이 작아 약 113%p보다 작은 효과는 못 찾습니다(MDE). 신뢰구간이 넓다는 것이 정확한 서술입니다.</li>
+<li><strong>2021 처리</strong>에 따라 β가 53.7(Post=0 포함) → 30.0(2021 제외, p=0.51)로 변합니다. 반도체 제외 시 28.2.</li>
+<li><strong>사전추세 신호</strong>: 2019·2020 계수가 양수이고 유의합니다. 이것이 사전추세 위반인지 기준연도(2021) 착시인지 아직 모릅니다.</li>
+<li>이 모든 숫자는 단일 긴축 사건, 40개 업종, 반도체 계열의 영향이 큰 구조 위에서 나온 값입니다.</li>
+</ul>
+<p class="small">※ 인수인계 메모에는 "leave-one-out에서 0.55→0.20"이라는 표기도 있는데, 파일의 53.7→28.2와 단위가 달라 보입니다. 같은 값인지 확인되지 않았으므로 이 문서는 파일 원본 값만 씁니다.</p>
+
+<h3 id="a2">A-2. 실무·심화 위험 점검</h3>
+<p>가이드 2절의 항목을 v1에 하나씩 대입했습니다. "점검됨"은 그런 점검이 이루어졌다는 뜻이지 문제가 없다는 뜻이 아닙니다.</p>
+<div class="tw"><table>
+<thead><tr><th style="width:18%">위험</th><th style="width:42%">v1에서 어떻게 나타나나</th><th style="width:20%">점검 상태</th><th style="width:20%">남은 일</th></tr></thead>
+<tbody>
+<tr><td>평행추세·사전추세</td><td>2019·2020 계수 양수·유의, 창에 따라 p가 0.033 vs 0.094. 기준을 2020으로 옮기는 제안은 "신호를 없애려 기준을 옮겼다"는 오해를 살 수 있음</td><td>부분 점검. 해석 미결</td><td>기준연도 후보(2021 / 2020 / 2018~20 평균 / 2021 제외 후 2020)를 <em>결과 보기 전에 정해 전부 보고</em></td></tr>
+<tr><td>내생성·교란</td><td>처치 시점이 하나, 미처치 집단 없음(노출도가 40개 모두 양수). 같은 시기 환율·원자재·반도체 사이클 등이 겹침</td><td>한계로 인지</td><td>"조건부 연관성"으로 서술</td></tr>
+<tr><td>순환·사후 선택</td><td>반도체5는 ICR 패턴을 보고 고른 그룹. 반도체 지표를 ICR로 평가하려는 시도, D1은 변환별 결과를 본 뒤 결정</td><td>순환 점검표(15개) 작성 <span class="tag t-f">파일 확인</span></td><td>통제 정의는 ICR과 무관한 기준으로. 결정 로그에 "결과를 본 뒤" 열 기록</td></tr>
+<tr><td>다중검정·분석 자유도</td><td>Post 정의 A~D, 2021 처리, ICR 변환, 반도체 A/B/C, 노출도 대안 등 선택지가 많음. D 사양의 p=0.042가 눈에 띄지만 A~D는 서로 다른 질문</td><td>인지함</td><td>p값을 사양 선택 근거로 쓰지 않음. 한 번에 하나씩 바꾼 사양표로 전부 보고</td></tr>
+<tr><td>표준오차·군집</td><td>업종 군집 40개(few 범위), 잔차 첨도 20.8, SD 비 43배</td><td>진단 완료, bootstrap 미실행</td><td>14번 wild cluster bootstrap(WCR 기본 + WCU 대조)</td></tr>
+<tr><td>영향 관측·강건성</td><td>반도체·통신기기 제외 시 β가 거의 반으로. 담배는 3년 연속 상단 값. LOO가 "ICR 극단값 영향"을 직접 재는 것은 아님</td><td>업종 LOO 완료</td><td>Cook's distance, 극단 6개 제외, 반도체 그룹 묶음 제외</td></tr>
+<tr><td>측정오차</td><td>업종 집계 방식 미확인, 단기차입의 유동성장기부채 포함 여부 미확인, 반도체 지수 정의 미확인</td><td><span class="tag t-u">미확인</span></td><td>ISTANS 정의서·집계 방식 확인</td></tr>
+<tr><td>음수 ICR</td><td>16/240(6.7%). 적자 업종은 이자 부담이 커져도 ICR이 오를 수 있음. 변환으로 해결 안 됨</td><td>인지함</td><td>대체 종속변수(영업이익률, 이자비용/사전 평균자산) D6 미결정</td></tr>
+<tr><td>환율의 겹침</td><td>변화가 2022 한 점, 반도체 수출비중과 겹침</td><td>EDA 완료</td><td>D3·D4 확정 후 재점검, 한계에 명시</td></tr>
+<tr><td>데이터 누수</td><td>예측 모형이 아니라 직접적 해당 사항은 적음. 다만 사전평균 창에 2021을 섞는 오류가 한 번 있었음(수정)</td><td>수정함</td><td>—</td></tr>
+<tr><td>외적 타당성</td><td>제조업 40개, 한 번의 긴축</td><td>한계</td><td>3단계(다른 긴축기) 확장은 사전기간·처치강도 문제 때문에 효용 제한 우려</td></tr>
+</tbody></table></div>
+
+<h3 id="a3">A-3. 논문에 쓸 때</h3>
+<ul>
+<li><strong>쓸 수 있는 주장</strong>: "2021~23 인상기에 사전 단기차입 비중과 ICR 변화 사이에는 통계적으로 구별되지 않는 양의 계수가 관찰됐다(β=53.7, p=0.19). 표본 정보량이 작아 작은 효과는 검출하기 어렵다."</li>
+<li><strong>쓰면 안 되는 주장</strong>: "단기차입이 ICR을 악화시켰다", "금리 인상 효과가 없다", "사전추세가 통과됐다"(결합검정이 창에 따라 갈림).</li>
+<li><strong>꼭 밝힐 것</strong>: ① 설계가 EDA 결과를 본 뒤 정해졌다는 점(사전등록 아님) ② D1을 비롯한 결정의 "결과를 본 뒤" 여부 ③ 반도체·통신기기 제외 시 β가 거의 절반이 된다는 점 ④ 2021 처리 사양표 ⑤ 단일 사건·연속형 처치 한계.</li>
+<li><strong>추정치 보고 순서</strong>: 점추정 → 군집 SE와 bootstrap p → 신뢰구간 → MDE → 사양 전체 표.</li>
+</ul>
+
+<h3 id="a4">A-4. 분석 목록화 표 (가이드 4단계 형식)</h3>
+<p>"이해 상태" 칸은 <strong>직접 채우세요</strong>(설명·재현 가능 / 설명만 가능 / 모름).</p>
+<div class="tw"><table class="fill">
+<thead><tr><th>항목</th><th>내용 (v1)</th><th>이해 상태</th></tr></thead>
+<tbody>
+<tr><td>분석 목적</td><td>사전 단기차입 노출도와 인상기 ICR 변화의 연관 추정, 유동비율의 조절 여부</td><td></td></tr>
+<tr><td>사용 데이터</td><td>ISTANS 안정성·수익성, ECOS 수입물가지수, KOSIS 2019 연장 투입산출표, 반도체 지수, BOK 기준금리, 환율</td><td></td></tr>
+<tr><td>변수</td><td>Y=ICR(%), E, L, Post, RawShock, 환율노출, (반도체)</td><td></td></tr>
+<tr><td>처리 과정</td><td>사전평균 계산, 병합 240/200행, 원자재 충격 W·M 행렬 계산, 윈저화 경계 패널별 계산</td><td></td></tr>
+<tr><td>방법론</td><td>업종 FE + 연도 FE 패널 회귀, 교차항 중심, 군집 SE + wild cluster bootstrap(계획)</td><td></td></tr>
+<tr><td>선택 근거</td><td>FE로 업종 수준·연도 공통 충격 제거, 교차항으로 이질적 반응 추정</td><td></td></tr>
+<tr><td>가정과 한계</td><td>평행추세, 단일 사건, 미처치군 없음, 반도체 계열 영향, 음수 ICR, 업종 집계</td><td></td></tr>
+<tr><td>결과</td><td>β=+53.7, SE 40.2, p=0.19, N=240 (예비추정)</td><td></td></tr>
+<tr><td>검증</td><td>사전추세(창별), LOO, VIF, 병합·원자료 대조, bootstrap 예정</td><td></td></tr>
+</tbody></table></div>
+
+<h4>미결정 목록 (결정 로그 D1~D7)</h4>
+<div class="tw"><table class="nw">
+<thead><tr><th>번호</th><th>결정 사항</th><th>상태</th></tr></thead>
+<tbody>
+<tr><td>D1</td><td>ICR 변환</td><td><span class="tag t-o">결정</span> 원자료 주 결과, winsorize·asinh 강건성</td></tr>
+<tr><td>D2</td><td>선형성 처리</td><td>미결정 (권고안: 선형 기본 + Post×E² 보조)</td></tr>
+<tr><td>D3</td><td>반도체 통제 A/B/C, 그룹 정의</td><td>미결정</td></tr>
+<tr><td>D4</td><td>시기(Post, 사전기간, 2021 행, 평시 가짜 Post, 사전추세 창)</td><td>미결정</td></tr>
+<tr><td>D5</td><td>노출도 정의</td><td>미결정 (단기 유지 + 단·장기 분리 여부)</td></tr>
+<tr><td>D6</td><td>대체 종속변수</td><td>미결정 (우선순위 높음: 음수 분자 문제)</td></tr>
+<tr><td>D7</td><td>추가 통제(환율 등)</td><td>환율은 포함 예정(EDA 후 최종), 나머지 미결정</td></tr>
+</tbody></table></div>
+<p class="small">권고안(D2~D7)은 팀 문서·에이전트의 제안이며 확정이 아닙니다. 순서 제안: D1 → D4 → D3 → D5 → D6 → D2 → D7.</p>
+</section>
+
+<!-- ================= PART B ================= -->
+<section id="sb">
+<h2><small>PART B / FIRM-LEVEL (A)</small>기업 단위 설계(A)</h2>
+<p>같은 질문을 <strong>OpenDART 재무제표로 기업×분기 단위</strong>로 묻는 설계입니다. 지금까지 한 것은 <strong>자료를 추출할 수 있는가</strong>(파일럿)이며, <strong>회귀는 한 번도 돌리지 않았습니다.</strong> 따라서 이 부분에는 "결과"가 없고 "설계와 위험"만 있습니다. 사전 고정 문서도 "결과를 본 뒤 쓴 사후 설계"라고 스스로 밝히고 있어 사전등록이 아닙니다.</p>
+
+<h3 id="b1">B-1. 연구의 기초</h3>
+
+<h4>1-1. 연구 질문과 질문의 종류</h4>
+<ul>
+<li><strong>질문</strong>: 인상 이전 단기차입 비중이 높았던 상장 제조기업은 같은 업종·같은 분기의 다른 기업보다 인상 이후 ICR이 더 크게 악화됐는가?</li>
+<li><strong>유형</strong>: 연관(조건부 관계). 금리 인상의 순수 인과효과나 부도확률은 추정하지 않습니다. 결과가 가설과 달라도 그대로 보고하는 것을 규칙으로 둡니다.</li>
+<li><strong>v1과의 차이</strong>: v1이 "업종들이 서로 다르게 반응했나"를 본다면, A는 "같은 업종 안에서 기업별로 반응이 다른가"를 봅니다. 업종×분기 FE를 넣으면 업종 공통 충격(반도체 사이클 등)이 통째로 사라지고 기업 간 차이만 남습니다.</li>
+</ul>
+
+<h4>1-2. 관측단위와 독립 정보</h4>
+<ul>
+<li>한 행 = 기업 × 분기. 분석 창 2019Q1~2024Q3 = 23분기.</li>
+<li>독립 정보는 <strong>기업 수</strong>(분기가 아님). 같은 기업의 분기들은 상관되어 있으므로 기업 단위 군집 SE가 기본입니다. 군집이 수백~수천이라 v1의 few clusters 문제는 줄어듭니다.</li>
+<li>다만 <strong>"사건"은 여전히 하나</strong>입니다. 기업이 많아져도 2021~23년 한 번의 긴축이라는 시간 차원의 정보는 늘지 않습니다.</li>
+<li>명단 단계 숫자: 전체 법인 119,879 → 종목코드 보유 4,009 → 제조업(앞 2자리 10~34) 2,250(K 1,125 / E 570 / Y 491 / N 64), 12월 결산 2,208 <span class="tag t-f">파일 확인</span>. <strong>이 2,250은 분석 표본이 아니라 명단</strong>이며, 상장폐지·스팩이 섞여 있어 4,009 &gt; 현재 상장 약 2,760입니다(KIND 대조는 미실시).</li>
+</ul>
+
+<h4>1-3. 변수와 조작적 정의</h4>
+<div class="tw"><table>
+<thead><tr><th>변수</th><th>정의</th><th>상태</th><th>한계·미결정</th></tr></thead>
+<tbody>
+<tr><td>사전 노출도 E<sub>i</sub></td><td>(단기차입금 + 유동성장기차입금 + 유동성사채) ÷ 총자산, 사전기간 2019Q1~2021Q2 평균</td><td><span class="tag t-p">제안(최종 탐색 ① 계승)</span></td><td>차입 계정 이름이 기업마다 다름. 확장 매핑 시 커버리지 86.5%, 9곳은 차입 항목이 아예 없어 수동 검토</td></tr>
+<tr><td>주 결과 ICR<sub>iq</sub></td><td>TTM 영업이익 ÷ TTM 이자 (분모는 금융원가로 대용 제안, A3·A16)</td><td><span class="tag t-p">제안</span></td><td>이자비용 계정은 158 기업-연도 중 1건만 존재. 금융원가는 158건 모두 존재하나 <em>이자와 같지 않음</em></td></tr>
+<tr><td>보조 결과</td><td>TTM 이자 ÷ 총자산, TTM 영업이익 ÷ 총자산</td><td><span class="tag t-p">제안</span></td><td>주 결과를 대체하지 않음</td></tr>
+<tr><td>긴축강도 Tight<sub>q</sub></td><td>분기 말 기준금리 − 2021Q2 말 기준금리 (연속형)</td><td><span class="tag t-p">제안</span></td><td>v1의 Post 0/1과 달리 금리 경로 전체를 씀</td></tr>
+<tr><td>규모</td><td>사전평균 총자산 3분위 + ln(총자산) 연속형</td><td><span class="tag t-p">제안(A6)</span></td><td>분위 수 임의</td></tr>
+<tr><td>분기 값</td><td>Q1·Q2·Q3 = 각 보고서의 3개월 값, Q4 = 연간(사업보고서) − 3분기 누적</td><td>손익은 가이드 확인, 현금흐름표 분기 규정은 가이드에 설명 없음</td><td>분기 환원 항등성이 3~8% 어긋나는 경우 있음(허용오차 0.5%는 임의)</td></tr>
+</tbody></table></div>
+
+<div class="box amb"><p><strong>이자 정의가 이 설계의 가장 큰 불확실성입니다.</strong> 파일럿에서 금융원가와 현금흐름표 이자지급의 비율(|CF 이자지급| ÷ 금융원가)이 <strong>중앙값 0.39, 사분위 [0.12, 0.81]</strong>이었습니다. 금융원가는 이자 외에 외환손실·파생손실 등이 섞인 더 넓은 항목이어서, ICR 분모를 이것으로 쓰면 "이자보상"이 아니라 "금융비용 보상"이 됩니다. 약 10곳 주석 대조 후 정하자는 제안이 있으나 <strong>아직 하지 않았습니다</strong>(0.5~2배 전환 기준은 임의).</p></div>
+
+<h4>1-4. 데이터 전처리에서 한 일, 해야 할 일</h4>
+<ul>
+<li><strong>한 일 <span class="tag t-f">파일 확인</span></strong>: 법인코드 명단 수집, 기업개황 4,009곳 수집, 파일럿 28곳 × 연도 × 보고서 = 1,768호출·651개 보고서 수집(연결/별도 × 정상(000)/자료없음(013) 분포 기록), 계정 가변성 점검, 분기 환원 검증.</li>
+<li><strong>해야 할 일(미착수)</strong>: 선별(사전기간 보고서 존재 여부 — 결과 비참조), 무작위 순서 층화 수집(멈춤 규칙 사전 고정), 누적 → 분기 차분, 연결/별도 한 기업 안에서 섞지 않는 규칙, "정의 불가" 표시, 정정공시 영향 확인.</li>
+<li><strong>수집 규모</strong>: 약 39호출/기업 × 2,250곳 ≈ 88,000호출. 일일 한도는 가이드에 "일반적으로 20,000건 이상"이라고만 있어 보장 못 합니다(한도 초과 020 응답이 나오면 다음 날 재개).</li>
+<li><strong>이미 수정한 코드 문제</strong>: 에러 응답 캐시 오염, 빈 표본 충돌, 공백 있는 계정명('유동성 장기부채') 누락, 상태코드 정수/문자열 비교 오류(한때 "자료 있는 기업 0곳"이라는 잘못된 출력).</li>
+</ul>
+
+<h4>1-5. 파일럿에서 실제로 확인된 것</h4>
+<div class="tw"><table>
+<thead><tr><th>확인</th><th>결과</th><th>의미</th></tr></thead>
+<tbody>
+<tr><td>이자 계정</td><td>이자비용 계정 거의 없음(158 기업-연도 중 IS 1건), 금융원가 158건 전부, CF 이자지급 151건에서 4개 보고서 모두 있음</td><td>ICR 분모를 이자비용으로 정의하기 어려움</td></tr>
+<tr><td>CF 이자지급 누적성</td><td>누적 단조 비율 86%</td><td>분기 값을 만들려면 차분이 필요</td></tr>
+<tr><td>차입 매핑</td><td>3항목 중 하나라도 있는 보고서 74.5% → '차입금' 추가 78.2% → '유동금융부채' 추가 79.0%. 확장 매핑 시 기업 단위 86.5%</td><td>"없음=0"인지 "이름이 달라 못 찾음"인지 구분 필요(A10)</td></tr>
+<tr><td>분기 환원</td><td>3개월 합이 누적과 3~8% 어긋나는 경우 있음</td><td>허용오차 기준이 임의</td></tr>
+<tr><td>호출 한도</td><td>파일럿에서 020 한도 오류 발생 안 함, 실제 한도 값은 미확인</td><td>전수 수집 가능 여부 불확실</td></tr>
+</tbody></table></div>
+<p class="small">파일럿 28곳은 probe 제조업 84곳에서 (법인구분, 업종) 층화 라운드로빈으로 뽑았으며 <strong>대표성이 없습니다</strong>. 150곳·40곳이라는 숫자도 설정 파일의 임의 기본값이고 통계적 근거가 없습니다.</p>
+
+<h4>1-6. 모형 구조와 선택 근거</h4>
+<div class="eq">ICR<sub>iq</sub> = α<sub>i</sub> + λ<sub>업종(i),q</sub> + β·(Tight<sub>q</sub> × E<sub>i</sub>) + γ′·(Tight<sub>q</sub> × 사전특성<sub>i</sub>) + ε<sub>iq</sub>
+i = 기업, q = 분기, α = 기업 FE, λ = 업종×분기 FE
+사전특성 = 긴축 이전에 정해진 값(사전 규모, 사전 영업이익률 등)만</div>
+<div class="tw"><table class="nw">
+<thead><tr><th>단계</th><th>내용</th></tr></thead>
+<tbody>
+<tr><td>M1</td><td>기업 FE + 분기 FE + β</td></tr>
+<tr><td>M2 (기준 사양 제안)</td><td>기업 FE + <strong>업종×분기 FE</strong> + β</td></tr>
+<tr><td>M3</td><td>M2 + 사전특성 × 긴축강도</td></tr>
+<tr><td>이질성</td><td>규모 분위별 β</td></tr>
+<tr><td>이벤트스터디</td><td>분기별 계수, 기준 분기 2021Q2</td></tr>
+<tr><td>군집</td><td>기본 기업 단위. 강건성: 업종 단위, 업종 수 적으면 wild cluster bootstrap</td></tr>
+</tbody></table></div>
+<p>모든 사다리 사양을 <strong>같은 표에 보고</strong>하고 유의 여부로 사양을 고르지 않는다는 규칙이 문서에 있습니다. 긴축 이후에 변하는 경로 변수는 통제에 넣지 않는다는 규칙도 있습니다(잘못된 통제는 편향을 만들 수 있음).</p>
+<p><strong>진단 목록(사전 고정)</strong>: ① 업종 FE 이후에도 E가 업종 안에서 얼마나 변하는가 ② 사전추세 ③ E와 규모·레버리지 공선성 ④ ICR 극단값·기업별 영향력 ⑤ 사전기간 안 가짜 긴축 시점 위약 검정 ⑥ 기업 수·탈락·결측 로그와 이탈 기업의 E 분포. 모두 <strong>아직 실행 전</strong>입니다.</p>
+
+<h4>1-7. 결과</h4>
+<div class="box blu"><p><strong>결과 없음.</strong> 파일럿 단계에서는 회귀·계수·유의성을 보지 않는다는 원칙을 지켰습니다. "A가 v1보다 좋은 결과를 낼 것"이라는 근거는 현재 없습니다. A를 하는 이유는 소표본 군집 문제를 줄이고 업종 공통 충격을 제거할 수 있다는 <em>설계상의 가능성</em>이지 결과가 아닙니다.</p></div>
+
+<h3 id="b2">B-2. 실무·심화 위험 점검</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:17%">위험</th><th style="width:43%">A에서 어떻게 나타나나</th><th style="width:18%">상태</th><th style="width:22%">관련 결정</th></tr></thead>
+<tbody>
+<tr><td>생존편향</td><td>명단을 "현재 상장사"로 만들면 사전기간엔 상장돼 있다 폐지된 기업이 처음부터 빠짐. 가장 악화한 기업이 빠져 β가 0쪽으로 편향될 가능성</td><td><span class="tag t-u">미해결</span>. 명단에 폐지 법인이 일부 섞여 있다는 정황은 있음(추정)</td><td>A9, A14 (KIND 조회는 허락 필요)</td></tr>
+<tr><td>표본 선별</td><td>"사전기간 보고서가 있는 기업만" 같은 규칙이 결과와 연관될 수 있음</td><td>결과 비참조 규칙으로 설계</td><td>A5, A7, A8</td></tr>
+<tr><td>측정오차(분모)</td><td>금융원가 ≠ 이자비용(비율 중앙값 0.39). 오차가 체계적이면(외화차입 많은 기업 등) β가 편향</td><td><span class="tag t-u">미해결</span></td><td>A3·A16 (합칠 것)</td></tr>
+<tr><td>회계기준 변경</td><td>K-IFRS 1116(2019-01-01) 리스 기준으로 이자비용·부채 범위가 변함. 후행 4분기 합이 2019Q1~Q3에 변경 전후를 걸침</td><td>뉴스·금감원 안내 수준 확인, 자료 확인 안 됨</td><td>A11 (ICR 창을 2019Q4부터 제안)</td></tr>
+<tr><td>제도 환경</td><td>2020-04부터 중소기업 만기연장·상환유예가 반복 연장되어, 사후 초기 단기차입 재차환 위험을 줄였을 수 있음</td><td>한계 서술 수준, 종료 시점 미확인</td><td>A12</td></tr>
+<tr><td>정정공시</td><td>API 값이 원본인지 정정 후인지 가이드에 설명 없음</td><td><span class="tag t-u">미확인</span></td><td>A13 (접수번호 저장 + 3곳 대조)</td></tr>
+<tr><td>평행추세·사전추세</td><td>이벤트스터디로 점검하나 사전기간 안에 2020 코로나가 있음. 사전기간 평균 E가 그 영향을 받음</td><td>미실행</td><td>사전기간 단축 사양(2019Q1~2020Q1) 강건성</td></tr>
+<tr><td>E의 업종 내 변동</td><td>업종×분기 FE를 넣으면 업종 평균 E 차이는 사라지고 업종 안 E 변동만 식별에 쓰임. 변동이 작으면 β가 불안정</td><td><span class="tag t-u">미확인</span>(진단 1번)</td><td>수집 후 첫 진단</td></tr>
+<tr><td>극단값·분모 폭발</td><td>이자가 0에 가까운 기업-분기에서 ICR 폭발. 영업이익 음수 처리</td><td>규칙 제안(이자 ≤ 0이면 결측 표시, 1·99% winsor, asinh 보조)</td><td>A4</td></tr>
+<tr><td>셀 크기</td><td>업종×분기에 기업이 너무 적으면 FE가 사실상 기업 하나만 설명</td><td>최소 5곳은 <em>임의 숫자</em></td><td>A5</td></tr>
+<tr><td>다중검정·분석 자유도</td><td>사양 사다리·이질성 분석·대체 결과가 많음. 사후 설계임을 논문에 명시해야 함</td><td>"모든 사양을 같은 표에" 규칙</td><td>보고 규칙 8절</td></tr>
+<tr><td>데이터 누수</td><td>사전평균 E는 사전기간 정보만 써야 함. 사전특성도 긴축 이전 값만. 분기 환원 시 미래 보고서 정보를 쓰지 않도록</td><td>설계에 규칙 있음, 코드 검증 필요</td><td>—</td></tr>
+<tr><td>API·약관</td><td>일일 한도 미확인. DART 이용약관(자료 재사용·인용 조건) 확인 안 함</td><td><span class="tag t-u">미확인</span></td><td>—</td></tr>
+</tbody></table></div>
+
+<h3 id="b3">B-3. 논문에 쓸 때</h3>
+<ul>
+<li><strong>현 시점 성격</strong>: A는 "설계·타당성(파일럿) 단계"입니다. 결과가 나오기 전에는 논문의 주결과로 약속하지 말고, 사후 설계라는 점을 밝혀야 합니다.</li>
+<li><strong>밝혀야 할 것</strong>: 표본 깔때기(전체 법인 → 상장사 → 제조업 → 제외 → 사전기간 관측 → 최종), 각 단계의 기업 수, 이탈 기업의 시점·사유·E 분포, 이자 정의와 그 대용 한계, 임의 기준(셀 최소 5곳, 0.5~2배 전환 등)의 임의성.</li>
+<li><strong>포트폴리오 가치</strong>: 기업 단위 신용리스크 분석, API 수집·정제·계정 매핑 설계, 분기 환원, 생존편향 처리 같은 실무 과제가 있어 금융·신용리스크 분야와 연결이 큽니다. 다만 이는 <em>과정의 가치</em>이며 결과가 좋을 것이라는 뜻이 아닙니다.</li>
+</ul>
+
+<h3 id="b4">B-4. 분석 목록화 표 (가이드 4단계 형식)</h3>
+<div class="tw"><table class="fill">
+<thead><tr><th>항목</th><th>내용 (A)</th><th>이해 상태</th></tr></thead>
+<tbody>
+<tr><td>분석 목적</td><td>같은 업종·분기 안에서 사전 단기차입 비중이 높은 기업의 ICR이 인상 후 더 악화되었는지</td><td></td></tr>
+<tr><td>사용 데이터</td><td>OpenDART fnlttSinglAcntAll(분기 재무제표), 기업개황, 한국은행 기준금리</td><td></td></tr>
+<tr><td>변수</td><td>Y=TTM ICR, E, Tight, 규모, 사전특성</td><td></td></tr>
+<tr><td>처리 과정</td><td>명단 필터, 계정명 매핑, Q4 = 연간 − 3분기 누적, TTM 합산, 사전평균, 연결/별도 규칙</td><td></td></tr>
+<tr><td>방법론</td><td>기업 FE + 업종×분기 FE, 교차항, 기업 군집 SE, 이벤트스터디</td><td></td></tr>
+<tr><td>선택 근거</td><td>업종 공통 충격 제거, 군집 수 증가, 업종 내 이질성 식별</td><td></td></tr>
+<tr><td>가정과 한계</td><td>평행추세, 이자 대용, 생존편향, 회계기준·지원정책 변화, 단일 사건</td><td></td></tr>
+<tr><td>결과</td><td>없음(파일럿 단계)</td><td></td></tr>
+<tr><td>검증</td><td>파일럿 추출성 점검, 진단 6종(미실행), 사양 사다리 전부 보고 규칙</td><td></td></tr>
+</tbody></table></div>
+
+<h4>미결정 목록 (A1~A16)</h4>
+<p class="small">"제안 기본값"은 에이전트가 제안한 값이며 공식·학술 기준이 아닙니다. 사용자가 "제안대로 확정할지"에 아직 답하지 않았습니다.</p>
+<div class="tw"><table>
+<thead><tr><th>번호</th><th>항목</th><th>제안 기본값</th></tr></thead>
+<tbody>
+<tr><td>A1</td><td>업종코드</td><td>앞 2자리 10~34 (KSIC 제조업, 150곳 관찰 기반 잠정)</td></tr>
+<tr><td>A2</td><td>코넥스·비12월 결산</td><td>코넥스 제외, 12월 결산만</td></tr>
+<tr><td>A3·A16</td><td>이자 정의 (중복이라 합칠 것)</td><td>주 = 영업이익/금융원가, 보조 = CF 이자지급, 약 10곳 주석 대조 후 비율 중앙값 0.5~2배 밖이면 전환(임계 임의)</td></tr>
+<tr><td>A4</td><td>ICR 처리</td><td>이자 ≤ 0이면 결측 표시, 1·99% winsor, asinh 보조</td></tr>
+<tr><td>A5</td><td>셀 최소 기업 수</td><td>5곳(임의), 10은 민감도</td></tr>
+<tr><td>A6</td><td>규모</td><td>3분위 + ln(자산)</td></tr>
+<tr><td>A7</td><td>이탈 기업</td><td>삭제하지 않고 기록·보고</td></tr>
+<tr><td>A8</td><td>파일럿 통과 기준</td><td>"조건부 계속"(임계는 사후·임의임을 명시)</td></tr>
+<tr><td>A9·A14</td><td>상장폐지 포함·거래소 목록 대조</td><td>KIND 조회 허락 전까지 미정</td></tr>
+<tr><td>A10</td><td>부재 계정</td><td>0으로 두지 않고 "정의 불가" 기록, 9곳 수동 검토</td></tr>
+<tr><td>A11</td><td>리스 기준(K-IFRS 1116)</td><td>ICR 창을 2019Q4부터</td></tr>
+<tr><td>A12</td><td>코로나 금융지원</td><td>규모 이질성 점검 + 한계 서술</td></tr>
+<tr><td>A13</td><td>정정공시</td><td>접수번호 저장 + 3곳 대조</td></tr>
+<tr><td>A15</td><td>차입 매핑</td><td>확장 적용(유동차입금, 유동성전환사채, '차입금' 등)</td></tr>
+</tbody></table></div>
+</section>
+
+<!-- ================= PART C ================= -->
+<section id="sc">
+<h2><small>PART C / HOW THEY RELATE</small>두 설계의 관계: A가 v1의 약점을 얼마나 해결하나</h2>
+<p>A를 하는 동기는 v1의 약점이지만, <strong>해결되는 것과 그대로인 것을 구분</strong>해야 과장을 피할 수 있습니다. 아래 "해결 정도"는 설계상의 가능성에 대한 제 판단이며, 실제 자료에서 검증된 것이 아닙니다.</p>
+<div class="tw"><table>
+<thead><tr><th style="width:22%">v1의 약점</th><th style="width:40%">A에서</th><th style="width:38%">해결 정도</th></tr></thead>
+<tbody>
+<tr><td>군집 40개(few clusters)</td><td>기업 수백~수천 군집</td><td><strong>상당히 완화</strong>. 단, 선별 후 실제 기업 수에 달림</td></tr>
+<tr><td>반도체 계열이 결과를 좌우</td><td>업종×분기 FE가 업종 공통 충격을 흡수</td><td><strong>부분 완화</strong>. 업종 안 E 변동이 충분해야 함(진단 1번 미확인). 반도체 안의 기업 이질성이 새 문제가 될 수 있음</td></tr>
+<tr><td>업종 집계로 가려진 이질성(생태학적 오류)</td><td>기업 단위로 직접 추정</td><td><strong>완화</strong></td></tr>
+<tr><td>음수 ICR 16/240</td><td>기업 단위에서는 적자 기업이 더 많이 보일 가능성</td><td><strong>미해결</strong>(오히려 커질 수 있음). 이자 ≤ 0·영업이익 음수 규칙이 필요</td></tr>
+<tr><td>단일 긴축 사건</td><td>그대로</td><td><strong>해결 안 됨</strong></td></tr>
+<tr><td>미처치군 없음(연속형 처치)</td><td>Tight × E도 연속형 구조</td><td><strong>해결 안 됨</strong>. 인과 해석 한계 동일</td></tr>
+<tr><td>측정(ICR 분모)</td><td>금융원가 대용 문제가 새로 생김</td><td><strong>새 문제</strong>(v1은 ISTANS의 정의된 ICR 사용)</td></tr>
+<tr><td>생존편향</td><td>기업 명단 단계에서 새로 발생 가능</td><td><strong>새 문제</strong></td></tr>
+<tr><td>2021 처리·기준연도</td><td>분기 단위 Tight 연속형이라 연도 전환 문제는 덜하나, 이벤트스터디 기준 분기 2021Q2 선택이 필요</td><td>형태만 바뀜</td></tr>
+</tbody></table></div>
+<div class="box grn"><p><strong>한 줄 정리.</strong> A는 "통계적 정밀도와 이질성 식별"을 개선할 가능성이 있는 대신, "자료 구축과 측정 문제"라는 새 비용을 떠안습니다. 인과 해석의 근본 한계(단일 사건, 연속형 처치)는 두 설계가 공유합니다. 두 설계의 결과가 같은 방향이면 설득력이 오르지만, 둘이 같은 한 번의 사건에 기대고 있으므로 <em>독립된 두 증거가 아닙니다.</em></p></div>
+</section>
+
+<!-- ================= PART D ================= -->
+<section id="sd">
+<h2><small>PART D / SELF-CHECK</small>이해 점검표</h2>
+<p>아래 질문에 문서를 보지 않고 자기 말로 답해 보세요. 설명이 막히는 곳이 먼저 공부할 곳입니다. 앞서 한 이해도 진단에서 비어 있던 개념(FE, 교차항, 군집 SE, 평행추세, TTM)은 굵게 표시했습니다.</p>
+<ol>
+<li>v1의 한 행과 A의 한 행은 각각 무엇인가? 독립 정보는 각각 몇 개 정도인가?</li>
+<li><strong>TTM</strong>이 무엇이고 v1에는 왜 필요 없나?</li>
+<li>E를 사전기간 평균으로 고정하지 않고 분기마다 바꾸면 어떤 문제가 생기나?</li>
+<li><strong>교차항 β</strong>를 문장으로 해석하라. 부호가 양수(+53.7)로 나온 것은 가설과 어떻게 다른가?</li>
+<li><strong>업종 FE와 연도 FE</strong>는 각각 무엇을 제거하고, 무엇을 추정할 수 없게 하나? 금리 수준 단독 효과가 왜 안 나오나?</li>
+<li>A의 <strong>업종×분기 FE</strong>는 v1의 어떤 약점에 대응하며, 어떤 조건이 맞아야 의미가 있나?</li>
+<li><strong>군집 표준오차</strong>는 왜 필요한가? v1에서 군집이 40개인 것이 왜 문제이고, 기업 단위에서는 왜 덜한가?</li>
+<li><strong>평행추세</strong>가 무엇이고, v1의 이벤트스터디에서 2019·2020 계수가 유의한 것은 두 가지로 어떻게 읽히나(읽기 A/B)?</li>
+<li>"p=0.19, 비유의"를 논문에 어떻게 쓰겠는가? MDE(113%p)가 그 서술에 어떻게 쓰이는가?</li>
+<li>상장폐지 기업이 빠지면 β는 왜 0쪽으로 치우칠 수 있나? 이것이 A와 v1 중 어느 쪽에서 더 큰 문제인가?</li>
+<li>금융원가를 ICR 분모로 쓰는 것이 왜 위험한가? (비율 중앙값 0.39가 말하는 것은?)</li>
+<li>D1에서 "결과를 본 뒤 결정: 예"를 왜 기록하는가? 그렇게 해도 결정이 무효는 아닌 이유는?</li>
+</ol>
+</section>
+
+<section id="se">
+<h2><small>PART E / LIMITS OF THIS NOTE</small>이 문서의 한계 (먼저 공개)</h2>
+<div class="tw"><table>
+<thead><tr><th style="width:26%">각도</th><th>상태</th></tr></thead>
+<tbody>
+<tr><td>팀원 계획서 원문</td><td><span class="tag t-u">미확인</span> <code>팀공유_분석계획서.html</code>을 찾지 못했습니다. M1~M5 설명과 계획서 인용은 검토 문서의 요약에 의존했고, 위 1-6의 식은 제가 이해를 돕기 위해 재구성한 것입니다. 원문과 다를 수 있습니다.</td></tr>
+<tr><td>수치의 재계산</td><td>이번에 노트북을 다시 실행하거나 데이터를 다시 계산하지 않았습니다. 모든 수치는 기존 노트북 출력·문서에서 옮긴 값입니다. 서로 다른 문서 사이에 표기가 다른 곳(예: LOO 값 0.55→0.20 vs 53.7→28.2)은 확인하지 못했습니다.</td></tr>
+<tr><td>메모리·문서의 시점</td><td>v1 EDA 기록의 상당수는 9~10월 시점입니다. 이후 팀원이 바꾼 내용이 있을 수 있습니다.</td></tr>
+<tr><td>문헌</td><td>Cameron &amp; Miller, Roth(2022), Chen &amp; Roth, Cohn·Liu·Wardlaw 등은 문서에 적힌 확인 수준(본문 일부 / 초록)을 그대로 옮겼고, 이번에 원문을 다시 읽지 않았습니다. 초록 수준 문헌은 본문 확인 전에 인용하지 않는다는 규칙을 따릅니다.</td></tr>
+<tr><td>기업 단위(A) 결과</td><td>없음. A에 대한 모든 평가는 설계상의 판단이며 자료로 검증되지 않았습니다.</td></tr>
+<tr><td>임의 기준</td><td>셀 최소 5곳, 0.5~2배 전환, 허용오차 0.5%, 150·40곳 표본 등은 모두 에이전트가 제안한 임의 값입니다. 공식·학술 기준이 아닙니다.</td></tr>
+</tbody></table></div>
+<p class="small">출처 파일: <code>분석 방향/분석계획서_검토의견_팀공유.html</code>(2026-11-01), <code>남은_EDA_작업.md</code>(2026-10-01), <code>분석 방향/A_기업단위/A_사전고정_문서_초안.md</code>, <code>인수인계_메모.md</code>, 프로젝트 메모리(<code>istans-2026-paper-project</code>, 9/30 기준).</p>
+</section>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A 트랙 해야 할 일 (업종 분석 참고)</title>
+<style>
+:root{--bg:#fafaf8;--fg:#1d1d1b;--mut:#6a6a64;--card:#fff;--line:#e3e2dc;--acc:#1f5fbf;--ok:#1f7a45;--warn:#a65a00;--bad:#b3261e;--tag:#eef1f6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161615;--fg:#ecebe6;--mut:#a3a29a;--card:#1f1f1d;--line:#34332f;--acc:#7fb0ff;--ok:#6fcf97;--warn:#f2b45a;--bad:#ff8a80;--tag:#272a31}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 -apple-system,"Segoe UI","Malgun Gothic",sans-serif}
+main{max-width:920px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:1.6rem;margin:.2em 0}
+h2{font-size:1.2rem;margin:2em 0 .6em;padding-top:.4em;border-top:2px solid var(--line)}
+h3{font-size:1.02rem;margin:1.4em 0 .4em}
+p{margin:.5em 0}
+.sub{color:var(--mut);font-size:.92rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0}
+.tag{display:inline-block;font-size:.74rem;padding:1px 8px;border-radius:999px;background:var(--tag);color:var(--mut);margin-right:6px;vertical-align:1px}
+.t-fact{color:var(--ok)}.t-prop{color:var(--acc)}.t-team{color:var(--warn)}
+table{border-collapse:collapse;width:100%;font-size:.9rem;margin:.6em 0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:var(--tag)}
+.scroll{overflow-x:auto}
+ul.ck{list-style:none;padding:0;margin:.4em 0}
+ul.ck li{margin:.35em 0}
+ul.ck label{display:flex;gap:8px;align-items:flex-start;cursor:pointer}
+ul.ck input{margin-top:.45em;flex:none}
+ul.ck input:checked+span{color:var(--mut);text-decoration:line-through}
+.bar{position:sticky;top:0;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line);font-size:.9rem;z-index:2;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+code{background:var(--tag);padding:0 5px;border-radius:4px;font-size:.88em}
+.note{font-size:.88rem;color:var(--mut)}
+</style>
+</head>
+<body>
+<main>
+<div class="bar"><span><strong>A 트랙 해야 할 일</strong></span><span id="prog">진행 0 / 0</span></div>
+<h1>A 트랙(기업 단위) 해야 할 일 — 업종 분석(v1)을 참고해 짠 계획</h1>
+<p class="sub">작성 2026-11-05 · 같은 내용의 체크리스트 원본은 <code>Corp/docs/A_남은일_체크리스트.md</code>.<br>
+<span class="tag t-fact">확인</span>직접 파일·표로 본 사실 <span class="tag t-team">팀 문서</span>팀원 문서에 적힌 내용(코드·원자료 재검증 안 함) <span class="tag t-prop">제안</span>제가 정한 기본값. 공식·학술 기준이 아니며 사용자·팀이 바꿀 수 있음</p>
+
+<div class="card">
+<strong>한 줄 요약</strong>
+<p>상장 제조기업 1,321곳(선별·A2 적용 후)의 분기 재무자료를 받아, 업종 분석에서 한 틀(M1~M3, 사전추세, 극단값, 반도체·업종 제외, 실제금리 대안, 구성요소)을 기업 단위로 옮겨 본다. 업종 분석은 업종 <em>사이</em>를, A는 같은 업종 <em>안</em>을 비교한다.</p>
+</div>
+
+<h2>1. 지금 상태</h2>
+<div class="scroll"><table>
+<tr><th>단계</th><th>기업 수</th></tr>
+<tr><td>상장사 명단</td><td>4,009</td></tr>
+<tr><td>제조업(앞 2자리 10~34)</td><td>2,250</td></tr>
+<tr><td>선별 통과(2019 사업 + 2021 반기보고서)</td><td>1,341 <span class="tag t-fact">확인</span></td></tr>
+<tr><td>A2 적용(비12월 17곳·코넥스 출신 3곳 제외)</td><td><strong>1,321</strong> (코스닥 774 / 유가증권 447 / 기타 100) <span class="tag t-fact">확인</span></td></tr>
+<tr><td>지주회사 표시(수동 검토 대기)</td><td>21</td></tr>
+</table></div>
+<p class="note">본 수집은 아직 시작 전이다(스크립트 없음). 선별 로그에는 오류·요청한도(020)가 없었다.</p>
+
+<h2>2. 업종 분석(v1)에서 가져온 것 · 새로 찾은 문제</h2>
+<h3>v1 검토 결과</h3>
+<ul>
+<li><strong>이미 사양이 많다</strong>(팀 문서 65개 작업) <span class="tag t-team">팀 문서</span>. 더 얹으면 다중비교만 늘므로, 11/12 전에는 추가보다 정리가 낫다고 본다 <span class="tag t-prop">제안</span>.</li>
+<li><strong>정의 확인이 가장 큰 구멍</strong>: ISTANS 차입 4항목 범위·ICR 산식·집계 모집단이 미확인 <span class="tag t-team">팀 문서</span>. A는 DART 계정으로 정의가 투명해서 이를 보완할 수 있다 <span class="tag t-prop">제안</span>.</li>
+<li>v1의 주 결과(M2 E×Post 0.5459, p=.2343, 업종 40개)는 직접 맞춰 봤고 팀 문서와 일치 <span class="tag t-fact">확인</span>. 노트북 코드는 재실행·검증하지 않았다.</li>
+</ul>
+<h3>v1과 A의 차이 (논문에 표로 넣을 것)</h3>
+<div class="scroll"><table>
+<tr><th>항목</th><th>v1 (업종)</th><th>A (기업)</th></tr>
+<tr><td>단위</td><td>40업종 × 연도 (240행)</td><td>기업 × 분기</td></tr>
+<tr><td>E</td><td>(단기차입+단기사채)/자산</td><td>(단기차입금+유동성장기차입금+유동성사채)/총자산 — <strong>정의가 다름</strong></td></tr>
+<tr><td>사전기간</td><td>2018–2020 평균</td><td>2019Q1–2021Q2 평균</td></tr>
+<tr><td>긴축</td><td>Post=2022–23, 2021은 전환항</td><td>(아래 B-1에서 결정)</td></tr>
+<tr><td>ICR 분모</td><td>ISTANS 이자비용(정의 미확인)</td><td>금융원가 또는 이자지급 (A3, 미정)</td></tr>
+<tr><td>고정효과</td><td>업종·연도</td><td>기업, 업종×분기</td></tr>
+<tr><td>표본 크기·군집</td><td>40군집</td><td>1,321곳(기업 군집), 업종 24개</td></tr>
+</table></div>
+
+<h3>회귀 전에 정해야 할 새 문제 (제가 찾은 것)</h3>
+<div class="card">
+<strong>B-1. 긴축 변수가 사전기간에도 움직인다</strong> <span class="tag t-fact">확인</span>
+<p>Tight = 분기말 기준금리 − 2021Q2 금리(0.50%). <code>rates.csv</code> 기준 2019Q1 +1.25, 2019Q4 +0.75, 2020Q1 +0.25, 2020Q2~2021Q2 0, 2022 이후 증가. 인하기(2019~2020)에 이미 양수라서 하나의 β가 인하와 인상을 한 직선에 묶는다.</p>
+<p><span class="tag t-prop">제안 기본값</span>주 사양은 v1과 같은 Post 더미(2022 이후, 2021은 전환항). 이유: v1과 직접 비교되고 인하기가 섞이지 않는다. 연속형 금리(인상분만 max(0, 금리−0.50))는 보조, 이벤트스터디(분기별 계수)는 필수.</p>
+</div>
+<div class="card">
+<strong>B-2. 연결/별도가 섞인 기업 63곳</strong> <span class="tag t-fact">확인</span>
+<p>2019 사업보고서와 2021 반기보고서의 구분이 다르다(연결→별도 21, 별도→연결 43, 통과 전체 기준 64곳 중 A2 적용 후 63곳). 원인은 확인하지 못했다(연결 작성 의무 시작 등은 가설).</p>
+<p><span class="tag t-prop">제안 기본값</span>수집은 보고서별로 그대로 받아 두고, 주 분석은 혼재 기업 제외, 강건성에서 포함. 제외된 63곳이 업종·규모·E에서 쏠리는지 A8 점검 목록에 추가.</p>
+</div>
+<div class="card">
+<strong>B-3~B-6</strong>
+<ul>
+<li><strong>B-3 수집 범위</strong>: 문서대로 2018~2024Q3(약 33,000건). 2018을 빼면 약 5,300건 감소하지만 리스 기준(A11) 선택지가 줄어든다. <span class="tag t-prop">제안</span> 포함.</li>
+<li><strong>B-4 별도(OFS) 기업</strong>: 매 보고서마다 연결을 먼저 조회하면 요청이 약 2배. 선별 결과의 구분을 기억하게 설계. 단 연결로 바뀌는 기업이 있어 예외 처리 필요.</li>
+<li><strong>B-5 업종 셀 크기</strong>: 5곳 미만 12번(1곳)·16번(4곳)·18번(2곳), 10곳 미만 12·15·16·18·19·32번 <span class="tag t-fact">확인</span>. A5 기준 필요.</li>
+<li><strong>B-6 지주회사 21곳</strong>: 이름 기반 표시이므로 수동 검토.</li>
+</ul>
+</div>
+
+<h2>3. 수집 전 결정 (제안 기본값)</h2>
+<div class="scroll"><table>
+<tr><th>결정</th><th>제안 기본값</th><th>이유</th></tr>
+<tr><td>시드</td><td>20261102 유지</td><td>이미 선별에 쓴 값, 바꿀 이유 없음</td></tr>
+<tr><td>멈춤 규칙</td><td>전수(1,321곳) 목표, 마감 시각에만 멈춤(예: 11/8 밤)</td><td>무작위 순서라 어디서 멈춰도 무작위 부분표본, 결과 보고 멈추지 않음</td></tr>
+<tr><td>수집 범위</td><td>2018~2024Q3</td><td>사전 고정 문서 4절 그대로</td></tr>
+<tr><td>요청 규모·시간</td><td>약 33,000건, 5~6시간 추정</td><td>기업당 약 25개 보고서 − 이미 받은 2개. 시간은 선별 파일 시각에서 거칠게 역산한 추정</td></tr>
+<tr><td>일일 한도</td><td>모름</td><td>메모에 "일반적으로 20,000건 이상"만 있고 기간 단위 불명 → 020 나오면 다음 날 재개</td></tr>
+</table></div>
+
+<h2>4. 체크리스트</h2>
+
+<h3>단계 0 · 수집 전 (결과 안 보는 결정)</h3>
+<ul class="ck">
+<li><label><input type="checkbox" data-k="0a"><span>시드 20261102 유지 확정</span></label></li>
+<li><label><input type="checkbox" data-k="0b"><span>멈춤 규칙 확정(전수 목표 + 마감 시각)</span></label></li>
+<li><label><input type="checkbox" data-k="0c"><span>수집 범위(2018 포함 여부) 확정</span></label></li>
+<li><label><input type="checkbox" data-k="0d"><span>결정을 사전 고정 문서 10절·변경기록·HTML·메모리에 기록(결과를 본 뒤인지 표시)</span></label></li>
+</ul>
+
+<h3>단계 1 · 본 수집</h3>
+<ul class="ck">
+<li><label><input type="checkbox" data-k="1a"><span>수집 스크립트 작성(선별 캐시 재사용, 기업별 구분 기억, 020 중단·재개, 진행 기록)</span></label></li>
+<li><label><input type="checkbox" data-k="1b"><span><code>--dry-run</code>으로 요청 수 확인</span></label></li>
+<li><label><input type="checkbox" data-k="1c"><span>실행(PC 절전 방지, 키는 PowerShell 창에서만 입력, 020이면 다음 날 같은 명령으로 재개)</span></label></li>
+<li><label><input type="checkbox" data-k="1d"><span>로그에서 오류·020 점검, 수집 완료 기업 수 기록</span></label></li>
+</ul>
+
+<h3>단계 2 · 정제</h3>
+<ul class="ck">
+<li><label><input type="checkbox" data-k="2a"><span>수집이 전체 재무제표 응답을 저장하는지 확인(계정 매핑을 나중에 바꿀 수 있는 전제)</span></label></li>
+<li><label><input type="checkbox" data-k="2b"><span>계정 매핑(A15: 단기차입금·유동성장기차입금·유동성사채 + 확장 이름)</span></label></li>
+<li><label><input type="checkbox" data-k="2c"><span>부재 계정 처리(A10): 0으로 두지 않고 "정의 불가" 표시, 차입 항목이 전혀 없는 기업 수동 검토</span></label></li>
+<li><label><input type="checkbox" data-k="2d"><span>분기 값 만들기: Q1·Q2·Q3는 3개월 값, Q4 = 연간 − 3분기 누적, 현금흐름 이자지급은 누적 차분</span></label></li>
+<li><label><input type="checkbox" data-k="2e"><span>분기합산 불일치(파일럿 약 5%) 원인 조사</span></label></li>
+<li><label><input type="checkbox" data-k="2f"><span>정정공시(A13): 접수번호 저장 + 몇 곳 대조</span></label></li>
+<li><label><input type="checkbox" data-k="2g"><span>기업×분기 패널 + 정의 불가 목록 + 정제 로그 저장</span></label></li>
+</ul>
+
+<h3>단계 3 · 표본·정의 확정 (회귀 전, E–ICR 관계는 안 본 상태)</h3>
+<ul class="ck">
+<li><label><input type="checkbox" data-k="3a"><span><strong>A8 판단</strong>: 고정 목록(E 구축 가능 수 / ICR 분모 구축 가능 수 / 못 만드는 기업의 업종·규모 쏠림 / 분기합산 불일치)만 보고 계속·접기 결정, 이유 1~2문장 기록(사후 기준 명시)</span></label></li>
+<li><label><input type="checkbox" data-k="3b"><span>최소 분기 수 규칙(E 사전평균·TTM ICR 조건) 고정</span></label></li>
+<li><label><input type="checkbox" data-k="3c"><span>A3·A16 이자 출처: 금융원가 vs 이자지급(확보율 비교 + 주석 약 10곳 대조는 다운로드 허락 필요). 이자지급/금융원가 중앙값 0.38의 원인 미확인</span></label></li>
+<li><label><input type="checkbox" data-k="3d"><span>B-1 긴축 변수 정의 확정</span></label></li>
+<li><label><input type="checkbox" data-k="3e"><span>B-2 연결/별도 혼재 규칙 확정</span></label></li>
+<li><label><input type="checkbox" data-k="3f"><span>A4 ICR 처리(이자≤0 결측, winsor 1/99, asinh 보조), A5 셀 최소 기업 수(임의 숫자라 근거 기록), A6 규모(3분위+ln자산)</span></label></li>
+<li><label><input type="checkbox" data-k="3g"><span>A9·A14 이탈 기업·KIND 미일치 54건 처리 확정</span></label></li>
+<li><label><input type="checkbox" data-k="3h"><span>B-6 지주회사·스팩·금융 수동 검토</span></label></li>
+<li><label><input type="checkbox" data-k="3i"><span>A11(리스)·A12(코로나 금융지원): 창 시작과 한계 서술 확정</span></label></li>
+<li><label><input type="checkbox" data-k="3j"><span>표본 깔때기 표 최종(단계별 기업 수)</span></label></li>
+</ul>
+
+<h3>단계 4 · 분석 (v1에서 한 것과의 대응)</h3>
+<div class="scroll"><table>
+<tr><th>v1에서 한 것</th><th>A에서</th><th>우선순위 <span class="tag t-prop">제안</span></th></tr>
+<tr><td>기술통계(업종별 ICR·이자비용 변화)</td><td>기업 분포, 업종별 요약, E 분포, 이탈 기업의 E</td><td>필수</td></tr>
+<tr><td>M1~M3 (M2 주)</td><td>M1(기업+분기 FE) / M2(기업+업종×분기 FE) / M3(사전특성×긴축), 전부 한 표</td><td>필수</td></tr>
+<tr><td>사전추세(D01·D02)</td><td>이벤트스터디(기준 2021Q2), 사전 분기 계수</td><td>필수</td></tr>
+<tr><td>—</td><td>업종 FE 제거 후에도 E가 업종 안에서 변하는지</td><td>필수</td></tr>
+<tr><td>ICR 극단값(C04·C05·G)</td><td>이자≤0 결측, winsor, asinh, 기업별 영향력</td><td>필수</td></tr>
+<tr><td>—</td><td>규모 3분위별 β</td><td>필수</td></tr>
+<tr><td>가짜 긴축 시점(D03)</td><td>사전기간 안 위약 검정</td><td>필수</td></tr>
+<tr><td>업종 하나씩 제외·반도체(C06·semiconductor_v1)</td><td>업종 24개 하나씩 제외, 반도체(26번)·초대형 기업 제외</td><td>권장</td></tr>
+<tr><td>실제금리 대안(F)</td><td>연속형 금리 모형(B-1과 연결)</td><td>권장</td></tr>
+<tr><td>구성요소(E01·E02, mechanism)</td><td>이자/자산, 영업이익/자산 보조 결과</td><td>권장</td></tr>
+<tr><td>추론(CR1, 부트스트랩)</td><td>기업 군집 기본, 업종 군집·wild bootstrap 강건성</td><td>권장</td></tr>
+<tr><td>회계분해(J02), Q/S 분리, 경기통제</td><td>경기통제는 업종×분기 FE가 대신하는지 확인 후 판단</td><td>선택</td></tr>
+</table></div>
+<ul class="ck">
+<li><label><input type="checkbox" data-k="4a"><span>필수 7개 분석 실행</span></label></li>
+<li><label><input type="checkbox" data-k="4b"><span>모든 사양을 같은 표에 보고(유의한 것만 고르지 않기), 사양 변경은 날짜·이유·결과를 본 뒤인지 기록</span></label></li>
+<li><label><input type="checkbox" data-k="4c"><span>권장 분석 실행</span></label></li>
+<li><label><input type="checkbox" data-k="4d"><span>다중비교: 보정 범위를 묶음 단위로 밝힘(소급 보정 아님 명시)</span></label></li>
+<li><label><input type="checkbox" data-k="4e"><span>각 단계마다 3줄로 설명할 수 있는지 확인(이해 먼저)</span></label></li>
+</ul>
+
+<h3>단계 5 · v1과 연결·글쓰기</h3>
+<ul class="ck">
+<li><label><input type="checkbox" data-k="5a"><span>v1 vs A 비교표 완성, E 정의 차이 본문 명시</span></label></li>
+<li><label><input type="checkbox" data-k="5b"><span>두 결과가 같은 방향인지 판단하는 기준을 결과 보기 전에 한 문장으로 기록</span></label></li>
+<li><label><input type="checkbox" data-k="5c"><span>한계 서술: 생존편향·KIND 미일치, 리스 기준, 코로나 금융지원, 정정공시, 이자 대용지표, 상장사 한정</span></label></li>
+<li><label><input type="checkbox" data-k="5d"><span>인용 논문은 본문에서 쪽수·주장 확인 후 "인용 문구 + 이번 연구에서의 쓰임"으로 정리</span></label></li>
+<li><label><input type="checkbox" data-k="5e"><span>DART 이용약관(자료 재사용·인용 조건) 확인</span></label></li>
+<li><label><input type="checkbox" data-k="5f"><span>대회 공고에서 외부 자료(DART) 사용 가능 여부·ISTANS 활용 비중 재확인</span></label></li>
+<li><label><input type="checkbox" data-k="5g"><span>(v1 쪽) ISTANS 차입 4항목·ICR 정의 확인 — 제공기관 설명·문의</span></label></li>
+</ul>
+
+<h3>단계 6 · 문서·정리</h3>
+<ul class="ck">
+<li><label><input type="checkbox" data-k="6a"><span>사전 고정 문서 10절 갱신(A3~A6, A10~A16, B-1~B-6)</span></label></li>
+<li><label><input type="checkbox" data-k="6b"><span><code>A_데이터수집_처음부터_설명.html</code> 갱신</span></label></li>
+<li><label><input type="checkbox" data-k="6c"><span>선별 스크립트의 옛 문구("제안규칙", "확정은 아직 아닙니다") 정리</span></label></li>
+<li><label><input type="checkbox" data-k="6d"><span>옛 폴더 <code>Corp/outputs/01_pilot</code> 삭제(Excel이 잠금을 푼 뒤)</span></label></li>
+</ul>
+
+<h2>5. 일정 표지 <span class="tag t-prop">제안</span></h2>
+<p class="note">합의된 계획이 아니다. 시험 시간대와 개인별 가용시간을 확인하지 못했다. 시험은 두 명 11/10, 한 명 11/12(인수인계 메모 기준).</p>
+<div class="scroll"><table>
+<tr><th>시기</th><th>할 일</th></tr>
+<tr><td>11/5~6</td><td>단계 0 결정, 수집 스크립트, dry-run, 수집 시작</td></tr>
+<tr><td>11/7~8</td><td>수집 마무리(마감 시각에 멈춤), 정제 시작</td></tr>
+<tr><td>11/9</td><td>단계 3 표본·정의 확정, A8 판단, 기술통계</td></tr>
+<tr><td>11/10~12</td><td>시험 구간. 11/12 PPT에는 A를 어디까지 넣을지 사전에 결정(기술통계만 / 기본 모형 M1~M2 / 이벤트스터디까지). A는 11/12 기준선의 일부가 아님(인수인계 메모)</td></tr>
+<tr><td>11/13~19</td><td>단계 4 필수·권장 분석, 비교표</td></tr>
+<tr><td>11/20</td><td>팀 자체 목표(글 초안)</td></tr>
+<tr><td>11/22</td><td>논문 제출</td></tr>
+</table></div>
+
+<h2>6. 이번에 확인하지 못한 것</h2>
+<ul>
+<li>v1 노트북 코드·재실행(문서와 표 수준으로만 읽음)</li>
+<li>연결/별도 혼재 63곳의 원인, 분기합산 불일치 원인, 이자지급/금융원가 0.38의 원인</li>
+<li>DART 일일 요청 한도, 본 수집의 실제 소요 시간</li>
+<li>BOK 『기업경영분석』 원문(ICR 정의 쪽수) — 원문 PDF 필요</li>
+<li>시험 시간대와 팀원별 가용시간</li>
+</ul>
+</main>
+<script>
+(function(){
+  var KEY="A_todo_v1", state={};
+  try{state=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){state={}}
+  var boxes=[].slice.call(document.querySelectorAll('input[type=checkbox][data-k]'));
+  function upd(){
+    var n=boxes.filter(function(b){return b.checked}).length;
+    document.getElementById('prog').textContent='진행 '+n+' / '+boxes.length;
+  }
+  boxes.forEach(function(b){
+    if(state[b.dataset.k]) b.checked=true;
+    b.addEventListener('change',function(){
+      state[b.dataset.k]=b.checked;
+      try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}
+      upd();
+    });
+  });
+  upd();
+})();
+</script>
+</body>
+</html>

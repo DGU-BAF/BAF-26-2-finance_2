@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A 추가 탐색 계획</title>
+<style>
+:root{--ink:#1d2a33;--muted:#5d6b75;--line:#dde4e8;--bg:#f4f6f7;--paper:#fff;--blue:#165a70;--red:#b3392f;--amber:#8a5a00;--green:#2d6b3f;--redbg:#fbeceb;--ambbg:#fff4dc;--blubg:#e7f1f5;--grnbg:#e8f4ec;--code:#eef2f4}
+:root[data-theme="dark"]{--ink:#e6edf1;--muted:#a3b1ba;--line:#33424c;--bg:#12191e;--paper:#1a242b;--blue:#7cc4dc;--red:#ff9a90;--amber:#f0c36a;--green:#8fd6a4;--redbg:#3a2220;--ambbg:#3a3220;--blubg:#1f323b;--grnbg:#1e3326;--code:#243139}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#e6edf1;--muted:#a3b1ba;--line:#33424c;--bg:#12191e;--paper:#1a242b;--blue:#7cc4dc;--red:#ff9a90;--amber:#f0c36a;--green:#8fd6a4;--redbg:#3a2220;--ambbg:#3a3220;--blubg:#1f323b;--grnbg:#1e3326;--code:#243139}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.8 'Malgun Gothic','Apple SD Gothic Neo',sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:20px 16px 80px}
+header.hero,section{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-top:16px}
+header.hero{margin-top:0}
+h1{font-size:25px;line-height:1.4;margin:4px 0 10px}h2{font-size:20px;margin:0 0 8px}h3{font-size:16px;margin:16px 0 6px}
+.eyebrow{font-size:12px;letter-spacing:.1em;font-weight:700;color:var(--blue)}
+.badge{display:inline-block;font-size:12px;font-weight:700;padding:2px 9px;border-radius:12px;margin-right:6px;white-space:nowrap}
+.b-amb{background:var(--ambbg);color:var(--amber)}.b-blu{background:var(--blubg);color:var(--blue)}
+.box{border-radius:8px;padding:12px 16px;margin:12px 0;font-size:15px}
+.box.red{background:var(--redbg);border-left:4px solid var(--red)}.box.amb{background:var(--ambbg);border-left:4px solid var(--amber)}.box.blu{background:var(--blubg);border-left:4px solid var(--blue)}.box.grn{background:var(--grnbg);border-left:4px solid var(--green)}
+.box p{margin:6px 0}
+.tw{overflow-x:auto;margin:10px 0 16px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;line-height:1.6;min-width:620px}
+th{background:var(--code);text-align:left}th,td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+td:first-child{font-weight:700;white-space:nowrap}
+.num{text-align:right;white-space:nowrap}
+code{background:var(--code);padding:1px 6px;border-radius:4px;font:12.5px Consolas,monospace}
+ul,ol{padding-left:22px}li{margin:4px 0}.small{font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+<div class="eyebrow">A TRACK · FOLLOW-UP EXPLORATION PLAN · 2026-11-05</div>
+<h1>추가 탐색 계획<br>— "평균 회귀·이탈 기업" 두 가지만 확인하기</h1>
+<p><span class="badge b-amb">실행 전 · 승인 필요</span> 이 문서는 돌리기 전에 <strong>무엇을 몇 개, 어떤 판정 규칙으로</strong> 돌릴지 못 박기 위한 것입니다. 승인 전에는 아무것도 실행하지 않습니다.</p>
+<div class="box amb"><p><strong>솔직한 전제.</strong> 이번이 <strong>세 번째 탐색 라운드</strong>입니다(첫 회귀 → 사후 탐색 1차 → 파이프라인 M0~M11). 탐색이 길어질수록 "찾을 때까지 돌린 결과"가 될 위험이 커집니다. 그래서 (1) 이번 목록은 <strong>36개로 제한</strong>하고 (2) 판정 규칙을 <strong>미리 고정</strong>하고 (3) <strong>이번이 마지막 사양 탐색</strong>으로 정합니다. 이후에는 결과를 정리·보고하는 단계로만 갑니다.</p></div>
+</header>
+
+<section>
+<h2>1. 왜 이 두 가지인가 (지금까지의 근거)</h2>
+<div class="tw"><table>
+<thead><tr><th>관찰 (출처: 근거표 11절, 통합 결과)</th><th>의미</th></tr></thead>
+<tbody>
+<tr><td>E×Tight가 모든 사양에서 <b>개선</b> 방향(가설 반대)이고 매우 안정적 (업종 제외 23번 모두 같은 방향, bootstrap p≈0)</td><td>단순한 잡음이 아니라 자료의 구조적 패턴</td></tr>
+<tr><td>사전 규모·레버리지·영업이익/자산×Tight를 넣으면 계수가 <b>0</b> (asinh −0.04 p=0.91)</td><td>효과가 사전 특성에 흡수됨</td></tr>
+<tr><td>M7: 레버리지(Q)×Tight만 유의, 단기 비중(S)×Tight 비유의, 장기 차입도 개선 방향</td><td>"단기"가 아니라 "차입 수준"의 문제로 보임</td></tr>
+<tr><td>M10: E 하위 1/3의 ICR 중앙값 6.09→3.22 하락, 상위 1/3 0.81→1.07 상승</td><td>사전 ICR이 낮던 기업이 오르고 높던 기업이 내리는 <b>평균 회귀형</b> 패턴</td></tr>
+<tr><td>위약(가짜 긴축) 12개가 모두 같은 개선 방향, 2개 p&lt;0.10</td><td>긴축 이전부터 있던 흐름일 가능성</td></tr>
+<tr><td>주 표본 규칙이 955곳 중 166곳을 제외(이탈 후보 13곳, 나머지는 ICR이 정의되지 않은 기업)</td><td>이탈·ICR 미정의 기업의 영향은 아직 직접 확인 못 함</td></tr>
+</tbody></table></div>
+<p class="small">따라서 질문은 두 가지입니다. <b>Q-A:</b> 사전 ICR 수준(평균 회귀)을 통제하면 E×Tight는 어떻게 되나? <b>Q-B:</b> 이탈·ICR 미정의 기업을 포함하면 달라지나?</p>
+</section>
+
+<section>
+<h2>2. 정확한 사양 (고정 목록, 총 36개)</h2>
+<p>공통: 표본·FE·군집은 M2 그대로(기업 FE + 업종×분기 FE, 기업 군집). 결과변수는 asinh(ICR)·1{ICR&lt;1}·업종×분기 순위 3개. 핵심 계수는 E×Tight.</p>
+<div class="tw"><table>
+<thead><tr><th>번호</th><th>질문</th><th>사양</th><th class="num">개수</th></tr></thead>
+<tbody>
+<tr><td>N1</td><td>사전 ICR 수준을 통제하면?</td><td>M2 + <b>사전 ICR 수준 × Tight</b>. 사전 ICR 수준 = 사전기간(2019Q1~2021Q2) 업종×분기 내 ICR 순위의 평균(순위는 극단값에 둔감). 두 가지 정의: ① 사전 전체(t=0~9, 10개 중 6개 이상 있어야 함) ② 2019년만(t=0~3, 코로나 이전, 4개 중 3개 이상)</td><td class="num">3×2=6</td></tr>
+<tr><td>N2</td><td>모든 사전 특성을 통제하면?</td><td>N1 + 앞서 쓴 규모·레버리지·영업이익/자산 × Tight (M3의 통제 전부)</td><td class="num">3×2=6</td></tr>
+<tr><td>N3</td><td>사전 ICR 수준이 같은 기업끼리만 비교하면?</td><td>사전 ICR 수준(①) 3분위를 나누고 분위별 E×Tight(3개 계수)</td><td class="num">3×3=9</td></tr>
+<tr><td>N4</td><td>E에서 사전 특성을 걷어내면?</td><td>E를 [레버리지, 사전 ICR 수준, 영업이익/자산, ln자산]에 회귀한 잔차 <code>E_perp2</code> × Tight (사전 ICR 수준 ①·②로 각각)</td><td class="num">3×2=6</td></tr>
+<tr><td>N5</td><td>이탈·ICR 미정의 기업을 포함하면?</td><td>표본: 혼재 제외 + E 사전 8/10 이상(955곳, 인상기 ICR 8개 이상 규칙 삭제). 불균형 패널 그대로 M2 추정. 추가로 이탈 후보(마지막 자료가 2024Q3 이전)의 수와 E 분포를 기술통계로 보고(회귀 아님)</td><td class="num">3</td></tr>
+<tr><td>N7</td><td>통제 후에도 위약이 깨끗한가?</td><td>가짜 긴축 시작 2020Q1(t=4), 2020Q3(t=6) 두 개, 사전기간만, 통제는 <b>2019년만으로 만든 사전 ICR 수준</b>(위약 시점 이전 정보만) × Tight_p</td><td class="num">3×2=6</td></tr>
+</tbody></table></div>
+<p class="small">추정치 합계 6+6+9+6+3+6 = <b>36개</b>. Holm 보정은 가족별로 병기: {N1, N2}=12, N3=9, N4=6, N5=3, N7=6. 이벤트 스터디·업종 제외 같은 반복 사양은 이번에 넣지 않습니다.</p>
+</section>
+
+<section>
+<h2>3. 판정 규칙 (결과를 보기 전에 고정, 모두 임의 기준)</h2>
+<div class="tw"><table>
+<thead><tr><th>판정</th><th>조건 (모두 충족)</th></tr></thead>
+<tbody>
+<tr><td>가설 방향의 신호<br>("악화")</td><td>① N2의 E×Tight 3개가 모두 <b>악화</b> 방향 ② 그중 2개 이상이 {N1,N2} 가족 Holm p&lt;0.10 ③ N3에서 3개 분위 중 2개 이상이 악화 방향 ④ N7에서 같은 방향(악화)이면서 보정 전 p&lt;0.10인 위약이 없음</td></tr>
+<tr><td>"개선"이 통제 후에도 남음</td><td>① N2의 3개가 모두 <b>개선</b> 방향 ② 그중 2개 이상이 Holm p&lt;0.10 ③ N3에서 3개 분위 중 2개 이상이 개선 방향 ④ N7에서 같은 방향(개선)·보정 전 p&lt;0.10인 위약이 없음</td></tr>
+<tr><td>통제 후 신호 없음</td><td>위 두 판정을 모두 충족하지 못함. 이 경우 "앞서 본 개선 패턴은 사전 ICR 수준·레버리지 등 사전 특성에 의해 설명되며, 단기차입 노출 고유의 효과는 식별되지 않는다"로 기록</td></tr>
+</tbody></table></div>
+<p>N5(이탈 포함)는 별도 판정 없이 <b>민감도</b>로만 보고합니다(계수가 M2 기준과 얼마나 달라지는지). N4는 N2와 같은 방향인지 확인용입니다.</p>
+</section>
+
+<section>
+<h2>4. 지킬 원칙</h2>
+<ol>
+<li><b>이번이 마지막 사양 탐색 라운드.</b> 결과가 어떻게 나와도 같은 라운드에서 목록을 더하지 않고, 이후에는 정리·보고만 합니다.</li>
+<li><b>전부 보고.</b> 36개 계수를 같은 표에 남기고, 유의하지 않은 것도 숨기지 않습니다.</li>
+<li><b>확인 증거가 아님.</b> 이미 본 결과를 보고 만든 탐색이며, 판정 결과도 "사후 탐색의 판정"으로 표시합니다.</li>
+<li>자료 오류가 나오면 멈추고 보고합니다. 결과가 좋아지는 수정은 하지 않습니다.</li>
+<li>이전 결과(첫 회귀, 사후 탐색 1차, M0~M11)는 그대로 둡니다.</li>
+</ol>
+</section>
+
+<section>
+<h2>5. 한계 (미리 적어 두는 것)</h2>
+<ul>
+<li><b>사전 ICR 수준은 E와 레버리지의 함수일 가능성이 있어</b>(이자 부담이 큰 기업이 ICR이 낮음), 통제해 버리면 E의 정당한 효과까지 지울 수 있습니다(과통제). N4(잔차 E)와 N3(분위 비교)로 부분적으로 보완하지만 완전한 해결은 아닙니다.</li>
+<li>평균 회귀는 <b>이 설명이 맞는지 직접 검증하는 방법이 아니라</b> 그 효과를 통제해 보는 방법입니다. 통제 후 신호가 사라져도 "평균 회귀가 원인이다"라고 단정하지 않습니다.</li>
+<li>사전 ICR 수준 정의(순위 평균)는 에이전트가 정한 것이며 학술·공식 기준이 아닙니다. 선행연구 근거는 확인하지 않았습니다.</li>
+<li>N5의 이탈 후보는 13곳 안팎이라 이탈 자체의 검정력은 거의 없습니다. 기술통계와 민감도로만 씁니다.</li>
+</ul>
+</section>
+
+<section>
+<h2>6. 시간·산출물</h2>
+<ul>
+<li>코드 작성·실행·점검 약 <b>1~1.5시간</b>(bootstrap은 이번에 넣지 않아 빠름).</li>
+<li>결과: <code>outputs/07_분석/모듈별/N_결과.csv</code>, 문서 <code>docs/A_추가탐색결과_11-05.html</code>(36개 전부), 근거표 12절, 사전 고정 문서 변경 기록.</li>
+</ul>
+<div class="box blu">
+<p><b>승인해 주실 것</b></p>
+<p>① 이 36개 목록과 판정 규칙대로 실행해도 되는지. 줄이고 싶으면 번호로 알려 주세요(예: "N7 제외").</p>
+<p>② 사전 ICR 수준을 <b>순위 평균</b>으로 정의하는 것에 동의하는지(대안은 ICR 원값의 asinh 평균인데 극단값에 약함).</p>
+<p>③ <b>"이번이 마지막 사양 탐색"</b>이라는 원칙에 동의하는지.</p>
+</div>
+<p class="small">참고: 이 결과와 상관없이 "null + 측정 한계"로 논문을 정리하는 길은 열려 있습니다. 이 탐색은 그 서술을 더 정확하게 만들기 위한 확인입니다.</p>
+</section>
+
+<section>
+<h2>7. 실행 직전에 추가로 고정한 판정 세부 (승인 후, 결과를 보기 전)</h2>
+<p>계획서 3절의 판정 규칙에서 해석이 갈릴 수 있던 부분을 실행 전에 아래처럼 고정했습니다.</p>
+<ul>
+<li><b>기본 변형 = 사전 ICR 수준 ①(전체 사전).</b> 변형 ②(2019년만)는 같은 방향인지 확인하는 용도입니다.</li>
+<li><b>조건 ①(방향):</b> N2의 ① 3개 결과변수가 모두 같은 방향이고, N2의 ② 3개도 모두 같은 방향이며 ①과 같아야 함.</li>
+<li><b>조건 ②(유의):</b> N2의 ① 3개 중 2개 이상이 {N1, N2} 가족(12개) Holm p&lt;0.10.</li>
+<li><b>조건 ③(분위):</b> N3에서 결과변수 3개 중 2개 이상에서, 3개 분위 중 2개 이상이 해당 방향.</li>
+<li><b>조건 ④(위약):</b> N7 6개 중 해당 방향과 같은 방향이면서 보정 전 p&lt;0.10인 것이 없음.</li>
+<li><b>판정:</b> 방향이 악화이고 ①~④를 모두 충족하면 "악화 신호", 개선이고 모두 충족하면 "개선이 통제 후에도 남음", 그 밖은 "통제 후 신호 없음".</li>
+<li>사전 ICR 수준의 순위는 주 표본에서 업종×분기 내 ICR 백분위(관측 3개 미만 칸은 결측)로 만들고, 한 기업의 사전 평균은 ①에서 10개 중 6개 이상, ②에서 4개 중 3개 이상 값이 있을 때만 계산합니다. 값이 없는 기업은 해당 사양에서 빠집니다.</li>
+<li>N5의 표본은 혼재 제외 + E 사전 8/10 이상(인상기 ICR 8개 이상 규칙 삭제), N5는 판정에 쓰지 않고 민감도로만 보고합니다.</li>
+</ul>
+</section>
+
+</div>
+</body>
+</html>
